@@ -6,8 +6,8 @@
 }
 
 :root {
-  --color-primary: #191d2b;
-  --color-secondary: #27AE60;
+  --color-primary: #161B0E;
+  --color-secondary: #4CF35E;
   --color-white: #FFFFFF;
   --color-black: #000;
   --color-grey0: #f8f8f8;
@@ -23,7 +23,7 @@
 
 .light-mode {
   --color-primary: #FFFFFF;
-  --color-secondary: #8080ff;
+  --color-secondary: #6107F9;
   --color-white: #454e56;
   --color-black: #000;
   --color-grey0: #f8f8f8;
@@ -664,7 +664,7 @@ section {
   justify-content: flex-start;
 }
 
-.contact-content-con .right-contact .submit-final {
+.contact-content-con .right-contact .submit-finalbtn {
   display: flex;
   align-items: center;
   position: absolute;
@@ -699,6 +699,31 @@ section {
 .main-btn .btn-text {
   padding: 0 2rem;
 }
+
+.submit-finalbutton {
+  background-color: transparent;
+  border: 2px solid #4CF35E;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-finalbutton:before {
+  content: "\2713"; /* Unicode for checkmark symbol */
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.submit-finalbutton:hover {
+  cursor: pointer;
+}
+
 
 .main-btn .btn-icon {
   background-color: var(--color-secondary);
