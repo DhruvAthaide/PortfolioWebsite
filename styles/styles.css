@@ -401,7 +401,7 @@ section {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 40%;
+  width: 100%;
   height: 1px;
   background-color: var(--color-grey-5);
   transform: translateX(-50%);
