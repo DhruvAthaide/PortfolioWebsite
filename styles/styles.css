@@ -6,9 +6,9 @@
 }
 
 :root {
-  --color-primary: #161B0E;
-  --color-secondary: #4CF35E;
-  --color-white: #FFFFFF;
+  --color-primary: #161b0e;
+  --color-secondary: #4cf35e;
+  --color-white: #ffffff;
   --color-black: #000;
   --color-grey0: #f8f8f8;
   --color-grey-1: #dbe1e8;
@@ -18,12 +18,12 @@
   --color-grey-5: #2a2e35;
   --color-grey-6: #12181b;
   --br-sm-2: 14px;
-  --box-shadow-1: 0 3px 15px rgba(0, 0, 0, .3);
+  --box-shadow-1: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
 .light-mode {
-  --color-primary: #FFFFFF;
-  --color-secondary: #6107F9;
+  --color-primary: #ffffff;
+  --color-secondary: #6107f9;
   --color-white: #454e56;
   --color-black: #000;
   --color-grey0: #f8f8f8;
@@ -169,7 +169,7 @@ section {
   top: 0;
   z-index: -1;
   -webkit-clip-path: polygon(0 0, 46% 0, 79% 100%, 0% 100%);
-          clip-path: polygon(0 0, 46% 0, 79% 100%, 0% 100%);
+  clip-path: polygon(0 0, 46% 0, 79% 100%, 0% 100%);
 }
 .header-content .left-header .image {
   border-radius: var(--br-sm-2);
@@ -183,7 +183,7 @@ section {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: all 0.4s ease-in-out;
   filter: grayscale(100%);
 }
@@ -316,14 +316,11 @@ section {
 .about-stats .progress-bars .progress-bar .progress-con .progress .css {
   width: 75%;
 }
-.about-stats .progress-bars .progress-bar .progress-con .progress .js {
-  width: 60%;
-}
 .about-stats .progress-bars .progress-bar .progress-con .progress .c {
   width: 90%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .cpp {
-  width: 89%;
+  width: 90%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .python {
   width: 92%;
@@ -336,9 +333,6 @@ section {
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .mongodb {
   width: 30%;
-}
-.about-stats .progress-bars .progress-bar .progress-con .progress .expressjs {
-  width: 20%;
 }
 
 .stat-title {
@@ -429,7 +423,7 @@ section {
   width: 100%;
   height: 300px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 15px;
 }
 .portfolios .portfolio-item .hover-items {
@@ -582,6 +576,46 @@ section {
 .btn-con {
   display: flex;
   align-self: flex-start;
+}
+
+.submit-final {
+  display: flex;
+  align-self: flex-start;
+}
+.submit-finalbutton {
+  border-radius: 30px;
+  color: var(--color-white);
+  font-weight: 600;
+  position: relative;
+  border: 2px solid var(--color-secondary);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  padding: 12px 24px;
+  &:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease-out;
+    z-index: -1;
+  }
+  &:hover {
+    &::before {
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-secondary);
+      transform: translateX(0);
+      transition: all 0.4s ease-out;
+    }
+  }
+  background-color: var(--color-primary);
 }
 
 .main-btn {
@@ -884,4 +918,4 @@ section {
   .main-title h2 .bg-text {
     font-size: 4rem;
   }
-}/*# sourceMappingURL=styles.css.map */
+} /*# sourceMappingURL=styles.css.map */
