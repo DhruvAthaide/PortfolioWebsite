@@ -311,10 +311,13 @@ section {
   width: 60%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .html {
-  width: 80%;
+  width: 90%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .css {
-  width: 75%;
+  width: 85%;
+}
+.about-stats .progress-bars .progress-bar .progress-con .progress .javascript {
+  width: 80%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .c {
   width: 90%;
@@ -329,10 +332,13 @@ section {
   width: 70%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .java {
-  width: 50%;
+  width: 60%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .mongodb {
-  width: 30%;
+  width: 50%;
+}
+.about-stats .progress-bars .progress-bar .progress-con .progress .php {
+  width: 70%;
 }
 
 .stat-title {
