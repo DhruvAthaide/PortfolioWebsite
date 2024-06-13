@@ -1,13 +1,12 @@
 <h1 align="center">Hi 👋, I'm Dhruv Athaide</h1>
-<h3 align="center">A passionate frontend developer from India!</h3>
+<h3 align="center">A passionate web and software developer from India!</h3>
 
-<h3 align="left">About the Portfolio Website:</h3>
+<h3 align="left">About my Portfolio Website:</h3>
 <p align="left">
-I have created my Portfolio Website using Frontend Development Tools! I have taken a lot of time and effort to create my Portfolio Website which I update whenever I create a new Project or Publish a new Project.<br>
-I have mostly created my Portfolio Website with the help of videos on Youtube! Thanks for checking out my Repository!
+I have created my Portfolio Website using HTML, CSS, JavaScript and SCSS! I have created my Portfolio Website with some help from Youtube videos and I update my website whenever I create a New Project or Gain some work experience!
 </p>
 <p align="left">
-<a href="https://dhruvathaide.netlify.app/" target="_blank" rel="portfoliowebsite">Portfolio Website Link!</a>
+<a href="https://dhruvathaide.vercel.app/" target="_blank" rel="portfoliowebsite">Portfolio Website Live Link</a>
 
 <h3 align="left">Languages and Tools used:</h3>
 <p align="left"> 
