@@ -366,6 +366,46 @@ section {
   grid-gap: 2rem;
   padding-bottom: 3rem;
 }
+.timeline .timeline-button {
+  border-radius: 30px;
+  margin-top: 10px;
+  color: var(--color-white);
+  font-weight: 600;
+  position: relative;
+  border: 2px solid var(--color-secondary);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+}
+
+.timeline .timeline-button:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline .timeline-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-secondary);
+  transform: translateX(100%);
+  transition: all 0.4s ease-out;
+  z-index: -1;
+}
+
+.timeline .timeline-button:hover::before {
+  transform: translateX(0);
+}
+
+.timeline .timeline-button:hover {
+  background-color: var(--color-primary);
+}
 .timeline .timeline-item {
   position: relative;
   padding-left: 3rem;
