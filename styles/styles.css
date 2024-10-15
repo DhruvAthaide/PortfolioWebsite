@@ -380,6 +380,7 @@ section {
   transition: all 0.4s ease-out;
   padding: 12px 24px;
   background-color: var(--color-primary);
+  font-family: "Poppins",sans-serif;
 }
 
 .timeline .timeline-button:active {
