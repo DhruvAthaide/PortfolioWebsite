@@ -21,7 +21,7 @@ const ContactForm = () => {
   }), []);
 
   useEffect(() => {
-    const { publicKey, serviceId, templateId } = emailJSConfig;
+    const { publicKey} = emailJSConfig;
 
     if (publicKey) {
       try {
@@ -113,7 +113,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+    <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-lg" style={{ backgroundColor: 'rgb(0 0 0 / 0.1)' }}>
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Us</h2>
 
       <div className="space-y-6">
@@ -139,7 +139,7 @@ const ContactForm = () => {
             className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
               errors.name ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
-            placeholder="Your name"
+            placeholder="Enter your name"
           />
           {errors.name && (
             <p className="mt-1 text-sm text-red-500">{errors.name}</p>
@@ -202,7 +202,7 @@ const ContactForm = () => {
             className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white resize-none ${
               errors.message ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
-            placeholder="Your message here..."
+            placeholder="Enter your message here..."
           />
           {errors.message && (
             <p className="mt-1 text-sm text-red-500">{errors.message}</p>
