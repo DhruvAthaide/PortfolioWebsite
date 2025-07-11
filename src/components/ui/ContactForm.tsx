@@ -14,13 +14,13 @@ const ContactForm = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
 
-  // Memoize the EmailJS configuration
+  // Memoize the EmailJS configuration using environment variables
   const emailJSConfig = useMemo(() => ({
-    publicKey: 'ydXkDuBieznhl0aZE',
-    serviceId: 'service_1a6a38a',
-    templateId: 'template_f4usnic'
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
   }), []);
-
+  
   useEffect(() => {
     const { publicKey} = emailJSConfig;
 
