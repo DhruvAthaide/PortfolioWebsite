@@ -102,12 +102,25 @@ const ContactForm = () => {
       message: formData.message,
     });
 
+    // Fetch user's IP address
+    let ipAddress = 'Unknown';
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      ipAddress = data.ip || 'Unknown';
+    } catch (error) {
+      console.error('Failed to fetch IP address:', error);
+    }
+
+    // Append IP address to the message
+    const messageWithIp = `${formData.message}\n\nUser IP Address: ${ipAddress}`;
+
     try {
       const result = await emailjs.send(serviceId, templateId, {
         user_name: formData.name,
         user_email: formData.email,
         subject: formData.subject,
-        message: formData.message,
+        message: messageWithIp,
       });
 
       console.log('EmailJS send result:', result);

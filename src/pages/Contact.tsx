@@ -165,7 +165,7 @@ const Contact: React.FC = () => {
             className="bg-white dark:bg-dark-700 rounded-lg shadow-lg p-8"
           >
             <h2 className="text-2xl font-bold mb-6">Send Me a Message</h2>
-            {/* <ContactForm /> */}
+            <ContactForm />
           </motion.div>
         </div>
       </div>
