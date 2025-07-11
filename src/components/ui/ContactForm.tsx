@@ -12,6 +12,7 @@ const ContactForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
 
   // Memoize the EmailJS configuration
   const emailJSConfig = useMemo(() => ({
@@ -65,6 +66,27 @@ const ContactForm = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    
+    // Rate Limiting is set to 2 messages per user identifier (email or unique ID).
+    const email = formData.email;
+    let userIdentifier = email;
+    const storedIdentifier = localStorage.getItem('userIdentifier');
+    if (!storedIdentifier) {
+      // Generate a simple unique identifier if none exists
+      const newIdentifier = 'user_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+      localStorage.setItem('userIdentifier', newIdentifier);
+    }
+    // Use stored identifier for tracking if email is not used or changes
+    userIdentifier = storedIdentifier || email;
+    const messageCountKey = `messageCount_${userIdentifier}`;
+    const messageCount = parseInt(localStorage.getItem(messageCountKey) || '0', 10);
+    
+    if (messageCount >= 2) {
+      setRateLimitExceeded(true);
+      setTimeout(() => setRateLimitExceeded(false), 5000);
+      return;
+    }
+
     const { serviceId, templateId } = emailJSConfig;
 
     if (!serviceId || !templateId) {
@@ -90,6 +112,11 @@ const ContactForm = () => {
 
       console.log('EmailJS send result:', result);
       setSubmitSuccess(true);
+      // Increment message count in localStorage
+      const userIdentifier = localStorage.getItem('userIdentifier') || formData.email;
+      const messageCountKey = `messageCount_${userIdentifier}`;
+      const currentCount = parseInt(localStorage.getItem(messageCountKey) || '0', 10);
+      localStorage.setItem(messageCountKey, String(currentCount + 1));
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (error) {
@@ -121,6 +148,13 @@ const ContactForm = () => {
           <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded">
             <span className="block sm:inline">
               Your message has been sent successfully. I'll get back to you soon!
+            </span>
+          </div>
+        )}
+        {rateLimitExceeded && (
+          <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
+            <span className="block sm:inline">
+              You have reached the limit of 2 messages. Please contact me through other means if you need to send more messages.
             </span>
           </div>
         )}
@@ -212,7 +246,7 @@ const ContactForm = () => {
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting}
+          disabled={isSubmitting || rateLimitExceeded}
           className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-white font-medium rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
         >
           {isSubmitting ? (
