@@ -16,7 +16,7 @@ const ContactForm = () => {
 
   // Memoize the EmailJS configuration using environment variables
   const emailJSConfig = useMemo(() => ({
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+    publicKey: 'MfP_PCzJ0Z36Wlahh',
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
     templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
   }), []);
