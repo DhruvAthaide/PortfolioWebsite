@@ -17,8 +17,8 @@ const ContactForm = () => {
   // Memoize the EmailJS configuration using environment variables
   const emailJSConfig = useMemo(() => ({
     publicKey: 'MfP_PCzJ0Z36Wlahh',
-    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
-    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
+    serviceId: 'service_zl1gkve',
+    templateId: 'template_381q95y',
   }), []);
   
   useEffect(() => {
@@ -154,7 +154,7 @@ const ContactForm = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-lg" style={{ backgroundColor: 'rgb(0 0 0 / 0.1)' }}>
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Us</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Me</h2>
 
       <div className="space-y-6">
         {submitSuccess && (
