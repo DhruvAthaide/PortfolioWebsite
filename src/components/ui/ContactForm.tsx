@@ -14,7 +14,7 @@ const ContactForm = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
 
-  // Memoize the EmailJS configuration using environment variables
+  // EmailJS configuration
   const emailJSConfig = useMemo(() => ({
     publicKey: 'MfP_PCzJ0Z36Wlahh',
     serviceId: 'service_zl1gkve',
