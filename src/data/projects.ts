@@ -12,21 +12,21 @@ export const projects: Project[] = [
     status: 'ongoing'
   },
   {
-    id: 'stockmarket-financialdashboard',
-    title: 'StockMarket Financial Dashboard',
-    description: 'Stock Market Financial Dashboard is a comprehensive tool for analyzing stock market trends and financial data visualization.',
-    image: '/images/projects-stockmarket-financialdashboard.jpg',
-    technologies: ['Python','Bokeh'],
-    github: 'https://github.com/DhruvAthaide/StockMarketFinancialDashboard',
-    status: 'ongoing'
-  },
-  {
     id: 'android-webrtc-spyware',
     title: 'Android WebRTC Spyware',
     description: 'Android WebRTC Spyware is a security research project that explores vulnerabilities in WebRTC implementations on Android devices.',
     image: '/images/projects-android-webrtc-spyware.png',
     technologies: ['Python','Bokeh'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    status: 'ongoing'
+  },
+  {
+    id: 'stockmarket-financialdashboard',
+    title: 'StockMarket Financial Dashboard',
+    description: 'Stock Market Financial Dashboard is a comprehensive tool for analyzing stock market trends and financial data visualization.',
+    image: '/images/projects-stockmarket-financialdashboard.jpg',
+    technologies: ['Python','Bokeh'],
+    github: 'https://github.com/DhruvAthaide/StockMarketFinancialDashboard',
     status: 'ongoing'
   },
   {

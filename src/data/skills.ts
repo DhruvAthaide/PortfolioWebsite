@@ -27,6 +27,12 @@ export const toolsSkills = [
 
 export const workExperience = [
   {
+    title: 'Cyber Analyst - Red Team & Mobile Security',
+    organization: 'Deepcytes Cyber Labs (UK)',
+    period: 'July 2025 - Present',
+    description: 'Engaged in advanced penetration testing and vulnerability assessments for diverse clients, focusing on identifying and mitigating security risks. Developed and implemented custom security tools and scripts to enhance testing capabilities. Conducted mobile application security assessments, identifying vulnerabilities in Android applications.'
+  },
+  {
     title: 'Red Team - Intern Team Lead',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'July 2024 - August 2025',
