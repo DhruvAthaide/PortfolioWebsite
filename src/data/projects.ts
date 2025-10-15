@@ -37,7 +37,7 @@ export const projects: Project[] = [
     image: '/images/projects-stockmarket-financialdashboard.jpg',
     technologies: ['Python','Bokeh'],
     github: 'https://github.com/DhruvAthaide/StockMarketFinancialDashboard',
-    status: 'ongoing'
+    status: 'completed'
   },
   {
     id: 'teckhack-2023',
