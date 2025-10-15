@@ -2,6 +2,16 @@ import { Project } from '../components/ui/ProjectCard';
 
 export const projects: Project[] = [
   {
+    id: 'clipboard-canary',
+    title: 'Clipboard Canary',
+    description: 'Clipboard Canary is a cutting-edge mobile application designed to enhance user security by monitoring clipboard activity and providing real-time alerts for potential data breaches.',
+    image: '/images/projects-clipboard-canary.png',
+    technologies: ['Java','XML','Android Studio'],
+    github: 'https://github.com/DhruvAthaide/ClipboardCanary',
+    // demo: '',
+    status: 'ongoing'
+  },
+  {
     id: 'mobilesentinel',
     title: 'MobileSentinel',
     description: 'MobileSentinel is a mobile application designed to enhance cybersecurity awareness and provide real-time threat intelligence to users on Android Phones.',
