@@ -1,15 +1,17 @@
 export const technicalSkills = [
-  { name: 'Network Security', percentage: 60 },
+  { name: 'Network Security', percentage: 50 },
   { name: 'Web Application Security', percentage: 90 },
   { name: 'Penetration Testing', percentage: 85 },
   { name: 'Vulnerability Assessment', percentage: 88 },
-  { name: 'Cryptography', percentage: 55 },
+  { name: 'Cryptography', percentage: 35 },
   { name: 'Security Monitoring', percentage: 70 }
 ];
 
 export const programmingSkills = [
   { name: 'Python', percentage: 95 },
   { name: 'Java', percentage: 90 },
+  { name: 'Kotlin', percentage: 70 },
+  { name: 'Flutter', percentage: 50 },
   { name: 'JavaScript/TypeScript', percentage: 88 },
   { name: 'C/C++', percentage: 85 },
   { name: 'Bash Scripting', percentage: 80 },
@@ -30,10 +32,10 @@ export const workExperience = [
     title: 'Cyber Analyst - Red Team & Mobile Security',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'July 2025 - Present',
-    description: 'Engaged in advanced penetration testing and vulnerability assessments for diverse clients, focusing on identifying and mitigating security risks. Developed and implemented custom security tools and scripts to enhance testing capabilities. Conducted mobile application security assessments, identifying vulnerabilities in Android applications.'
+    description: 'Led a 60+ member Red Team across offensive security and threat intelligence. Built 4 enterprise-grade automation tools, including an LMS and SaaS platform. Executed advanced red team and threat hunting operations improving detection efficiency by 35%. Engineered stealth Android security frameworks and a hardened AOSP build with custom kernel and SELinux policies, reducing OS attack surface by 65%.'
   },
   {
-    title: 'Red Team - Intern Team Lead',
+    title: 'Red Team & Mobile Dev- Intern Team Lead',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'July 2024 - August 2025',
     description: 'Led a team of +60 Red Team members in conducting advanced penetration testing and vulnerability assessments for high-profile clients. Developed and automated over 100+ custom tools and scripts to enhance testing efficiency and effectiveness. Helped in the development of a Software-as-a-Service (SaaS) platform for automated penetration testing, significantly reducing the time required for security assessments.'
@@ -63,7 +65,7 @@ export const education = [
     title: 'Bachelor of Computer Applications (BCA)',
     organization: 'Amity University Mumbai',
     period: '2022 - 2025',
-    description: 'Completed my degree with a focus on Information Technology and Cybersecurity, gaining a strong foundation in software development and security principles. Silver medalist of my class with a CGPA of 9.67/10.'
+    description: 'Silver medalist with a CGPA of 9.67/10. Completed my degree with a personal focus on Information Technology and Cybersecurity, gaining a strong foundation in software development and security principles.'
   },
   // {
   //   title: 'Certified Ethical Hacker (CEH)',
