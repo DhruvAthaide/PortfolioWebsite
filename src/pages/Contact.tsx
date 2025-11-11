@@ -18,13 +18,13 @@ const Contact: React.FC = () => {
       isLink: true,
       link: 'mailto:athaidedhruv@gmail.com'
     },
-    { 
-      icon: <Phone size={24} className="text-primary-600 dark:text-secondary-900" />,
-      title: 'Phone',
-      content: '+91 9320693337',
-      isLink: true,
-      link: 'tel:+919320693337'
-    },
+    // { 
+    //   icon: <Phone size={24} className="text-primary-600 dark:text-secondary-900" />,
+    //   title: 'Phone',
+    //   content: '+91',
+    //   isLink: true,
+    //   link: 'tel:+919320693337'
+    // },
     { 
       icon: <Monitor size={24} className="text-primary-600 dark:text-secondary-900" />,
       title: 'Work',
