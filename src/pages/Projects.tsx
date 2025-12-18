@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from '../components/ui/ProjectCard';
 import InteractiveBackground from '../components/three/InteractiveBackground';
+import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';
 
 type FilterStatus = 'all' | 'completed' | 'ongoing';
@@ -16,6 +17,11 @@ const Projects: React.FC = () => {
   
   return (
     <div className="relative pt-20">
+      <SEO 
+        title="Projects" 
+        description="Explore my portfolio of projects including Guardient, LockGuard, and various cybersecurity tools."
+        keywords={['Projects', 'Portfolio', 'Android', 'Security Tools', 'Web Development']}
+      />
       <InteractiveBackground />
       
       <div className="container-custom py-10">

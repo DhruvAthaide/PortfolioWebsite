@@ -3,11 +3,20 @@ import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
+
+
 import InteractiveBackground from "../components/three/InteractiveBackground";
+import SEO from "../components/utils/SEO";
+import GlitchText from "../components/ui/GlitchText";
 
 const Home: React.FC = () => {
   return (
     <div className="relative min-h-screen">
+      <SEO 
+        title="Home" 
+        description="Dhruv Athaide - Red Team Analyst & Software Developer. Specializing in cybersecurity, penetration testing, and secure software development."
+        keywords={['Red Team', 'Penetration Testing', 'Cybersecurity', 'Software Developer']}
+      />
       <InteractiveBackground />
 
       <div className="container-custom min-h-screen flex items-center justify-center py-32">
@@ -21,8 +30,8 @@ const Home: React.FC = () => {
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
               Hi, I'm{" "}
-              <span className="text-primary-600 dark:text-secondary-900">
-                Dhruv Athaide
+              <span className="text-primary-600 dark:text-secondary-900 inline-block">
+                <GlitchText text="Dhruv Athaide" />
               </span>
             </h1>
 
