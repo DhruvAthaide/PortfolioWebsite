@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Play } from 'lucide-react';
 
 export interface Project {
   id: string;
@@ -8,7 +8,8 @@ export interface Project {
   description: string;
   image: string;
   technologies: string[];
-  github: string;
+  github?: string;
+  playstore?: string;
   demo?: string;
   status: 'completed' | 'ongoing';
 }
@@ -19,7 +20,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
-  const { title, description, image, technologies, github, demo, status } = project;
+  const { title, description, image, technologies, github, playstore, demo, status } = project;
   
   return (
     <motion.div 
@@ -62,16 +63,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         </div>
         
         <div className="flex gap-3">
-          <a 
-            href={github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="btn btn-primary flex items-center gap-2"
-            aria-label={`View ${title} on GitHub`}
-          >
-            <Github size={16} />
-            <span>GitHub</span>
-          </a>
+          {playstore ? (
+            <a 
+              href={playstore} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn btn-primary flex items-center gap-2"
+              aria-label={`View ${title} on Play Store`}
+            >
+              <Play size={16} />
+              <span>Play Store</span>
+            </a>
+          ) : github ? (
+            <a 
+              href={github} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn btn-primary flex items-center gap-2"
+              aria-label={`View ${title} on GitHub`}
+            >
+              <Github size={16} />
+              <span>GitHub</span>
+            </a>
+          ) : null}
           
           {demo && (
             <a 

@@ -2,6 +2,33 @@ import { Project } from '../components/ui/ProjectCard';
 
 export const projects: Project[] = [
   {
+    id: 'dc-guardient',
+    title: 'Guardient',
+    description: 'Developed for Deepcytes Cyber Labs UK, Guardient is a high-performance security suite featuring real-time app activity monitoring, deep-file malware scanning, and granular permission analytics.',
+    image: '/images/projects-dc-guardient.png',
+    technologies: ['Kotlin','XML','Azure','Android Studio'],
+    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
+    status: 'completed'
+  },
+  {
+    id: 'dc-lockguard',
+    title: 'LockGuard',
+    description: 'Developed for Deepcytes Cyber Labs UK, LockGuard provides an automated defense against snoopers by logging unlock events and capturing intruder selfies through a secure, offline-only interface.',
+    image: '/images/projects-dc-lockguard.png',
+    technologies: ['Kotlin','XML','Android Studio'],
+    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguard',
+    status: 'completed'
+  },
+  {
+    id: 'android-webrtc-spyware',
+    title: 'Android WebRTC Spyware',
+    description: 'Android WebRTC Spyware is a security research project that explores vulnerabilities in WebRTC implementations on Android devices.',
+    image: '/images/projects-android-webrtc-spyware.png',
+    technologies: ['Python','Bokeh'],
+    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    status: 'ongoing'
+  },
+  {
     id: 'clipboard-canary',
     title: 'Clipboard Canary',
     description: 'Clipboard Canary is a cutting-edge mobile application designed to enhance user security by monitoring clipboard activity and providing real-time alerts for potential data breaches.',
@@ -19,15 +46,6 @@ export const projects: Project[] = [
     technologies: ['Java','XML','Python','Android Studio'],
     github: 'https://github.com/DhruvAthaide/MobileSentinel',
     // demo: '',
-    status: 'ongoing'
-  },
-  {
-    id: 'android-webrtc-spyware',
-    title: 'Android WebRTC Spyware',
-    description: 'Android WebRTC Spyware is a security research project that explores vulnerabilities in WebRTC implementations on Android devices.',
-    image: '/images/projects-android-webrtc-spyware.png',
-    technologies: ['Python','Bokeh'],
-    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
     status: 'ongoing'
   },
   {
