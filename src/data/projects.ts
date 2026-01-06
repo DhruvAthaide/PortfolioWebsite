@@ -35,7 +35,7 @@ export const projects: Project[] = [
     image: '/images/projects-vanguard.png',
     technologies: ['Flutter','Dart','Android Studio'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'ongoing'
+    status: 'completed'
   },
   {
     id: 'exifly',
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     image: '/images/projects-exifly.png',
     technologies: ['Java','XML','Android Studio'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'ongoing'
+    status: 'completed'
   },
   {
     id: 'clipboard-canary',
