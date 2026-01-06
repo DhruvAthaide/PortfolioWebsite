@@ -40,9 +40,7 @@ const Home: React.FC = () => {
                 sequence={[
                   "Red Team Analyst",
                   2000,
-                  "Cybersecurity Expert",
-                  2000,
-                  "Software Developer",
+                  "Android Developer",
                   2000,
                 ]}
                 wrapper="span"
@@ -52,7 +50,7 @@ const Home: React.FC = () => {
             </div>
 
             <p className="text-lg text-dark-500 dark:text-gray-300 mb-8 max-w-2xl">
-              I'm a CyberSecurity Programmer and Red Team Analyst,
+              I'm an Android Developer and Cybersecurity Red Team Analyst,
               constantly exploring new languages and expanding my coding skills
               while developing secure software solutions and protecting digital
               assets. Specializing in cybersecurity, penetration testing, and
