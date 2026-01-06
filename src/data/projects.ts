@@ -29,6 +29,24 @@ export const projects: Project[] = [
     status: 'ongoing'
   },
   {
+    id: 'vanguard',
+    title: 'Vanguard',
+    description: 'A sophisticated, local-first executive command center for cybersecurity leaders and development teams',
+    image: '/images/projects-vanguard.png',
+    technologies: ['Flutter','Dart','Android Studio'],
+    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    status: 'ongoing'
+  },
+  {
+    id: 'exifly',
+    title: 'Exifly',
+    description: 'Exifly is a clean, modern, privacy-first Android app that removes hidden metadata from images.',
+    image: '/images/projects-exifly.png',
+    technologies: ['Java','XML','Android Studio'],
+    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    status: 'ongoing'
+  },
+  {
     id: 'clipboard-canary',
     title: 'Clipboard Canary',
     description: 'Clipboard Canary is a cutting-edge mobile application designed to enhance user security by monitoring clipboard activity and providing real-time alerts for potential data breaches.',
