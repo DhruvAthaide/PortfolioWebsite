@@ -26,19 +26,22 @@ export interface Project {
 interface ProjectCardProps {
   project: Project;
   index: number;
+  className?: string;
+  children?: React.ReactNode;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, className, children }) => {
   const { title, description, image, technologies, github, playstore, demo, status } = project;
   
   return (
     <motion.div 
-      className="card"
+      className={`card relative ${className || ''}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true, amount: 0.2 }}
     >
+      {children}
       <div className="relative overflow-hidden h-64">
         <Link to={`/projects/${project.id}`}>
           <img 

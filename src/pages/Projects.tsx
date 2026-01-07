@@ -72,10 +72,13 @@ const Projects: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {unlocked && (
-            <div className="border-2 border-red-500 rounded-xl overflow-hidden relative shadow-[0_0_20px_rgba(239,68,68,0.5)]">
+            <ProjectCard 
+              project={secretProject} 
+              index={0} 
+              className="border-2 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]"
+            >
                <div className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10">TOP SECRET</div>
-               <ProjectCard project={secretProject} index={0} />
-            </div>
+            </ProjectCard>
           )}
           {filteredProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index + (unlocked ? 1 : 0)} />
