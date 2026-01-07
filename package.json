@@ -30,7 +30,6 @@
     "react-router-dom": "^6.21.1",
     "react-type-animation": "^3.2.0",
     "resend": "^4.5.2",
-    "three": "^0.159.0",
     "three-mesh-bvh": "^0.9.1"
   },
   "devDependencies": {
@@ -38,7 +37,6 @@
     "@types/node": "^22.15.30",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.159.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
     "eslint": "^9.9.1",

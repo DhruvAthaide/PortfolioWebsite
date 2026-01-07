@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon } from 'lucide-react';
 import { ThemeProvider } from './context/ThemeContext';
 import { TerminalProvider, useTerminal } from './context/TerminalContext';
+import { CTFProvider } from './context/CTFContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -57,8 +58,9 @@ function App() {
   return (
     <ThemeProvider>
       <TerminalProvider>
-        <div className="flex flex-col min-h-screen cursor-none relative">
-          <InteractiveBackground />
+        <CTFProvider>
+          <div className="flex flex-col min-h-screen cursor-none relative">
+            <InteractiveBackground />
           <CustomCursor />
           <Navbar />
           
@@ -76,9 +78,10 @@ function App() {
           </main>
           
           <Footer />
-          <Terminal />
-          <TerminalToggle />
-        </div>
+            <Terminal />
+            <TerminalToggle />
+          </div>
+        </CTFProvider>
       </TerminalProvider>
     </ThemeProvider>
   );
