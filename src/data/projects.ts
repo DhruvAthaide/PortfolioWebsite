@@ -4,98 +4,143 @@ export const projects: Project[] = [
   {
     id: 'dc-guardient',
     title: 'Guardient',
-    description: 'Developed for Deepcytes Cyber Labs UK, Guardient is a high-performance security suite featuring real-time app activity monitoring, deep-file malware scanning, and granular permission analytics.',
+    description: 'A mobile threat defense Android app that detects risky applications using permission intelligence, heuristic risk scoring, and cloud-verified file scanning.',
     image: '/images/projects-dc-guardient.png',
     technologies: ['Kotlin','XML','Azure','Android Studio'],
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
     status: 'completed',
-    longDescription: 'Guardient is a comprehensive mobile security suite developed for Deepcytes Cyber Labs. It was designed to bridge the gap between standard antivirus apps and enterprise-grade mobile threat defense. The app provides real-time monitoring of file systems, network activity, and application permissions, using advanced heuristics to detect zero-day threats.',
+    longDescription: 'Guardient is a mobile threat defense application developed for Deepcytes Cyber Labs (UK) that analyzes Android apps and files using permission-based heuristics instead of traditional signature-only detection. It performs SHA-256 cloud-verified file scanning and evaluates dangerous permission combinations to generate clear risk scores, while remaining lightweight and performance-efficient.',
     features: [
-      'Real-time Malware Scanning with Heuristics',
-      'Deep File Inspection (PDF, APK, DEX)',
-      'Network Traffic Analysis & Anomaly Detection',
-      'Granular Permission Manager & Auditing'
+      'Cloud-verified file scanning using SHA-256 hashes',
+      'Permission-based heuristic risk scoring',
+      'Detection of dangerous permission combinations',
+      'App source verification and secure app management'
     ],
     challenges: [
-      'Scanning large files without freezing the UI thread.',
-      'Monitoring network traffic without root access on modern Android versions.',
-      'Minimizing battery drain while maintaining real-time protection.'
+      'Scanning large file systems without impacting device performance.',
+      'Identifying risky applications without relying on known malware signatures.',
+      'Ensuring reliable background execution across different Android versions.'
     ],
     solutions: [
-      'Implemented Coroutines and WorkManager for efficient background processing.',
-      'Utilized the Android VPNService API to inspect local traffic packets securely.',
-      'Optimized scanning algorithms to run only on file system changes.'
+      'Implemented optimized background scanning using Kotlin Coroutines and Foreground Services.',
+      'Designed a heuristic risk-scoring model based on permission combinations and app sources.',
+      'Used intelligent caching with cloud-verified SHA-256 checks to reduce scan overhead.'
     ],
     category: 'Android'
   },
   {
     id: 'dc-lockguard',
     title: 'LockGuard',
-    description: 'Developed for Deepcytes Cyber Labs UK, LockGuard provides an automated defense against snoopers by logging unlock events and capturing intruder selfies through a secure, offline-only interface.',
+    description: 'A privacy-first Android security app that silently captures evidence of unauthorized device access while keeping all data fully local.',
     image: '/images/projects-dc-lockguard.png',
     technologies: ['Kotlin','XML','Android Studio'],
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguard',
     status: 'completed',
-    longDescription: 'LockGuard is an anti-theft and intrusion detection system. It acts as a silent sentry for your device, automatically capturing photos of unauthorized users who attempt to unlock the phone with incorrect credentials. It operates completely offline to ensure user privacy.',
+    longDescription: 'LockGuard is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. All data is encrypted and stored entirely on-device, with no cloud interaction, ensuring stealth operation and privacy-by-design.',
     features: [
-      'Intruder Selfie Capture',
-      'Failed Unlock Attempt Logging',
-      'Offline-First Architecture',
-      'Secure Local Storage of Evidence'
+      'Automatic intruder photo capture on failed unlock attempts',
+      'Optional audit capture on successful unlocks',
+      'Stealth operation with configurable alerts',
+      'Fully encrypted, local-only evidence storage',
+      'Smart background execution using WorkManager'
     ],
     challenges: [
-      'Reliably detecting failed unlock attempts across different Android manufacturers.',
-      'Accessing the camera silently in the background without user interaction.'
+      'Capturing camera input reliably from background services without user interaction.',
+      'Detecting both failed and successful unlock events consistently across Android versions.',
+      'Managing alerts and system resources without disrupting normal device behavior.',
+      'Maintaining strict privacy despite requiring sensitive permissions.'
     ],
     solutions: [
-      'Leveraged the DeviceAdminReceiver API to listen for precise system events.',
-      'Implemented a background service that manages camera resources efficiently just for the capture moment.'
+      'Integrated CameraX within Foreground Services using a custom lifecycle handler.',
+      'Leveraged Accessibility Services to observe unlock-related system events.',
+      'Implemented controlled audio focus handling for alerts with immediate release.',
+      'Designed a fully local, encrypted storage model with automated retention policies.'
     ],
     category: 'Android'
   },
   {
     id: 'android-webrtc-spyware',
     title: 'Android WebRTC Spyware',
-    description: 'Android WebRTC Spyware is a security research project that explores vulnerabilities in WebRTC implementations on Android devices.',
+    description: 'A proof-of-concept Android application demonstrating real-time remote device monitoring using WebRTC, presented through a benign wallpaper app interface.',
     image: '/images/projects-android-webrtc-spyware.png',
-    technologies: ['Python','Bokeh'],
+    technologies: ['Java','XML','Android Studio','Socket.IO','WebRTC'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
     status: 'ongoing',
-    category: 'Security'
+    longDescription: 'Android WebRTC Spyware is a research-focused Android project that explores real-time device monitoring using low-latency peer-to-peer communication. Disguised as a wallpaper customization app, it establishes a secure WebRTC connection to a web dashboard, enabling live camera and audio streaming alongside real-time device telemetry such as location and system events, highlighting the risks of permission abuse and covert persistence on Android.',
+    features: [
+      'Real-time front and back camera streaming',
+      'Live audio and GPS location monitoring',
+      'Remote access to SMS, call logs, and notifications',
+      'Stealth background operation via Foreground Services',
+      'Dynamic WebRTC signaling configuration'
+    ],
+    challenges: [
+      'Synchronizing multiple real-time media streams',
+      'Maintaining persistent background execution',
+      'Handling sensitive permissions across Android versions'
+    ],
+    solutions: [
+      'Custom WebRTC signaling using Socket.IO',
+      'Foreground Services to prevent background termination',
+      'Unified streaming service for media and system events'
+    ],
+    category: 'Android'
   },
   {
     id: 'vanguard',
     title: 'Vanguard',
-    description: 'A sophisticated, local-first executive command center for cybersecurity leaders and development teams',
+    description: 'A secure, local-first executive dashboard for Red Team leads, combining encrypted mission control with real-time global cybersecurity intelligence.',
     image: '/images/projects-vanguard.png',
     technologies: ['Flutter','Dart','Android Studio'],
-    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    github: 'https://github.com/DhruvAthaide/Vanguard',
     status: 'completed',
-    longDescription: 'Vanguard is a local-first executive command center. It visualizes complex cybersecurity data streams into an intuitive dashboard for decision-makers. It serves as the central nervous system for monitoring ongoing red team operations and defensive metrics.',
+    longDescription: 'Vanguard is a local-first executive dashboard built for offensive security engineers and Red Team leads to manage operations and consume real-time cyber intelligence securely. It provides encrypted project orchestration, segmented intelligence feeds, and an interactive global threat map, all operating without tracking or external data storage. The application is secured using hardware-backed biometric authentication and an encrypted SQLCipher database to ensure confidentiality at every layer.',
     features: [
-      'Real-time Threat Visualization',
-      'Kanban-style Operation Management',
-      'Encrypted Local Database',
-      'Interactive Data Charts'
+      'Real-Time Global Threat Map Visualization',
+      'Privacy-First Intelligence Feeds (Zero Tracking)',
+      'Encrypted Mission Control & Task Orchestration',
+      'Offline-First Architecture with Secure Local Storage',
+      'Biometric Authentication & Hardware-Backed Security'
     ],
     challenges: [
-      'Rendering real-time data charts without performance lag.',
-      ' syncing state across multiple dashboard widgets.'
+      'Handling high-volume intelligence feeds without UI lag',
+      'Managing complex offline project hierarchies securely',
+      'Rendering an interactive global threat map efficiently'
     ],
     solutions: [
-      'Optimized Flutter rendering pipeline and used isolate threads for heavy data processing.',
-      'Implemented a robust Provider-based state management system.'
+      'Offloaded feed parsing and processing using Dart Isolates',
+      'Used encrypted SQLCipher storage with structured relational models',
+      'Implemented client-side intelligence aggregation and mapping'
+      
     ],
     category: 'Android'
   },
   {
     id: 'exifly',
     title: 'Exifly',
-    description: 'Exifly is a clean, modern, privacy-first Android app that removes hidden metadata from images.',
+    description: 'A privacy-focused Android app that removes sensitive EXIF metadata from photos before sharing, ensuring location and device anonymity.',
     image: '/images/projects-exifly.png',
     technologies: ['Java','XML','Android Studio'],
-    github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
+    github: 'https://github.com/DhruvAthaide/Exifly',
     status: 'completed',
+    longDescription: 'Exifly is an offline-first Android privacy utility designed to prevent accidental metadata leaks when sharing images. It integrates directly with the Android share sheet to strip GPS data, device identifiers, and timestamps without affecting image quality, using robust metadata parsing and deep analysis techniques to detect hidden or non-standard EXIF fields.',
+    features: [
+      'Offline EXIF and metadata scrubbing (GPS, device, timestamps)',
+      'Deep GPS detection for non-standard metadata fields',
+      'Filename and date randomization for enhanced privacy',
+      'One-tap share-to-clean workflow (single and batch)',
+      'Modern glassmorphism UI with real-time analysis'
+    ],
+    challenges: [
+      'Metadata removal without high memory usage',
+      'Detecting hidden or malformed GPS data',
+      'Preserving original image quality'
+    ],
+    solutions: [
+      'Streaming-based EXIF rewriting to avoid full image decoding',
+      'Custom deep-search logic for exhaustive GPS field detection',
+      'Safe file handling via Android Storage Access Framework'
+    ],
     category: 'Android'
   },
   {
