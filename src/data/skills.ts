@@ -4,14 +4,15 @@ export const technicalSkills = [
   { name: 'Penetration Testing', percentage: 85 },
   { name: 'Vulnerability Assessment', percentage: 88 },
   { name: 'Cryptography', percentage: 35 },
-  { name: 'Security Monitoring', percentage: 70 }
+  { name: 'Security Monitoring', percentage: 60 }
 ];
 
 export const programmingSkills = [
   { name: 'Python', percentage: 95 },
   { name: 'Java', percentage: 90 },
-  { name: 'Kotlin', percentage: 70 },
-  { name: 'Flutter', percentage: 50 },
+  { name: 'Kotlin', percentage: 80 },
+  { name: 'Flutter', percentage: 70 },
+  { name: 'Dart', percentage: 70 },
   { name: 'JavaScript/TypeScript', percentage: 88 },
   { name: 'C/C++', percentage: 85 },
   { name: 'Bash Scripting', percentage: 80 },
@@ -31,13 +32,13 @@ export const workExperience = [
   {
     title: 'Cyber Analyst - Red Team & Mobile Security',
     organization: 'Deepcytes Cyber Labs (UK)',
-    period: 'July 2025 - Present',
-    description: 'Led a 60+ member Red Team across offensive security and threat intelligence. Built 4 enterprise-grade automation tools, including an LMS and SaaS platform. Executed advanced red team and threat hunting operations improving detection efficiency by 35%. Engineered stealth Android security frameworks and a hardened AOSP build with custom kernel and SELinux policies, reducing OS attack surface by 65%.'
+    period: 'August 2025 - Present',
+    description: 'Designed and shipped multiple production-grade Android security applications focused on privacy, intrusion detection, and surveillance defense. Built and released Guardient (mobile security & permission risk analysis) and LockGuard (offline intruder detection) on Google Play Store. Currently developing NoSurveil, a BLE-based anti-tracking and anti-stalking platform with local-only forensic analysis. Contributed to secure phone initiatives by customizing DcOS and aligning it secure phone requirements.'
   },
   {
-    title: 'Red Team & Mobile Dev- Intern Team Lead',
+    title: 'Red Team & Mobile Dev - Intern Team Lead',
     organization: 'Deepcytes Cyber Labs (UK)',
-    period: 'July 2024 - August 2025',
+    period: 'July 2024 - June 2025',
     description: 'Led a team of +60 Red Team members in conducting advanced penetration testing and vulnerability assessments for high-profile clients. Developed and automated over 100+ custom tools and scripts to enhance testing efficiency and effectiveness. Helped in the development of a Software-as-a-Service (SaaS) platform for automated penetration testing, significantly reducing the time required for security assessments.'
   },
   {
