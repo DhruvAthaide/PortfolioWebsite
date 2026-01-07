@@ -53,6 +53,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
             <span className="text-yellow-400">File System:</span> <span>ls, cd, cat, mkdir, touch, rm, pwd</span>
             <span className="text-yellow-400">System:</span> <span>clear, help, exit, date, whoami, echo</span>
             <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, fetch, game</span>
+            <span className="text-yellow-400">CTF:</span> <span>submit-flag</span>
           </div>
         );
         break;
