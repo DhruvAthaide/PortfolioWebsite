@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback } from 'react';
 import { useFileSystem } from './useFileSystem';
 
 interface CommandEntry {
@@ -12,7 +11,6 @@ export type Theme = 'default' | 'ubuntu' | 'cyberpunk' | 'retro';
 
 export const useTerminalLogic = (closeTerminal: () => void) => {
   const { currentPath, ls, cd, cat, mkdir, touch, rm } = useFileSystem();
-  const navigate = useNavigate();
   
   const [history, setHistory] = useState<CommandEntry[]>([
     { 
@@ -52,7 +50,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
           <div className="grid grid-cols-[120px_1fr] gap-2 text-sm">
             <span className="text-yellow-400">File System:</span> <span>ls, cd, cat, mkdir, touch, rm, pwd</span>
             <span className="text-yellow-400">System:</span> <span>clear, help, exit, date, whoami, echo</span>
-            <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, fetch</span>
+            <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, fetch, game</span>
           </div>
         );
         break;
@@ -174,6 +172,13 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         output = <span className="animate-pulse">Fetching system data... [Error: Connection Refused]</span>;
         break;
       }
+      
+      case 'game': {
+         output = 'Starting game...';
+         // We might want to set a short timeout or just set mode immediately
+         startGame('snake');
+         break;
+      }
 
       default:
         output = <span className="text-red-400">Command not found: {cmd}</span>;
@@ -214,20 +219,41 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      // Simple autocomplete (only for commands for now)
-      const commands = ['help', 'clear', 'exit', 'ls', 'cd', 'cat', 'mkdir', 'touch', 'rm', 'pwd', 'whoami', 'date', 'echo', 'sudo', 'matrix', 'theme', 'fetch'];
       const args = currentInput.split(' ');
       const lastArg = args[args.length - 1];
       
-      // If typing first word, autocomplete command
+      // Command Autocomplete (first word)
       if (args.length === 1) {
+        const commands = ['help', 'clear', 'exit', 'ls', 'cd', 'cat', 'mkdir', 'touch', 'rm', 'pwd', 'whoami', 'date', 'echo', 'sudo', 'matrix', 'theme', 'fetch', 'game'];
         const matches = commands.filter(c => c.startsWith(lastArg));
         if (matches.length === 1) {
           setCurrentInput(matches[0]);
         }
+      } 
+      // File/Folder Autocomplete (subsequent words)
+      else if (args.length > 1) {
+        const currentFiles = ls().map(item => item.name);
+        const matches = currentFiles.filter(f => f.startsWith(lastArg));
+        if (matches.length === 1) {
+          // Replace the last argument with the match
+          args[args.length - 1] = matches[0];
+          setCurrentInput(args.join(' '));
+        } else if (matches.length > 1) {
+          // Optional: Show possibilities? For now, just simplistic autocomplete
+        }
       }
-      // Future: autocomplete files from `ls()`
     }
+  };
+
+  const [gameMode, setGameMode] = useState<'none' | 'snake' | 'cyber'>('none');
+
+  const startGame = (mode: 'snake' | 'cyber') => {
+    setGameMode(mode);
+  };
+
+  const stopGame = () => {
+    setGameMode('none');
+    setHistory(prev => [...prev, { input: '', output: 'Game Session Terminated.', path: pathString }]);
   };
 
   return {
@@ -238,6 +264,9 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
     pathString,
     theme,
     matrixMode,
-    executeCommand
+    executeCommand,
+    gameMode,
+    startGame,
+    stopGame
   };
 };

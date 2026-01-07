@@ -4,6 +4,7 @@ import { X, Terminal as TerminalIcon, Maximize2, Minimize2 } from 'lucide-react'
 import { useTerminal } from '../../context/TerminalContext';
 import { useTerminalLogic, Theme } from '../../hooks/useTerminalLogic.tsx';
 import MatrixEffect from './MatrixEffect';
+import TerminalGame from './TerminalGame';
 
 const themeColors: Record<Theme, { bg: string; text: string; border: string }> = {
   default: { bg: 'bg-black/95', text: 'text-green-500', border: 'border-green-500/30' },
@@ -21,7 +22,9 @@ const Terminal: React.FC = () => {
     handleKeyDown, 
     pathString, 
     theme,
-    matrixMode
+    matrixMode,
+    gameMode,
+    stopGame
   } = useTerminalLogic(closeTerminal);
   
   const [isMaximized, setIsMaximized] = React.useState(false);
@@ -94,53 +97,55 @@ const Terminal: React.FC = () => {
               </div>
             </div>
 
-            {/* Content */}
-            <div 
-              ref={scrollRef}
-              className={`flex-1 p-4 overflow-y-auto ${theme === 'ubuntu' ? 'selection:bg-orange-500/30' : 'selection:bg-green-500/30'} scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent`}
-              onClick={() => inputRef.current?.focus()}
-            >
-              <div className="text-gray-400 mb-4 opacity-70">
-                Last login: {new Date().toLocaleString()}<br/>
-                Welcome to PortfoliOS v2.0. Type <span className={`${colors.text} font-bold`}>help</span> to begin.
-              </div>
+            {/* Content or Game */}
+            {gameMode !== 'none' ? (
+               <TerminalGame onExit={stopGame} />
+            ) : (
+                <div 
+                  ref={scrollRef}
+                  className={`flex-1 p-4 overflow-y-auto ${theme === 'ubuntu' ? 'selection:bg-orange-500/30' : 'selection:bg-green-500/30'} scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent`}
+                  onClick={() => inputRef.current?.focus()}
+                >
+                  <div className="text-gray-400 mb-4 opacity-70">
+                    Last login: {new Date().toLocaleString()}<br/>
+                    Welcome to PortfoliOS v2.0. Type <span className={`${colors.text} font-bold`}>help</span> to begin.
+                  </div>
 
-              {history.map((entry, i) => (
-                <div key={i} className="mb-2">
-                  {entry.input && (
-                    <div className={`flex gap-2 ${colors.text} font-bold opacity-90`}>
-                      <span>➜</span>
-                      <span>{entry.path}</span>
-                      <span className={`${theme === 'default' ? 'text-white' : 'text-gray-100'} font-normal`}>{entry.input}</span>
+                  {history.map((entry, i) => (
+                    <div key={i} className="mb-2">
+                      {entry.input && (
+                        <div className={`flex gap-2 ${colors.text} font-bold opacity-90`}>
+                          <span>➜</span>
+                          <span>{entry.path}</span>
+                          <span className={`${theme === 'default' ? 'text-white' : 'text-gray-100'} font-normal`}>{entry.input}</span>
+                        </div>
+                      )}
+                      {entry.output && (
+                        <div className="ml-5 mt-1 text-gray-300/90 break-words">
+                          {entry.output}
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {entry.output && (
-                    <div className="ml-5 mt-1 text-gray-300/90 break-words">
-                      {entry.output}
+                  ))}
+                  
+                  <div className={`flex gap-2 ${colors.text} font-bold items-center`}>
+                    <span>➜</span>
+                    <span>{pathString}</span>
+                    <div className="flex-1 relative">
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={currentInput}
+                        onChange={(e) => setCurrentInput(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className={`bg-transparent border-none outline-none w-full font-normal ${theme === 'default' ? 'text-white' : 'text-gray-100'} cursor-text`}
+                        autoComplete="off"
+                        spellCheck="false"
+                      />
                     </div>
-                  )}
+                  </div>
                 </div>
-              ))}
-              
-              <div className={`flex gap-2 ${colors.text} font-bold items-center`}>
-                <span>➜</span>
-                <span>{pathString}</span>
-                <div className="flex-1 relative">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={currentInput}
-                    onChange={(e) => setCurrentInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className={`bg-transparent border-none outline-none w-full font-normal ${theme === 'default' ? 'text-white' : 'text-gray-100'}`}
-                    autoComplete="off"
-                    spellCheck="false"
-                  />
-                  {/* Cursor Block */}
-                  {/* <span className={`absolute top-0 h-5 w-2.5 ${colors.text === 'text-white' ? 'bg-white' : colors.text.replace('text-', 'bg-')} animate-pulse`} style={{ left: `${currentInput.length * 9}px` }}></span> */}
-                </div>
-              </div>
-            </div>
+            )}
           </motion.div>
         </>
       )}
