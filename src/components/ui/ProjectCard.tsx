@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Github, ExternalLink, Play } from 'lucide-react';
 
 export interface Project {
@@ -12,6 +13,13 @@ export interface Project {
   playstore?: string;
   demo?: string;
   status: 'completed' | 'ongoing';
+  
+  // New fields for Detailed Project Page
+  longDescription?: string;
+  challenges?: string[];
+  solutions?: string[];
+  features?: string[];
+  screenshots?: string[];
 }
 
 interface ProjectCardProps {
@@ -31,12 +39,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       viewport={{ once: true, amount: 0.2 }}
     >
       <div className="relative overflow-hidden h-64">
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-        <div className="absolute top-2 right-2">
+        <Link to={`/projects/${project.id}`}>
+          <img 
+            src={image} 
+            alt={title} 
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+        </Link>
+        <div className="absolute top-2 right-2 pointer-events-none">
           <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
             status === 'completed' 
               ? 'bg-green-500 text-white' 
@@ -48,7 +58,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       </div>
       
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <Link to={`/projects/${project.id}`}>
+          <h3 className="text-xl font-bold mb-2 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors inline-flex items-center gap-2">
+            {title}
+            <ExternalLink size={14} className="opacity-50" />
+          </h3>
+        </Link>
         <p className="text-dark-500 dark:text-gray-300 mb-4">{description}</p>
         
         <div className="mb-4 flex flex-wrap gap-2">

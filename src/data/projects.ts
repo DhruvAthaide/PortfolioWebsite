@@ -8,7 +8,24 @@ export const projects: Project[] = [
     image: '/images/projects-dc-guardient.png',
     technologies: ['Kotlin','XML','Azure','Android Studio'],
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
-    status: 'completed'
+    status: 'completed',
+    longDescription: 'Guardient is a comprehensive mobile security suite developed for Deepcytes Cyber Labs. It was designed to bridge the gap between standard antivirus apps and enterprise-grade mobile threat defense. The app provides real-time monitoring of file systems, network activity, and application permissions, using advanced heuristics to detect zero-day threats.',
+    features: [
+      'Real-time Malware Scanning with Heuristics',
+      'Deep File Inspection (PDF, APK, DEX)',
+      'Network Traffic Analysis & Anomaly Detection',
+      'Granular Permission Manager & Auditing'
+    ],
+    challenges: [
+      'Scanning large files without freezing the UI thread.',
+      'Monitoring network traffic without root access on modern Android versions.',
+      'Minimizing battery drain while maintaining real-time protection.'
+    ],
+    solutions: [
+      'Implemented Coroutines and WorkManager for efficient background processing.',
+      'Utilized the Android VPNService API to inspect local traffic packets securely.',
+      'Optimized scanning algorithms to run only on file system changes.'
+    ]
   },
   {
     id: 'dc-lockguard',
@@ -17,7 +34,22 @@ export const projects: Project[] = [
     image: '/images/projects-dc-lockguard.png',
     technologies: ['Kotlin','XML','Android Studio'],
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguard',
-    status: 'completed'
+    status: 'completed',
+    longDescription: 'LockGuard is an anti-theft and intrusion detection system. It acts as a silent sentry for your device, automatically capturing photos of unauthorized users who attempt to unlock the phone with incorrect credentials. It operates completely offline to ensure user privacy.',
+    features: [
+      'Intruder Selfie Capture',
+      'Failed Unlock Attempt Logging',
+      'Offline-First Architecture',
+      'Secure Local Storage of Evidence'
+    ],
+    challenges: [
+      'Reliably detecting failed unlock attempts across different Android manufacturers.',
+      'Accessing the camera silently in the background without user interaction.'
+    ],
+    solutions: [
+      'Leveraged the DeviceAdminReceiver API to listen for precise system events.',
+      'Implemented a background service that manages camera resources efficiently just for the capture moment.'
+    ]
   },
   {
     id: 'android-webrtc-spyware',
@@ -35,7 +67,22 @@ export const projects: Project[] = [
     image: '/images/projects-vanguard.png',
     technologies: ['Flutter','Dart','Android Studio'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'completed'
+    status: 'completed',
+    longDescription: 'Vanguard is a local-first executive command center. It visualizes complex cybersecurity data streams into an intuitive dashboard for decision-makers. It serves as the central nervous system for monitoring ongoing red team operations and defensive metrics.',
+    features: [
+      'Real-time Threat Visualization',
+      'Kanban-style Operation Management',
+      'Encrypted Local Database',
+      'Interactive Data Charts'
+    ],
+    challenges: [
+      'Rendering real-time data charts without performance lag.',
+      ' syncing state across multiple dashboard widgets.'
+    ],
+    solutions: [
+      'Optimized Flutter rendering pipeline and used isolate threads for heavy data processing.',
+      'Implemented a robust Provider-based state management system.'
+    ]
   },
   {
     id: 'exifly',
