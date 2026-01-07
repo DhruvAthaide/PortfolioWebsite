@@ -13,6 +13,8 @@ import Contact from './pages/Contact';
 import Terminal from './components/ui/Terminal';
 import CustomCursor from './components/ui/CustomCursor';
 
+import InteractiveBackground from './components/three/InteractiveBackground';
+
 const TerminalToggle = () => {
   const { toggleTerminal } = useTerminal();
 
@@ -53,11 +55,12 @@ function App() {
   return (
     <ThemeProvider>
       <TerminalProvider>
-        <div className="flex flex-col min-h-screen cursor-none">
+        <div className="flex flex-col min-h-screen cursor-none relative">
+          <InteractiveBackground />
           <CustomCursor />
           <Navbar />
           
-          <main className="flex-grow">
+          <main className="flex-grow z-10">
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />

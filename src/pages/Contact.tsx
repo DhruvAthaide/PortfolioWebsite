@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Monitor, Briefcase, Languages } from 'lucide-react';
 import ContactForm from '../components/ui/ContactForm';
-import InteractiveBackground from '../components/three/InteractiveBackground';
+
 import SEO from '../components/utils/SEO';
 
 const Contact: React.FC = () => {
@@ -50,7 +50,7 @@ const Contact: React.FC = () => {
         description="Get in touch with Dhruv Athaide for collaborations, projects, or just to say hello."
         keywords={['Contact', 'Email', 'Hire', 'Collaboration']}
       />
-      <InteractiveBackground />
+
       
       <div className="container-custom py-10">
         <motion.h1 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from '../components/ui/ProjectCard';
-import InteractiveBackground from '../components/three/InteractiveBackground';
+
 import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';
 
@@ -22,7 +22,7 @@ const Projects: React.FC = () => {
         description="Explore my portfolio of projects including Guardient, LockGuard, and various cybersecurity tools."
         keywords={['Projects', 'Portfolio', 'Android', 'Security Tools', 'Web Development']}
       />
-      <InteractiveBackground />
+
       
       <div className="container-custom py-10">
         <motion.h1 

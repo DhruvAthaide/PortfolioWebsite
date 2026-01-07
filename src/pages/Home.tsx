@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 
 
-import InteractiveBackground from "../components/three/InteractiveBackground";
+
 import SEO from "../components/utils/SEO";
 import GlitchText from "../components/ui/GlitchText";
 
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         description="Dhruv Athaide - Red Team Analyst & Software Developer. Specializing in cybersecurity, penetration testing, and secure software development."
         keywords={['Red Team', 'Penetration Testing', 'Cybersecurity', 'Software Developer']}
       />
-      <InteractiveBackground />
+
 
       <div className="container-custom min-h-screen flex items-center justify-center py-32">
         <div className="flex flex-col md:flex-row items-center gap-10">
@@ -107,7 +107,7 @@ const Home: React.FC = () => {
             <div className="relative">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-secondary-900 rounded-full blur opacity-75 animate-pulse-slow"></div>
               <img
-                src="\images\home-DhruvAthaide.png"
+                src="/images/home-DhruvAthaide.png"
                 alt="Dhruv Athaide"
                 className="relative rounded-full border-4 border-white dark:border-dark-700 w-full aspect-square object-cover object-center"
               />

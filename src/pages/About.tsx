@@ -4,7 +4,7 @@ import { Download } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 import SkillBar from '../components/ui/SkillBar';
 import TimelineItem from '../components/ui/TimelineItem';
-import InteractiveBackground from '../components/three/InteractiveBackground';
+
 import SEO from '../components/utils/SEO';
 import GlitchText from '../components/ui/GlitchText';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs';
@@ -18,7 +18,7 @@ const About: React.FC = () => {
         description="Learn more about Dhruv Athaide, a Red Team Analyst & Software Developer based in Mumbai, India."
         keywords={['About', 'Skills', 'Experience', 'Education', 'Resume', 'CV']}
       />
-      <InteractiveBackground />
+
       
       <div className="container-custom py-10">
         <motion.h1 
@@ -46,7 +46,7 @@ const About: React.FC = () => {
             </p>
             
             <a 
-              href="\documents\DhruvAthaide_CV.pdf" 
+              href="/documents/DhruvAthaide_CV.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn btn-primary flex items-center gap-2 w-max"
