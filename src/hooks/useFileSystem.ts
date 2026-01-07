@@ -28,11 +28,8 @@ const initialFileSystem: FileSystemNode = {
               type: 'file',
               content: 'Red Team Analysis\nPenetration Testing\nPython\nReact\nAndroid Security\nCryptography\nNetwork Forensics'
             },
-            'contact.txt': {
-              name: 'contact.txt',
-              type: 'file',
-              content: 'Email: athaidedhruv@gmail.com\nLocation: Mumbai, India\nGitHub: github.com/DhruvAthaide'
-            },
+            'projects.txt': { name: 'projects.txt', type: 'file', content: 'Use "cat projects.txt" to view my work.' },
+            'contact.txt': { name: 'contact.txt', type: 'file', content: 'Email: dhruv.athaide@example.com\nLinkedIn: linkedin.com/in/dhruvathaide' },
             'projects': {
               name: 'projects',
               type: 'directory',

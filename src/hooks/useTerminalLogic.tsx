@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useFileSystem } from './useFileSystem';
+import { useCTF } from '../context/CTFContext';
 
 interface CommandEntry {
   input: string;
@@ -11,6 +12,7 @@ export type Theme = 'default' | 'ubuntu' | 'cyberpunk' | 'retro';
 
 export const useTerminalLogic = (closeTerminal: () => void) => {
   const { currentPath, ls, cd, cat, mkdir, touch, rm } = useFileSystem();
+  const { submitFlag } = useCTF();
   
   const [history, setHistory] = useState<CommandEntry[]>([
     { 
@@ -65,15 +67,25 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
 
       case 'ls': {
         const items = ls();
-        output = (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {items.map(item => (
-              <span key={item.name} className={item.type === 'directory' ? 'text-blue-400 font-bold' : 'text-gray-300'}>
-                {item.name}{item.type === 'directory' ? '/' : ''}
-              </span>
-            ))}
-          </div>
-        );
+        // Easter egg for CTF
+        if (currentPath.includes('secrets')) {
+           output = (
+             <div>
+               <div className="text-red-500 font-bold mb-2">TOP SECRET // CLASSIFIED</div>
+               <div className="text-gray-300">Flag 3: CTF{'{terminal_master}'}</div>
+             </div>
+           );
+        } else {
+            output = (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {items.map(item => (
+                  <span key={item.name} className={item.type === 'directory' ? 'text-blue-400 font-bold' : 'text-gray-300'}>
+                    {item.name}{item.type === 'directory' ? '/' : ''}
+                  </span>
+                ))}
+            </div>
+            );
+        }
         break;
       }
 
@@ -177,6 +189,21 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
          output = 'Starting game...';
          // We might want to set a short timeout or just set mode immediately
          startGame('snake');
+         break;
+      }
+
+      case 'submit-flag': {
+         const flag = cmdArgs[0];
+         if (!flag) {
+           output = <span className="text-yellow-400">Usage: submit-flag CTF{'{...}'}</span>;
+         } else {
+           const success = submitFlag(flag);
+           if (success) {
+             output = <span className="text-green-500 font-bold">Flag Accepted! Access Level Increased.</span>;
+           } else {
+             output = <span className="text-red-500">Invalid Flag. This incident will be reported.</span>;
+           }
+         }
          break;
       }
 
