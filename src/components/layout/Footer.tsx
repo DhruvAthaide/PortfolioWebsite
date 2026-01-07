@@ -2,6 +2,8 @@ import React from "react";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
+import VisitorRecon from "../ui/VisitorRecon";
+
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
@@ -124,6 +126,8 @@ const Footer: React.FC = () => {
             &copy; {currentYear} Dhruv Athaide. All rights reserved.
           </p>
         </div>
+        
+        <VisitorRecon />
       </div>
     </footer>
   );

@@ -63,9 +63,14 @@ const Home: React.FC = () => {
                 <ArrowRight size={16} className="ml-2" />
               </Link>
 
-              <Link to="/contact" className="btn btn-outline">
-                Contact Me
-              </Link>
+              <a 
+                href="/documents/DhruvAthaide_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+              >
+                Download CV
+              </a>
             </div>
 
             <div className="flex gap-6 mt-10 justify-center md:justify-start">
