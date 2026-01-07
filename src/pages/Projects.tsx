@@ -4,16 +4,29 @@ import ProjectCard from '../components/ui/ProjectCard';
 
 import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';
+import { useCTF } from '../context/CTFContext';
 
-type FilterStatus = 'all' | 'completed' | 'ongoing';
+type Category = 'All' | 'Android' | 'Web' | 'Security' | 'Python';
 
 const Projects: React.FC = () => {
-  const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
+  const { unlocked } = useCTF();
   
   const filteredProjects = projects.filter(project => {
-    if (filterStatus === 'all') return true;
-    return project.status === filterStatus;
+    if (activeCategory === 'All') return true;
+    return project.category === activeCategory;
   });
+
+  const secretProject = {
+    id: 'project-zero',
+    title: 'Project Zero: Classified',
+    description: 'A covert government surveillance tool that you were never supposed to see. Congratulations, Agent.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', // Matrix/Hacker style image
+    technologies: ['Quantum Crypto', 'Zero Day', 'Black Ops'],
+    github: '#',
+    status: 'ongoing' as const,
+    category: 'Security' as const
+  };
   
   return (
     <div className="relative pt-20">
@@ -40,43 +53,32 @@ const Projects: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="inline-flex bg-gray-200 dark:bg-dark-700 rounded-lg p-1">
-            <button
-              onClick={() => setFilterStatus('all')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                filterStatus === 'all'
-                  ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-secondary-900 shadow-sm'
-                  : 'text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900'
-              }`}
-            >
-              All Projects
-            </button>
-            <button
-              onClick={() => setFilterStatus('completed')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                filterStatus === 'completed'
-                  ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-secondary-900 shadow-sm'
-                  : 'text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900'
-              }`}
-            >
-              Completed
-            </button>
-            <button
-              onClick={() => setFilterStatus('ongoing')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                filterStatus === 'ongoing'
-                  ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-secondary-900 shadow-sm'
-                  : 'text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900'
-              }`}
-            >
-              Ongoing
-            </button>
+          <div className="inline-flex flex-wrap justify-center gap-2 bg-gray-200 dark:bg-dark-700 rounded-lg p-2 max-w-full overflow-x-auto">
+            {(['All', 'Android', 'Web', 'Security', 'Python'] as Category[]).map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  activeCategory === category
+                    ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-secondary-900 shadow-sm scale-105'
+                    : 'text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 hover:bg-gray-100 dark:hover:bg-dark-600/50'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {unlocked && (
+            <div className="border-2 border-red-500 rounded-xl overflow-hidden relative shadow-[0_0_20px_rgba(239,68,68,0.5)]">
+               <div className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10">TOP SECRET</div>
+               <ProjectCard project={secretProject} index={0} />
+            </div>
+          )}
           {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.id} project={project} index={index + (unlocked ? 1 : 0)} />
           ))}
         </div>
         

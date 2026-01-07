@@ -25,7 +25,8 @@ export const projects: Project[] = [
       'Implemented Coroutines and WorkManager for efficient background processing.',
       'Utilized the Android VPNService API to inspect local traffic packets securely.',
       'Optimized scanning algorithms to run only on file system changes.'
-    ]
+    ],
+    category: 'Android'
   },
   {
     id: 'dc-lockguard',
@@ -49,7 +50,8 @@ export const projects: Project[] = [
     solutions: [
       'Leveraged the DeviceAdminReceiver API to listen for precise system events.',
       'Implemented a background service that manages camera resources efficiently just for the capture moment.'
-    ]
+    ],
+    category: 'Android'
   },
   {
     id: 'android-webrtc-spyware',
@@ -58,7 +60,8 @@ export const projects: Project[] = [
     image: '/images/projects-android-webrtc-spyware.png',
     technologies: ['Python','Bokeh'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'ongoing'
+    status: 'ongoing',
+    category: 'Security'
   },
   {
     id: 'vanguard',
@@ -82,7 +85,8 @@ export const projects: Project[] = [
     solutions: [
       'Optimized Flutter rendering pipeline and used isolate threads for heavy data processing.',
       'Implemented a robust Provider-based state management system.'
-    ]
+    ],
+    category: 'Android'
   },
   {
     id: 'exifly',
@@ -91,7 +95,8 @@ export const projects: Project[] = [
     image: '/images/projects-exifly.png',
     technologies: ['Java','XML','Android Studio'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'completed'
+    status: 'completed',
+    category: 'Android'
   },
   {
     id: 'clipboard-canary',
@@ -101,7 +106,8 @@ export const projects: Project[] = [
     technologies: ['Java','XML','Android Studio'],
     github: 'https://github.com/DhruvAthaide/ClipboardCanary',
     // demo: '',
-    status: 'ongoing'
+    status: 'ongoing',
+    category: 'Android'
   },
   {
     id: 'mobilesentinel',
@@ -111,7 +117,8 @@ export const projects: Project[] = [
     technologies: ['Java','XML','Python','Android Studio'],
     github: 'https://github.com/DhruvAthaide/MobileSentinel',
     // demo: '',
-    status: 'ongoing'
+    status: 'ongoing',
+    category: 'Android'
   },
   {
     id: 'stockmarket-financialdashboard',
@@ -120,7 +127,8 @@ export const projects: Project[] = [
     image: '/images/projects-stockmarket-financialdashboard.jpg',
     technologies: ['Python','Bokeh'],
     github: 'https://github.com/DhruvAthaide/StockMarketFinancialDashboard',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'teckhack-2023',
@@ -129,7 +137,8 @@ export const projects: Project[] = [
     image: '/images/projects-teckhack-2023.jpg',
     technologies: ['React', 'Node.js', 'Firebase'],
     github: 'https://github.com/DhruvAthaide/EducationWallah',
-    status: 'completed'
+    status: 'completed',
+    category: 'Web'
   },
   {
     id: 'nirmaan-2023',
@@ -138,7 +147,8 @@ export const projects: Project[] = [
     image: '/images/projects-nirmaan-2023.png',
     technologies: ['HTML5', 'JavaScript', 'CSS3', 'PHP'],
     github: 'https://github.com/DhruvAthaide/WebWizards',
-    status: 'completed'
+    status: 'completed',
+    category: 'Web'
   },
   {
     id: 'stockmarket-analysis',
@@ -147,7 +157,8 @@ export const projects: Project[] = [
     image: '/images/projects-stockmarket-analysis.jpg',
     technologies: ['Python'],
     github: 'https://github.com/DhruvAthaide/StockMarketAnalysis',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'instagram-messaging-automation',
@@ -156,7 +167,8 @@ export const projects: Project[] = [
     image: '/images/projects-instagram-messaging-automation.png',
     technologies: ['Python', 'Selenium'],
     github: 'https://github.com/DhruvAthaide/Instagram-Messaging-Automation',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'instagram-automated-followers-scraper',
@@ -165,7 +177,8 @@ export const projects: Project[] = [
     image: '/images/projects-instagram-automated-followers-scraper.png',
     technologies: ['Python', 'Selenium'],
     github: 'https://github.com/DhruvAthaide/Instagram-Automated-Followers-Scraper',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'facebook-messaging-automation',
@@ -174,7 +187,8 @@ export const projects: Project[] = [
     image: '/images/projects-facebook-messaging-automation.png',
     technologies: ['Python', 'Selenium'],
     github: 'https://github.com/DhruvAthaide/Facebook-Messaging-Automation',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'twitter-messaging-automation',
@@ -183,7 +197,8 @@ export const projects: Project[] = [
     image: '/images/projects-twitter-messaging-automation.jpg',
     technologies: ['Python', 'Selenium'],
     github: 'https://github.com/DhruvAthaide/Twitter-Messaging-Automation',
-    status: 'completed'
+    status: 'completed',
+    category: 'Python'
   },
   {
     id: 'weather-application',
@@ -193,7 +208,8 @@ export const projects: Project[] = [
     technologies: ['HTML5', 'CSS3', 'JavaScript'],
     github: 'https://github.com/DhruvAthaide/WeatherApplication-2.0',
     demo: 'https://weatherapp2-da.netlify.app/',
-    status: 'completed'
+    status: 'completed',
+    category: 'Web'
   },
   {
     id: 'qr-code-generator',
@@ -203,6 +219,7 @@ export const projects: Project[] = [
     technologies: ['HTML5', 'CSS3', 'JavaScript'],
     github: 'https://github.com/DhruvAthaide/QR_Code_Generator',
     demo: 'https://qr-code-generator-da.netlify.app/',
-    status: 'completed'
-  },
+    status: 'completed',
+    category: 'Web'
+  }
 ];
