@@ -10,7 +10,7 @@ type Category = 'All' | 'Android' | 'Web' | 'Security' | 'Python';
 
 const Projects: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>('All');
-  const { unlocked } = useCTF();
+  const { unlocked, secretHidden, hideSecret } = useCTF();
   
   const filteredProjects = projects.filter(project => {
     if (activeCategory === 'All') return true;
@@ -71,13 +71,24 @@ const Projects: React.FC = () => {
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {unlocked && (
+          {unlocked && !secretHidden && (
             <ProjectCard 
               project={secretProject} 
               index={0} 
               className="border-2 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]"
             >
                <div className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10">TOP SECRET</div>
+               <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  hideSecret();
+                }}
+                className="absolute top-0 right-[85px] bg-dark-800 text-white hover:bg-red-600 p-1 rounded-bl-lg transition-colors z-20"
+                title="Hide Classified Project"
+               >
+                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+               </button>
             </ProjectCard>
           )}
           {filteredProjects.map((project, index) => (

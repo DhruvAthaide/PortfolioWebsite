@@ -4,6 +4,8 @@ interface CTFContextType {
   flagsFound: string[];
   submitFlag: (flag: string) => boolean;
   unlocked: boolean;
+  secretHidden: boolean;
+  hideSecret: () => void;
 }
 
 const CTFContext = createContext<CTFContextType | undefined>(undefined);
@@ -17,6 +19,7 @@ const FLAGS = {
 export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [flagsFound, setFlagsFound] = useState<string[]>([]);
   const [unlocked, setUnlocked] = useState(false);
+  const [secretHidden, setSecretHidden] = useState(false);
 
   useEffect(() => {
     // Load progress from local storage
@@ -27,6 +30,12 @@ export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (parsed.length === Object.keys(FLAGS).length) {
         setUnlocked(true);
       }
+    }
+    
+    // Load hidden state
+    const savedHidden = localStorage.getItem('ctf_secret_hidden');
+    if (savedHidden === 'true') {
+      setSecretHidden(true);
     }
 
     // Hide Flag 2: Console
@@ -58,6 +67,9 @@ export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       
       if (newFlags.length === validFlags.length) {
         setUnlocked(true);
+        // If they just unlocked it, make sure it's not hidden (in case they reset/re-did it)
+        setSecretHidden(false);
+        localStorage.setItem('ctf_secret_hidden', 'false');
         alert('🎉 CONGRATULATIONS! You have unlocked the Secret Project! Check the Projects page.');
       } else {
         alert(`🚩 Flag Captured! (${newFlags.length}/${validFlags.length})`);
@@ -66,9 +78,14 @@ export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     return false;
   };
+  
+  const hideSecret = () => {
+    setSecretHidden(true);
+    localStorage.setItem('ctf_secret_hidden', 'true');
+  };
 
   return (
-    <CTFContext.Provider value={{ flagsFound, submitFlag, unlocked }}>
+    <CTFContext.Provider value={{ flagsFound, submitFlag, unlocked, secretHidden, hideSecret }}>
       {children}
     </CTFContext.Provider>
   );
