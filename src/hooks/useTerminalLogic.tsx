@@ -213,7 +213,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
 
     setHistory(prev => [...prev, { input: cmdString, output, path: pathString }]);
     setHistoryIndex(-1); // Reset history index
-  }, [pathString, closeTerminal, ls, cd, cat, mkdir, touch, rm, matrixMode]);
+  }, [pathString, closeTerminal, ls, cd, cat, mkdir, touch, rm, matrixMode, submitFlag]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
