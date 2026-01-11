@@ -1,17 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Phone, Monitor, Briefcase, Languages } from 'lucide-react';
+import { MapPin, Mail, Monitor, Briefcase, Languages, Copy, Check } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaFacebook } from 'react-icons/fa';
 import ContactForm from '../components/ui/ContactForm';
 
 import SEO from '../components/utils/SEO';
+import { useState } from 'react';
 
 const Contact: React.FC = () => {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
   const contactInfo = [
-    { 
-      icon: <MapPin size={24} className="text-primary-600 dark:text-secondary-900" />,
-      title: 'Location',
-      content: 'Mumbai, India'
-    },
     { 
       icon: <Mail size={24} className="text-primary-600 dark:text-secondary-900" />,
       title: 'Email',
@@ -73,6 +77,20 @@ const Contact: React.FC = () => {
             <p className="text-lg text-dark-500 dark:text-gray-300 mb-10">
               Feel free to reach out to me for professional inquiries, collaborations, or just to say hello. I'm always open to discussing new projects, opportunities, and ideas.
             </p>
+
+            <div className="mb-10 rounded-xl overflow-hidden shadow-lg h-48 relative group">
+              <img 
+                src="/images/mumbai-map-stylized.png" 
+                alt="Mumbai, India Map" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                <div className="flex items-center gap-2 text-white">
+                  <MapPin size={18} className="text-secondary-400" />
+                  <span className="font-medium">Mumbai, India</span>
+                </div>
+              </div>
+            </div>
             
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
@@ -86,9 +104,24 @@ const Contact: React.FC = () => {
                   <div className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full">
                     {item.icon}
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-medium">{item.title}</h3>
-                    {item.isLink ? (
+                    {item.title === 'Email' ? (
+                      <div 
+                        className="flex items-center gap-2 cursor-pointer group"
+                        onClick={() => handleCopy(item.content, 'email')}
+                      >
+                        <span className="text-dark-500 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">
+                          {item.content}
+                        </span>
+                        {copiedId === 'email' ? (
+                          <Check size={14} className="text-green-500" />
+                        ) : (
+                          <Copy size={14} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        )}
+                        {copiedId === 'email' && <span className="text-xs text-green-500">Copied!</span>}
+                      </div>
+                    ) : item.isLink ? (
                       <a 
                         href={item.link} 
                         className="text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
@@ -113,8 +146,7 @@ const Contact: React.FC = () => {
                   className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                   aria-label="GitHub"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                  <FaGithub size={20} />
                 </a>
                 <a 
                   href="https://linkedin.com/in/dhruvathaide" 
@@ -123,8 +155,7 @@ const Contact: React.FC = () => {
                   className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                   aria-label="LinkedIn"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                  <FaLinkedin size={20} />
                 </a>
                 <a 
                   href="https://x.com/Dhruv_Athaide" 
@@ -133,8 +164,7 @@ const Contact: React.FC = () => {
                   className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                   aria-label="Twitter"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                  <FaTwitter size={20} />
                 </a>
                 <a 
                   href="https://www.youtube.com/channel/UC-lcp7FoBrTefpw2q9qpQrg" 
@@ -143,10 +173,7 @@ const Contact: React.FC = () => {
                   className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                   aria-label="YouTube"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-2C18.88 4 12 4 12 4s-6.88 0-8.59.42a2.78 2.78 0 0 0-1.95 2A29.94 29.94 0 0 0 1 12a29.94 29.94 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 2C5.12 20 12 20 12 20s6.88 0 8.59-.42a2.78 2.78 0 0 0 1.95-2A29.94 29.94 0 0 0 23 12a29.94 29.94 0 0 0-.46-5.58z"/>
-                    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
-                  </svg>
+                  <FaYoutube size={20} />
                 </a>
                 <a 
                   href="https://www.facebook.com/people/Dhruv-Athaide/pfbid02EJVMGTzJXBoGRbPzo1SN1c5qcV1gB6kvvrEQ7UPA9vp58jR3LvXRNUf3Gv1octvkl/" 
@@ -155,9 +182,7 @@ const Contact: React.FC = () => {
                   className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                   aria-label="Facebook"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                  </svg>
+                  <FaFacebook size={20} />
                 </a>
               </div>
             </div>

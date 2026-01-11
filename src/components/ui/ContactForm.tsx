@@ -8,6 +8,7 @@ const ContactForm = () => {
     email: '',
     subject: '',
     message: '',
+    p_number: '', // Honeypot field
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,6 +67,16 @@ const ContactForm = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    if (!validateForm()) return;
+
+    // Honeypot check - if field has value, it's a bot
+    if (formData.p_number) {
+      console.log('Bot detected via honeypot');
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '', subject: '', message: '', p_number: '' });
+      setTimeout(() => setSubmitSuccess(false), 5000);
+      return;
+    }
     
     // Rate Limiting is set to 2 messages per user identifier (email or unique ID).
     const email = formData.email;
@@ -130,7 +141,8 @@ const ContactForm = () => {
       const messageCountKey = `messageCount_${userIdentifier}`;
       const currentCount = parseInt(localStorage.getItem(messageCountKey) || '0', 10);
       localStorage.setItem(messageCountKey, String(currentCount + 1));
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      localStorage.setItem(messageCountKey, String(currentCount + 1));
+      setFormData({ name: '', email: '', subject: '', message: '', p_number: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (error) {
       console.error('EmailJS send error:', error);
@@ -171,6 +183,20 @@ const ContactForm = () => {
             </span>
           </div>
         )}
+
+        {/* Honeypot Field (Hidden) */}
+        <div className="hidden h-0 overflow-hidden" style={{ opacity: 0, position: 'absolute', zIndex: -1 }}>
+          <label htmlFor="p_number">Phone Number</label>
+          <input
+            type="text"
+            id="p_number"
+            name="p_number"
+            value={formData.p_number}
+            onChange={handleChange}
+            autoComplete="off"
+            tabIndex={-1}
+          />
+        </div>
 
         {/* Name Field */}
         <div>
