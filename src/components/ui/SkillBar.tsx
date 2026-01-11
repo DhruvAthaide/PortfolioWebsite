@@ -6,12 +6,14 @@ interface SkillBarProps {
   name: string;
   percentage: number;
   color?: string;
+  icon?: React.ElementType;
 }
 
 const SkillBar: React.FC<SkillBarProps> = ({ 
   name, 
   percentage, 
-  color = 'bg-secondary-900'
+  color = 'bg-secondary-900',
+  icon: Icon
 }) => {
   const barRef = React.useRef(null);
   const isInView = useInView(barRef, { once: true, amount: 0.3 });
@@ -29,7 +31,10 @@ const SkillBar: React.FC<SkillBarProps> = ({
   return (
     <div ref={barRef} className="mb-6">
       <div className="flex justify-between items-center mb-2">
-        <h3 className="text-lg font-medium">{name}</h3>
+        <div className="flex items-center gap-2">
+          {Icon && <Icon className="text-lg text-primary-600 dark:text-secondary-900" />}
+          <h3 className="text-lg font-medium">{name}</h3>
+        </div>
         <span className="text-sm font-medium">{percentage}%</span>
       </div>
       <div className="w-full h-3 bg-gray-200 dark:bg-dark-600 rounded-full overflow-hidden">
