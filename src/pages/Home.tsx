@@ -5,6 +5,9 @@ import SEO from "../components/utils/SEO";
 import GlitchText from "../components/ui/GlitchText";
 import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
+import TechMarquee from "../components/ui/TechMarquee";
+import { projects } from "../data/projects";
+import ProjectCard from "../components/ui/ProjectCard";
 const Home: React.FC = () => {
   return (
     <div className="relative">
@@ -108,8 +111,8 @@ const Home: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-secondary-900 rounded-full blur opacity-75 animate-pulse-slow"></div>
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-secondary-900 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
                 <img
                   src="/images/home-DhruvAthaide.png"
                   alt="Dhruv Athaide"
@@ -117,6 +120,40 @@ const Home: React.FC = () => {
                 />
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Marquee */}
+      <TechMarquee />
+
+      {/* Featured Projects */}
+      <section className="py-20 bg-white dark:bg-dark-900">
+        <div className="container-custom">
+          <div className="flex justify-between items-end mb-12">
+            <div>
+                <h2 className="section-title mb-2">Featured Projects</h2>
+                <p className="text-dark-500 dark:text-gray-400 max-w-2xl">
+                    A selection of my recent work in Android security and Red Teaming.
+                </p>
+            </div>
+            <Link to="/projects" className="hidden md:flex items-center gap-2 text-primary-600 dark:text-secondary-400 font-medium hover:underline">
+                View All Projects <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects
+                .filter(p => p.id === 'dc-guardient' || p.id === 'dc-nosurveil')
+                .map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+
+          <div className="mt-8 text-center md:hidden">
+            <Link to="/projects" className="btn btn-outline inline-flex items-center gap-2">
+                View All Projects <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
