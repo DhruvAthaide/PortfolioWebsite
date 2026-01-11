@@ -7,7 +7,10 @@ interface TimelineItemProps {
   period: string;
   description: string;
   index: number;
+  certificate?: string;
 }
+
+import { FileText } from 'lucide-react';
 
 const TimelineItem: React.FC<TimelineItemProps> = ({
   title,
@@ -15,6 +18,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   period,
   description,
   index,
+  certificate,
 }) => {
   return (
     <motion.div 
@@ -28,7 +32,19 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
       <div className="mb-1 text-sm text-gray-500 dark:text-gray-400">{period}</div>
       <h3 className="text-xl font-bold">{title}</h3>
       <div className="text-primary-600 dark:text-secondary-900 mb-2">{organization}</div>
-      <p className="text-dark-500 dark:text-gray-300">{description}</p>
+      <p className="text-dark-500 dark:text-gray-300 mb-3">{description}</p>
+      
+      {certificate && (
+        <a 
+          href={certificate} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-secondary-900 hover:underline mt-2"
+        >
+          <FileText size={16} />
+          <span>View Completion Letter</span>
+        </a>
+      )}
     </motion.div>
   );
 };

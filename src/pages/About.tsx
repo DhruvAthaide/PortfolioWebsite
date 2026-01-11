@@ -144,6 +144,7 @@ const About: React.FC = () => {
                     organization={item.organization}
                     period={item.period}
                     description={item.description}
+                    certificate={item.certificate}
                     index={index}
                   />
                 ))}

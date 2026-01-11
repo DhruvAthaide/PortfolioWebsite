@@ -39,25 +39,29 @@ export const workExperience = [
     title: 'Red Team & Mobile Dev - Intern Team Lead',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'July 2024 - June 2025',
-    description: 'Led a team of +60 Red Team members in conducting advanced penetration testing and vulnerability assessments for high-profile clients. Developed and automated over 100+ custom tools and scripts to enhance testing efficiency and effectiveness. Helped in the development of a Software-as-a-Service (SaaS) platform for automated penetration testing, significantly reducing the time required for security assessments.'
+    description: 'Led a team of +60 Red Team members in conducting advanced penetration testing and vulnerability assessments for high-profile clients. Developed and automated over 100+ custom tools and scripts to enhance testing efficiency and effectiveness. Helped in the development of a Software-as-a-Service (SaaS) platform for automated penetration testing, significantly reducing the time required for security assessments.',
+    certificate: '/documents/DeepcytesJuly24-June25_Internship_CompletionLetter.pdf'
   },
   {
     title: 'Production & Software Testing Intern',
     organization: 'Truboard Partners',
     period: 'June 2024 - August 2024',
-    description: 'Trained a Covenant Machine Learning Model, improving the precision of business application predictions. Assisted in software testing and production processes, focusing on quality assurance and security compliance.'
+    description: 'Trained a Covenant Machine Learning Model, improving the precision of business application predictions. Assisted in software testing and production processes, focusing on quality assurance and security compliance.',
+    certificate: '/documents/TruBoard_Internship_CompletionLetter.pdf'
   },
   {
     title: 'Artificial Intelligence - Intern Team Lead',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'Jan 2024 - May 2024',
-    description: 'Led a team of +15 AI researchers to develop advanced machine learning models for threat detection and response. Researched and implemented Digital Twins technology to enhance cybersecurity measures.'
+    description: 'Led a team of +15 AI researchers to develop advanced machine learning models for threat detection and response. Researched and implemented Digital Twins technology to enhance cybersecurity measures.',
+    certificate: '/documents/DeepcytesJan-July24_Internship_CompletionLetter.pdf'
   },
   {
     title: 'Artificial Intelligence & Deep Web Internship',
     organization: 'Deepcytes Cyber Labs (UK)',
     period: 'July 2023 - December 2023',
-    description: 'Worked on AI-driven cybersecurity solutions, focusing on deep web threat intelligence and automated vulnerability detection.'
+    description: 'Worked on AI-driven cybersecurity solutions, focusing on deep web threat intelligence and automated vulnerability detection.',
+    certificate: '/documents/DeepcytesJuly-Dec23_Internship_CompletionLetter.pdf'
   }
 ];
 
