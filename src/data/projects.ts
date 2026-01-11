@@ -35,7 +35,7 @@ export const projects: Project[] = [
     image: '/images/projects-dc-nosurveil.png',
     technologies: ['Kotlin','XML','Android Studio'],
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.nosurveil',
-    status: 'completed',
+    status: 'ongoing',
     longDescription: 'NoSurveil is an advanced anti-surveillance Android application built for Deepcytes Cyber Labs (UK) and its built to identify physical stalking and covert tracking threats. It uses heuristic spatial-temporal analysis to correlate a user\'s movement with nearby devices, detecting persistent following patterns rather than simple proximity. The app combines real-time BLE scanning, local-first data processing, and visual threat reporting to surface potential trackers while preserving user privacy.',
     features: [
       'Heuristic following detection via movement correlation',
