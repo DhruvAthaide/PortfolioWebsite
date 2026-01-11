@@ -4,6 +4,7 @@ import { Download } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 import SkillBar from '../components/ui/SkillBar';
 import TimelineItem from '../components/ui/TimelineItem';
+import Stats from '../components/ui/Stats';
 
 import SEO from '../components/utils/SEO';
 import GlitchText from '../components/ui/GlitchText';
@@ -96,6 +97,9 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Quick Stats */}
+        <Stats />
+
         {/* Tabbed Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -117,19 +121,19 @@ const About: React.FC = () => {
                 <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md">
                   <h3 className="text-xl font-bold mb-4 text-primary-600 dark:text-secondary-900">Technical Security</h3>
                   {technicalSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} color="bg-primary-600 dark:bg-secondary-900" />
+                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-primary-600 dark:bg-secondary-900" />
                   ))}
                 </div>
                 <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md">
                   <h3 className="text-xl font-bold mb-4 text-blue-500">Programming</h3>
                   {programmingSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} color="bg-blue-500 dark:bg-blue-400" />
+                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-blue-500 dark:bg-blue-400" />
                   ))}
                 </div>
                 <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md">
                   <h3 className="text-xl font-bold mb-4 text-green-500">Tools</h3>
                   {toolsSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} color="bg-green-500 dark:bg-green-400" />
+                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-green-500 dark:bg-green-400" />
                   ))}
                 </div>
               </div>
@@ -145,6 +149,7 @@ const About: React.FC = () => {
                     period={item.period}
                     description={item.description}
                     certificate={item.certificate}
+                    logo={item.logo}
                     index={index}
                   />
                 ))}
