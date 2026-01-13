@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ProjectCard from '../components/ui/ProjectCard';
+import ProjectCard, { Project } from '../components/ui/ProjectCard';
 
 import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';
@@ -14,10 +14,10 @@ const Projects: React.FC = () => {
   
   const filteredProjects = projects.filter(project => {
     if (activeCategory === 'All') return true;
-    return project.category === activeCategory;
+    return project.category.includes(activeCategory);
   });
 
-  const secretProject = {
+  const secretProject: Project = {
     id: 'project-zero',
     title: 'Project Zero: Classified',
     description: 'A covert government surveillance tool that you were never supposed to see. Congratulations, Agent.',
@@ -25,7 +25,7 @@ const Projects: React.FC = () => {
     technologies: ['Quantum Crypto', 'Zero Day', 'Black Ops'],
     github: '#',
     status: 'ongoing' as const,
-    category: 'Security' as const
+    category: ['Security']
   };
   
   return (

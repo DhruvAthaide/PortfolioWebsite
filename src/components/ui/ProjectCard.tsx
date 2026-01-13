@@ -20,7 +20,7 @@ export interface Project {
   solutions?: string[];
   features?: string[];
   screenshots?: string[];
-  category: 'Android' | 'Web' | 'Security' | 'Python' | 'Other';
+  category: ('Android' | 'Web' | 'Security' | 'Python' | 'Other')[];
 }
 
 interface ProjectCardProps {
