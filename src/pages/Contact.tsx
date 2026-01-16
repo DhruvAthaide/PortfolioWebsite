@@ -78,16 +78,22 @@ const Contact: React.FC = () => {
               Feel free to reach out to me for professional inquiries, collaborations, or just to say hello. I'm always open to discussing new projects, opportunities, and ideas.
             </p>
 
-            <div className="mb-10 rounded-xl overflow-hidden shadow-lg h-48 relative group">
+            <div className="mb-10 rounded-xl overflow-hidden shadow-lg h-64 relative group border border-gray-200 dark:border-dark-600 bg-black">
               <img 
-                src="/images/mumbai-map-stylized.png" 
-                alt="Mumbai, India Map" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                src="/images/india-map-stylized.png" 
+                alt="India Map" 
+                className="w-full h-full object-cover object-center scale-110 opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                <div className="flex items-center gap-2 text-white">
-                  <MapPin size={18} className="text-secondary-400" />
-                  <span className="font-medium">Mumbai, India</span>
+              {/* Pulsing Dot for Mumbai */}
+              <div className="absolute top-[65%] left-[28%] flex items-center justify-center">
+                <div className="w-3 h-3 bg-red-600 rounded-full animate-ping absolute"></div>
+                <div className="w-2 h-2 bg-red-600 rounded-full relative z-10 shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
+              </div>
+
+               <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full border border-secondary-900/30">
+                <div className="flex items-center gap-2 text-white text-xs">
+                  <MapPin size={12} className="text-secondary-400" />
+                  <span className="font-mono tracking-wider">MUMBAI, IN</span>
                 </div>
               </div>
             </div>
@@ -96,94 +102,67 @@ const Contact: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <motion.div 
                   key={index}
-                  className="flex items-start gap-4"
+                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-white/50 dark:hover:bg-dark-700/50 transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
                 >
-                  <div className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full">
+                  <div className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-primary-600 dark:text-secondary-900 shadow-sm">
                     {item.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium">{item.title}</h3>
+                    <h3 className="font-medium text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{item.title}</h3>
                     {item.title === 'Email' ? (
                       <div 
-                        className="flex items-center gap-2 cursor-pointer group"
+                        className="flex items-center gap-2 cursor-pointer group w-max"
                         onClick={() => handleCopy(item.content, 'email')}
                       >
-                        <span className="text-dark-500 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">
+                        <span className="text-lg font-medium text-dark-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">
                           {item.content}
                         </span>
                         {copiedId === 'email' ? (
-                          <Check size={14} className="text-green-500" />
+                          <Check size={16} className="text-green-500" />
                         ) : (
-                          <Copy size={14} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <Copy size={16} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                         )}
-                        {copiedId === 'email' && <span className="text-xs text-green-500">Copied!</span>}
+                        {copiedId === 'email' && <span className="text-xs text-green-500 font-medium">Copied!</span>}
                       </div>
                     ) : item.isLink ? (
                       <a 
                         href={item.link} 
-                        className="text-dark-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
+                        className="text-lg font-medium text-dark-900 dark:text-white hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
                       >
                         {item.content}
                       </a>
                     ) : (
-                      <p className="text-dark-500 dark:text-gray-300">{item.content}</p>
+                      <p className="text-lg font-medium text-dark-900 dark:text-white">{item.content}</p>
                     )}
                   </div>
                 </motion.div>
               ))}
             </div>
             
-            <div className="mt-10">
-              <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
-              <div className="flex gap-4">
-                <a 
-                  href="https://github.com/DhruvAthaide/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
-                  aria-label="GitHub"
-                >
-                  <FaGithub size={20} />
-                </a>
-                <a 
-                  href="https://linkedin.com/in/dhruvathaide" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin size={20} />
-                </a>
-                <a 
-                  href="https://x.com/Dhruv_Athaide" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
-                  aria-label="Twitter"
-                >
-                  <FaTwitter size={20} />
-                </a>
-                <a 
-                  href="https://www.youtube.com/channel/UC-lcp7FoBrTefpw2q9qpQrg" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
-                  aria-label="YouTube"
-                >
-                  <FaYoutube size={20} />
-                </a>
-                <a 
-                  href="https://www.facebook.com/people/Dhruv-Athaide/pfbid02EJVMGTzJXBoGRbPzo1SN1c5qcV1gB6kvvrEQ7UPA9vp58jR3LvXRNUf3Gv1octvkl/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-dark-700 rounded-full text-dark-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
-                  aria-label="Facebook"
-                >
-                  <FaFacebook size={20} />
-                </a>
+            <div className="mt-12">
+              <h3 className="text-xl font-bold mb-6">Connect With Me</h3>
+              <div className="flex flex-wrap gap-4">
+                {[
+                    { icon: FaGithub, link: "https://github.com/DhruvAthaide/", label: "GitHub" },
+                    { icon: FaLinkedin, link: "https://linkedin.com/in/dhruvathaide", label: "LinkedIn" },
+                    { icon: FaTwitter, link: "https://x.com/Dhruv_Athaide", label: "Twitter" },
+                    { icon: FaYoutube, link: "https://www.youtube.com/channel/UC-lcp7FoBrTefpw2q9qpQrg", label: "YouTube" },
+                    { icon: FaFacebook, link: "https://www.facebook.com/people/Dhruv-Athaide/pfbid02EJVMGTzJXBoGRbPzo1SN1c5qcV1gB6kvvrEQ7UPA9vp58jR3LvXRNUf3Gv1octvkl/", label: "Facebook" }
+                ].map((social, idx) => (
+                    <a 
+                    key={idx}
+                    href={social.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-4 bg-white dark:bg-dark-700 rounded-xl text-dark-600 dark:text-gray-300 hover:text-white hover:bg-primary-600 dark:hover:bg-secondary-900 dark:hover:text-dark-900 transition-all duration-300 shadow-md hover:-translate-y-1"
+                    aria-label={social.label}
+                    >
+                    <social.icon size={22} />
+                    </a>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -193,9 +172,10 @@ const Contact: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white dark:bg-dark-700 rounded-lg shadow-lg p-8"
+            className="bg-white/60 dark:bg-dark-700/60 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 dark:border-dark-600 p-8 h-fit sticky top-24"
           >
-            <h2 className="text-2xl font-bold mb-6">Send Me a Message</h2>
+            <h2 className="text-2xl font-bold mb-2">Send a Message</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm">I'll get back to you as soon as possible.</p>
             <ContactForm />
           </motion.div>
         </div>
