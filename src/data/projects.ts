@@ -2,33 +2,6 @@ import { Project } from '../components/ui/ProjectCard';
 
 export const projects: Project[] = [
   {
-    id: 'dc-guardient',
-    title: 'Guardient',
-    description: 'A mobile threat defense Android app that detects risky applications using permission intelligence, heuristic risk scoring, and cloud-verified file scanning.',
-    image: '/images/projects-dc-guardient.png',
-    technologies: ['Kotlin','XML','Azure','Android Studio'],
-    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
-    status: 'completed',
-    longDescription: 'Guardient is a mobile threat defense application developed for Deepcytes Cyber Labs (UK) that analyzes Android apps and files using permission-based heuristics instead of traditional signature-only detection. It performs SHA-256 cloud-verified file scanning and evaluates dangerous permission combinations to generate clear risk scores, while remaining lightweight and performance-efficient.',
-    features: [
-      'Cloud-verified file scanning using SHA-256 hashes',
-      'Permission-based heuristic risk scoring',
-      'Detection of dangerous permission combinations',
-      'App source verification and secure app management'
-    ],
-    challenges: [
-      'Scanning large file systems without impacting device performance.',
-      'Identifying risky applications without relying on known malware signatures.',
-      'Ensuring reliable background execution across different Android versions.'
-    ],
-    solutions: [
-      'Implemented optimized background scanning using Kotlin Coroutines and Foreground Services.',
-      'Designed a heuristic risk-scoring model based on permission combinations and app sources.',
-      'Used intelligent caching with cloud-verified SHA-256 checks to reduce scan overhead.'
-    ],
-    category: ['Android', 'Security']
-  },
-  {
     id: 'dc-nosurveil',
     title: 'NoSurveil',
     description: 'A privacy-first Android app that detects physical and digital tracking using heuristic location analysis and real-time Bluetooth scanning.',
@@ -82,6 +55,33 @@ export const projects: Project[] = [
       'Leveraged Accessibility Services to observe unlock-related system events.',
       'Implemented controlled audio focus handling for alerts with immediate release.',
       'Designed a fully local, encrypted storage model with automated retention policies.'
+    ],
+    category: ['Android', 'Security']
+  },
+  {
+    id: 'dc-guardient',
+    title: 'Guardient',
+    description: 'A mobile threat defense Android app that detects risky applications using permission intelligence, heuristic risk scoring, and cloud-verified file scanning.',
+    image: '/images/projects-dc-guardient.png',
+    technologies: ['Kotlin','XML','Azure','Android Studio'],
+    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
+    status: 'completed',
+    longDescription: 'Guardient is a mobile threat defense application developed for Deepcytes Cyber Labs (UK) that analyzes Android apps and files using permission-based heuristics instead of traditional signature-only detection. It performs SHA-256 cloud-verified file scanning and evaluates dangerous permission combinations to generate clear risk scores, while remaining lightweight and performance-efficient.',
+    features: [
+      'Cloud-verified file scanning using SHA-256 hashes',
+      'Permission-based heuristic risk scoring',
+      'Detection of dangerous permission combinations',
+      'App source verification and secure app management'
+    ],
+    challenges: [
+      'Scanning large file systems without impacting device performance.',
+      'Identifying risky applications without relying on known malware signatures.',
+      'Ensuring reliable background execution across different Android versions.'
+    ],
+    solutions: [
+      'Implemented optimized background scanning using Kotlin Coroutines and Foreground Services.',
+      'Designed a heuristic risk-scoring model based on permission combinations and app sources.',
+      'Used intelligent caching with cloud-verified SHA-256 checks to reduce scan overhead.'
     ],
     category: ['Android', 'Security']
   },
@@ -141,6 +141,34 @@ export const projects: Project[] = [
       
     ],
     category: ['Android']
+  },
+    {
+    id: 'tiltlock',
+    title: 'TiltLock',
+    description: 'A secure vault application that reimagines authentication using gyroscope-based tilt gestures and military-grade encryption.',
+    image: '/images/projects-tiltlock.png',
+    technologies: ['Kotlin', 'XML', 'Android Keystore', 'SensorManager', 'MVVM'],
+    github: 'https://github.com/DhruvAthaide/TiltLock',
+    status: 'completed',
+    longDescription: 'TiltLock is a privacy-focused Android application that replaces traditional PINs and patterns with "invisible" motion gestures. By leveraging the device\'s gyroscope, users create custom tilt sequences (e.g., Tilt Left -> Right -> Up) to unlock a secure vault. This motion-based authentication is naturally resistant to shoulder surfing. Under the hood, the app utilizes the Android Keystore system to fully encrypt files, ensuring that photos and documents remain inaccessible to other apps. It also features a "Break-In Monitor" that logs failed attempts and provides haptic feedback with a unique "Glitch" aesthetic for enhanced user feedback.',
+    features: [
+      'Motion-based authentication using raw gyroscope data',
+      'AES-256 encrypted secure vault for files and photos',
+      'Break-in attempt logging with timestamp tracking',
+      'Adaptive sensitivity settings for gesture detection',
+      'Dynamic parallax UI effects based on device orientation'
+    ],
+    challenges: [
+      'Distinguishing intentional gestures from natural hand tremors and noise.',
+      'Preventing accidental re-triggering of gestures while the device is still tilted.',
+      'Implementing secure file encryption without compromising read/write performance.'
+    ],
+    solutions: [
+      'Built a custom `TiltSensorManager` with a "Neutral-Reset" state machine and configurable thresholds.',
+      'Implemented on-the-fly stream encryption using `AES/GCM/NoPadding` to handle large files efficiently.',
+      'Designed a reactive UI with `ObjectAnimator` that provides real-time visual and haptic feedback to guide the user.'
+    ],
+    category: ['Android', 'Security']
   },
   {
     id: 'exifly',
