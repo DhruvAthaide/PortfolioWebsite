@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Github, Play, ExternalLink, Layers, Shield, Cpu, Lock } from 'lucide-react';
-import { projects as projectsData } from '../data/projects'; // Or directly from data if exported there
+import { ArrowLeft, Github, Play, ExternalLink, Layers, Shield, Cpu, Lock, ZoomIn } from 'lucide-react';
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import { projects as projectsData } from '../data/projects';
 import SEO from '../components/utils/SEO';
 
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   
   const project = projectsData.find(p => p.id === id);
+
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,12 +31,35 @@ const ProjectDetail: React.FC = () => {
     );
   }
 
+  // JSON-LD Structured Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": project.title,
+    "operatingSystem": "Android",
+    "applicationCategory": "SecurityApplication",
+    "description": project.description,
+    "image": window.location.origin + project.image,
+    "author": {
+      "@type": "Person",
+      "name": "Dhruv Athaide"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <div className="pt-20 min-h-screen pb-16">
       <SEO 
         title={`${project.title} | Project Case Study`}
         description={project.description}
       />
+      <script type="application/ld+json">
+        {JSON.stringify(jsonLd)}
+      </script>
 
       {/* Hero Header */}
       <div className="container-custom">
@@ -82,14 +110,31 @@ const ProjectDetail: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative group">
+          <div 
+             className="relative group cursor-pointer"
+             onClick={() => setOpen(true)}
+           >
              <div className="absolute -inset-2 bg-gradient-to-tr from-primary-600 to-secondary-900 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
-             <img 
-               src={project.image} 
-               alt={project.title}
-               className="relative w-full rounded-xl shadow-2xl border border-gray-200 dark:border-dark-700"
-             />
-          </div>
+             <div className="relative overflow-hidden rounded-xl">
+               <img 
+                 src={project.image} 
+                 alt={project.title}
+                 className="w-full shadow-2xl border border-gray-200 dark:border-dark-700 transition-transform duration-500 group-hover:scale-[1.02]"
+               />
+               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                 <div className="bg-black/50 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 text-white backdrop-blur-sm">
+                   <ZoomIn size={24} />
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           <Lightbox
+              open={open}
+              close={() => setOpen(false)}
+              slides={[{ src: project.image, alt: project.title }]}
+              plugins={[Zoom]}
+            />
         </motion.div>
 
         {/* Deep Dive Sections */}
