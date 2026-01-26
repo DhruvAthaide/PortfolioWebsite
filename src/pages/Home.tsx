@@ -162,7 +162,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {projects
-                .filter(p => p.id === 'dc-guardient' || p.id === 'dc-nosurveil')
+                .filter(p => p.featured)
                 .map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
             ))}

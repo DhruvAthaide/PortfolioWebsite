@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ProjectCard, { Project } from '../components/ui/ProjectCard';
+import ProjectCard from '../components/ui/ProjectCard';
+import { Project } from '../types';
 
 import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';

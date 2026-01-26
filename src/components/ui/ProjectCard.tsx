@@ -3,25 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Github, ExternalLink, Play } from 'lucide-react';
 
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  github?: string;
-  playstore?: string;
-  demo?: string;
-  status: 'completed' | 'ongoing';
-  
-  // New fields for Detailed Project Page
-  longDescription?: string;
-  challenges?: string[];
-  solutions?: string[];
-  features?: string[];
-  screenshots?: string[];
-  category: ('Android' | 'Web' | 'Security' | 'Python' | 'Other')[];
-}
+import { Project } from '../../types';
 
 interface ProjectCardProps {
   project: Project;

@@ -82,10 +82,10 @@ const Contact: React.FC = () => {
               <img 
                 src="/images/india-map-stylized.png" 
                 alt="India Map" 
-                className="w-full h-full object-cover object-center scale-110 opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+                className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
               />
-              {/* Pulsing Dot for Mumbai */}
-              <div className="absolute top-[65%] left-[28%] flex items-center justify-center">
+              {/* Pulsing Dot for Mumbai - Adjusted Position */}
+              <div className="absolute top-[67%] left-[26%] flex items-center justify-center">
                 <div className="w-3 h-3 bg-red-600 rounded-full animate-ping absolute"></div>
                 <div className="w-2 h-2 bg-red-600 rounded-full relative z-10 shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
               </div>

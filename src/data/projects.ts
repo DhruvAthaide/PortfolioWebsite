@@ -1,4 +1,4 @@
-import { Project } from '../components/ui/ProjectCard';
+import { Project } from '../types';
 
 export const projects: Project[] = [
   {
@@ -10,6 +10,7 @@ export const projects: Project[] = [
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.nosurveil',
     status: 'ongoing',
     longDescription: 'NoSurveil is an advanced anti-surveillance Android application built for Deepcytes Cyber Labs (UK) and its built to identify physical stalking and covert tracking threats. It uses heuristic spatial-temporal analysis to correlate a user\'s movement with nearby devices, detecting persistent following patterns rather than simple proximity. The app combines real-time BLE scanning, local-first data processing, and visual threat reporting to surface potential trackers while preserving user privacy.',
+    featured: true,
     features: [
       'Heuristic following detection via movement correlation',
       'Real-time Bluetooth LE tracker scanning',
@@ -37,6 +38,7 @@ export const projects: Project[] = [
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguard',
     status: 'completed',
     longDescription: 'LockGuard is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. All data is encrypted and stored entirely on-device, with no cloud interaction, ensuring stealth operation and privacy-by-design.',
+    featured: true,
     features: [
       'Automatic intruder photo capture on failed unlock attempts',
       'Optional audit capture on successful unlocks',
@@ -67,6 +69,7 @@ export const projects: Project[] = [
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
     status: 'completed',
     longDescription: 'Guardient is a mobile threat defense application developed for Deepcytes Cyber Labs (UK) that analyzes Android apps and files using permission-based heuristics instead of traditional signature-only detection. It performs SHA-256 cloud-verified file scanning and evaluates dangerous permission combinations to generate clear risk scores, while remaining lightweight and performance-efficient.',
+    featured: true,
     features: [
       'Cloud-verified file scanning using SHA-256 hashes',
       'Permission-based heuristic risk scoring',

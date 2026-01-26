@@ -10,8 +10,11 @@ import SEO from '../components/utils/SEO';
 
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   
-  const project = projectsData.find(p => p.id === id);
+  const projectIndex = projectsData.findIndex(p => p.id === id);
+  const project = projectsData[projectIndex];
+  const nextProject = projectsData[(projectIndex + 1) % projectsData.length];
 
   const [open, setOpen] = React.useState(false);
 
@@ -219,7 +222,33 @@ const ProjectDetail: React.FC = () => {
             
           </div>
         )}
-      </div>
+
+        {/* Next Project Navigation */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="mt-24 pt-12 border-t border-gray-200 dark:border-dark-700"
+        >
+           <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6">Next Project</h3>
+           <div 
+             className="group relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+             onClick={() => navigate(`/projects/${nextProject.id}`)}
+           >
+              <img 
+                src={nextProject.image} 
+                alt={nextProject.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-dark-900/60 dark:bg-dark-900/80 transition-colors group-hover:bg-dark-900/40 flex flex-col justify-center px-10">
+                 <h4 className="text-3xl font-bold text-white mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">{nextProject.title}</h4>
+                 <div className="flex items-center text-primary-400 font-medium opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75">
+                    View Case Study <ArrowLeft className="ml-2 rotate-180" size={20} />
+                 </div>
+              </div>
+           </div>
+        </motion.div>
+    </div>
     </div>
   );
 };
