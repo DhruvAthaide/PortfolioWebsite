@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, Loader2 } from 'lucide-react';
 import { ThemeProvider } from './context/ThemeContext';
+import { SoundProvider } from './context/SoundContext';
 import { TerminalProvider, useTerminal } from './context/TerminalContext';
 import { CTFProvider } from './context/CTFContext';
 import Navbar from './components/layout/Navbar';
@@ -68,34 +69,36 @@ function App() {
   
   return (
     <ThemeProvider>
-      <TerminalProvider>
-        <CTFProvider>
-          <div className="flex flex-col min-h-screen cursor-none relative">
-            <InteractiveBackground />
-          <CustomCursor />
-          <Navbar />
-          
-          <main className="flex-grow z-10 w-full">
-            <AnimatePresence mode="wait">
-              <Suspense fallback={<LoadingFallback />}>
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/projects/:id" element={<ProjectDetail />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </AnimatePresence>
-          </main>
-          
-          <Footer />
-            <Terminal />
-            <TerminalToggle />
-          </div>
-        </CTFProvider>
-      </TerminalProvider>
+      <SoundProvider>
+        <TerminalProvider>
+          <CTFProvider>
+            <div className="flex flex-col min-h-screen cursor-none relative">
+              <InteractiveBackground />
+              <CustomCursor />
+              <Navbar />
+              
+              <main className="flex-grow z-10 w-full">
+                <AnimatePresence mode="wait">
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Routes location={location} key={location.pathname}>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/about" element={<About />} />
+                      <Route path="/projects" element={<Projects />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/projects/:id" element={<ProjectDetail />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </AnimatePresence>
+              </main>
+              
+              <Footer />
+              <Terminal />
+              <TerminalToggle />
+            </div>
+          </CTFProvider>
+        </TerminalProvider>
+      </SoundProvider>
     </ThemeProvider>
   );
 }
