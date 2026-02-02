@@ -10,7 +10,7 @@ const SkillGraph: React.FC = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const fgRef = useRef<any>();
-  const [graphData, setGraphData] = useState({ nodes: [], links: [] });
+  const [graphData, setGraphData] = useState<{ nodes: any[]; links: any[] }>({ nodes: [], links: [] });
   const [searchQuery, setSearchQuery] = useState('');
   const [isRotating, setIsRotating] = useState(true);
   
@@ -88,34 +88,41 @@ const SkillGraph: React.FC = () => {
       let frameId: number;
       const rotate = () => {
           if (fgRef.current && isRotating) {
-              angleRef.current += 0.002; // Slower, smoother rotation
+              angleRef.current += 0.002;
+              
               const distance = 300;
               const x = distance * Math.sin(angleRef.current);
               const z = distance * Math.cos(angleRef.current);
               
-              // Only update if controls exist
-              if(fgRef.current.cameraPosition) {
-                  const currentCamera = fgRef.current.cameraPosition();
-                  fgRef.current.cameraPosition({ x, y: currentCamera.y, z });
+              // Only update if controls exist and function is available
+              if(fgRef.current && fgRef.current.cameraPosition) {
+                  // Wrap in try-catch to avoid crash if method is unavail temporarily
+                  try {
+                      const currentCamera = fgRef.current.cameraPosition();
+                      if (currentCamera) {
+                          fgRef.current.cameraPosition({ x, y: currentCamera.y, z });
+                      }
+                  } catch (e) {
+                      // Silently fail frame
+                  }
               }
           }
           frameId = requestAnimationFrame(rotate);
       };
       rotate();
 
-      // 2. Control Limits (Run periodically to ensure controls are ready)
+      // 2. Control Limits
       const interval = setInterval(() => {
-          if (fgRef.current) {
+          if (fgRef.current && fgRef.current.controls) {
               const controls = fgRef.current.controls();
               if (controls) {
-                  controls.minDistance = 10;   // Very close
-                  controls.maxDistance = 1000; // Very far
+                  controls.minDistance = 10;
+                  controls.maxDistance = 1000;
                   controls.enableDamping = true;
                   controls.dampingFactor = 0.1;
                   controls.rotateSpeed = 0.5;
                   controls.zoomSpeed = 1;
                   controlsConfigured.current = true;
-                  // Clear interval once found? No, keep checking in case graph re-renders
               }
           }
       }, 1000);
@@ -128,7 +135,9 @@ const SkillGraph: React.FC = () => {
 
   const handleNodeClick = (node: any) => {
       setIsRotating(false);
-      // Smart Zoom: If Project, go closer. If Skill, just focus.
+      
+      if (!fgRef.current) return;
+
       const distance = node.group === 'project' ? 50 : 80;
       const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
 
@@ -141,7 +150,7 @@ const SkillGraph: React.FC = () => {
       if (node.group === 'project' && node.projectId) {
            setTimeout(() => {
               navigate(`/projects/${node.projectId}`);
-          }, 1500); // Wait for zoom
+          }, 1500); 
       }
   };
 
@@ -154,7 +163,6 @@ const SkillGraph: React.FC = () => {
           handleNodeClick(node);
           setSearchQuery('');
       } else {
-          // Simple visual feedback instead of alert
           const input = document.getElementById('skill-search-input');
           if(input) {
               input.classList.add('border-red-500');
@@ -178,9 +186,12 @@ const SkillGraph: React.FC = () => {
             onNodeClick={handleNodeClick}
             nodeOpacity={0.9}
             linkOpacity={0.2}
-            nodeResolution={16} // Higher quality spheres
+            nodeResolution={16}
             onEngineStop={() => {
-                // Initial zoom fit logic if needed
+                // Ensure visible on load
+                if (fgRef.current) {
+                    fgRef.current.zoomToFit(400);
+                }
             }}
             showNavInfo={false}
             controlType="orbit"
