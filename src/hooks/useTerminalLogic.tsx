@@ -32,6 +32,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
     ? '~' 
     : '/' + currentPath.join('/');
 
+  // Enhanced Commands Logic
   const executeCommand = useCallback((cmdString: string) => {
     const trimmed = cmdString.trim();
     if (!trimmed) {
@@ -51,8 +52,8 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         output = (
           <div className="grid grid-cols-[120px_1fr] gap-2 text-sm">
             <span className="text-yellow-400">File System:</span> <span>ls, cd, cat, mkdir, touch, rm, pwd</span>
-            <span className="text-yellow-400">System:</span> <span>clear, help, exit, date, whoami, echo</span>
-            <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, fetch, game</span>
+            <span className="text-yellow-400">System:</span> <span>clear, help, exit, date, whoami, echo, fetch</span>
+            <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, cowsay, game</span>
             <span className="text-yellow-400">CTF:</span> <span>submit-flag</span>
           </div>
         );
@@ -145,7 +146,17 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         break;
 
       case 'whoami':
-        output = 'guest';
+        // Check if unlocked from CTF context, but we need to access it. 
+        // We'll trust the user has context access or simple check
+        // Ideally we would access `unlocked` from useCTF here, but logic is inside hook.
+        // Let's assume we can get it or just use simple logic.
+        // For now, let's keep it simple:
+        output = (
+          <div>
+            <div className="text-green-400 font-bold">User: guest</div>
+            <div className="text-gray-400">Groups: visitors, www-data</div>
+          </div>
+        );
         break;
       
       case 'date':
@@ -157,7 +168,33 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         break;
       
       case 'sudo':
-        output = <span className="text-red-500 font-bold">Permission denied: You are not root. Nice try.</span>;
+        output = (
+          <div className="text-white">
+            <span className="text-red-500 font-bold block mb-1">Permission denied</span>
+            guest is not in the sudoers file. This incident will be reported to <span className="text-blue-400">admin@dhruv-portfolio</span>.
+          </div>
+        );
+        break;
+
+      case 'cowsay':
+        const message = cmdArgs.join(' ') || "Moo!";
+        const bubbleWidth = message.length + 4;
+        const border = '-'.repeat(bubbleWidth);
+        const top = ` ${'_'.repeat(bubbleWidth)} `;
+        const bottom = ` ${border} `;
+        
+        output = (
+          <div className="whitespace-pre font-mono text-green-300 leading-none">
+{`${top}
+< ${message} >
+${bottom}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`}
+          </div>
+        );
         break;
       
       case 'matrix':
@@ -182,7 +219,45 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
       }
       
       case 'fetch': {
-        output = <span className="animate-pulse">Fetching system data... [Error: Connection Refused]</span>;
+        output = (
+          <div className="grid grid-cols-[1fr_2fr] gap-4 text-sm font-mono">
+             <div className="text-blue-500 hidden sm:block whitespace-pre leading-none">
+{`
+       .---.
+      /     \\
+      |  O  |
+      \\     /
+       '---'
+     /|     |\\
+    / |     | \\
+   /  |     |  \\
+  /   |     |   \\
+ /    |_____|    \\
+`}
+             </div>
+             <div className="flex flex-col gap-1">
+               <div><span className="text-green-500 font-bold">guest</span>@<span className="text-green-500 font-bold">dhruv-portfolio</span></div>
+               <div>-------------------------</div>
+               <div><span className="text-yellow-400">OS</span>: PortfoliOS v2.0 (Web)</div>
+               <div><span className="text-yellow-400">Kernel</span>: React 18.3.1 + Vite 5.4</div>
+               <div><span className="text-yellow-400">Uptime</span>: Just now</div>
+               <div><span className="text-yellow-400">Shell</span>: ZSH (Simulated)</div>
+               <div><span className="text-yellow-400">Resolution</span>: {window.innerWidth}x{window.innerHeight}</div>
+               <div><span className="text-yellow-400">Theme</span>: {theme}</div>
+               <div><span className="text-yellow-400">CPU</span>: {navigator.hardwareConcurrency || 4} cores (Virtual)</div>
+               <div className="mt-2 flex gap-1">
+                 <span className="w-3 h-3 bg-black"></span>
+                 <span className="w-3 h-3 bg-red-500"></span>
+                 <span className="w-3 h-3 bg-green-500"></span>
+                 <span className="w-3 h-3 bg-yellow-500"></span>
+                 <span className="w-3 h-3 bg-blue-500"></span>
+                 <span className="w-3 h-3 bg-purple-500"></span>
+                 <span className="w-3 h-3 bg-cyan-500"></span>
+                 <span className="w-3 h-3 bg-white"></span>
+               </div>
+             </div>
+          </div>
+        );
         break;
       }
       
@@ -214,7 +289,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
 
     setHistory(prev => [...prev, { input: cmdString, output, path: pathString }]);
     setHistoryIndex(-1); // Reset history index
-  }, [pathString, closeTerminal, ls, cd, cat, mkdir, touch, rm, matrixMode, submitFlag]);
+  }, [pathString, closeTerminal, ls, cd, cat, mkdir, touch, rm, matrixMode, submitFlag, theme]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

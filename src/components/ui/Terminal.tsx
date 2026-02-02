@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Terminal as TerminalIcon, Maximize2, Minimize2 } from 'lucide-react';
 import { useTerminal } from '../../context/TerminalContext';
 import { useTerminalLogic, Theme } from '../../hooks/useTerminalLogic.tsx';
+import { useSound } from '../../context/SoundContext';
 import MatrixEffect from './MatrixEffect';
 import TerminalGame from './TerminalGame';
 
@@ -15,6 +16,7 @@ const themeColors: Record<Theme, { bg: string; text: string; border: string }> =
 
 const Terminal: React.FC = () => {
   const { isOpen, closeTerminal } = useTerminal();
+  const { playTyping } = useSound();
   const { 
     history, 
     currentInput, 
@@ -136,8 +138,14 @@ const Terminal: React.FC = () => {
                         ref={inputRef}
                         type="text"
                         value={currentInput}
-                        onChange={(e) => setCurrentInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
+                        onChange={(e) => {
+                          setCurrentInput(e.target.value);
+                          playTyping();
+                        }}
+                        onKeyDown={(e) => {
+                          playTyping();
+                          handleKeyDown(e);
+                        }}
                         className={`bg-transparent border-none outline-none w-full font-normal ${theme === 'default' ? 'text-white' : 'text-gray-100'} cursor-text`}
                         autoComplete="off"
                         spellCheck="false"
