@@ -5,6 +5,8 @@ import { GitHubCalendar } from 'react-github-calendar';
 import SkillBar from '../components/ui/SkillBar';
 import TimelineItem from '../components/ui/TimelineItem';
 import Stats from '../components/ui/Stats';
+import SkillGraph from '../components/ui/SkillGraph';
+import VulnerabilityReport from '../components/ui/VulnerabilityReport';
 
 import SEO from '../components/utils/SEO';
 import GlitchText from '../components/ui/GlitchText';
@@ -140,6 +142,10 @@ const About: React.FC = () => {
             </div>
 
             <TabsContent value="skills">
+              <div className="mb-12">
+                   <h3 className="section-title text-center mb-6">Interactive Skill Network</h3>
+                   <SkillGraph />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md border border-gray-100 dark:border-dark-600">
                   <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
@@ -169,20 +175,7 @@ const About: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="experience">
-              <div className="max-w-3xl mx-auto">
-                {workExperience.map((item, index) => (
-                  <TimelineItem
-                    key={index}
-                    title={item.title}
-                    organization={item.organization}
-                    period={item.period}
-                    description={item.description}
-                    certificate={item.certificate}
-                    logo={item.logo}
-                    index={index}
-                  />
-                ))}
-              </div>
+              <VulnerabilityReport />
             </TabsContent>
 
             <TabsContent value="education">
