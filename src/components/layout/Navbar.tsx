@@ -3,11 +3,13 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Download, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
+import { useSound } from '../../context/SoundContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { playHover, playClick } = useSound();
   const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -42,7 +44,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navbarClass}`}>
       <div className="container-custom flex justify-between items-center py-4">
-        <NavLink to="/" className="text-xl font-bold flex items-center gap-2">
+        <NavLink to="/" className="text-xl font-bold flex items-center gap-2" onMouseEnter={playHover} onClick={playClick}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -60,6 +62,8 @@ const Navbar: React.FC = () => {
               <li key={link.name}>
                 <NavLink 
                   to={link.path}
+                  onMouseEnter={playHover} 
+                  onClick={playClick}
                   className={({ isActive }) => 
                     `text-sm font-medium transition-colors duration-300 relative hover:text-primary-600 dark:hover:text-secondary-900 ${
                       isActive ? 'text-primary-600 dark:text-secondary-900' : 'text-dark-700 dark:text-gray-300'
