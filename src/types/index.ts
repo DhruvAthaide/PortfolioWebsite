@@ -6,6 +6,7 @@ export interface Project {
   technologies: string[];
   github?: string;
   playstore?: string;
+  website?: string;
   demo?: string;
   status: 'completed' | 'ongoing';
   
