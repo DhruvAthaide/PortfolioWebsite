@@ -120,6 +120,34 @@ export const projects: Project[] = [
     category: ['Android', 'Security']
   },
   {
+    id: 'gridly',
+    title: 'Gridly',
+    description: 'The ultimate F1 companion app featuring real-time telemetry, race insights, and a modern Material 3 design.',
+    image: '/images/projects-gridly.png',
+    technologies: ['Kotlin', 'Jetpack Compose', 'Room', 'Ktor', 'MPAndroidChart', 'Jetpack Glance'],
+    github: 'https://github.com/DhruvAthaide/Gridly',
+    status: 'ongoing',
+    longDescription: 'Gridly is a cutting-edge Android application designed for Formula 1 enthusiasts who demand deeper insights than standard broadcast graphics. It provides real-time telemetry comparison, tire strategy analysis, and live race updates in a sleek, modern interface. Built entirely with Kotlin and Jetpack Compose, it features an offline-first architecture to ensure access to historical data even without connectivity.',
+    featured: true,
+    features: [
+      'Real-time telemetry comparison between drivers',
+      'Interactive tire strategy and pit stop analysis',
+      'Home screen race countdown widget via Jetpack Glance',
+      'Offline-first architecture using Room Database'
+    ],
+    challenges: [
+      'Handling strict API rate limits while polling live race data',
+      'Synchronizing telemetry data streams for accurate driver comparisons',
+      'Optimizing complex chart rendering for smooth scrolling performance'
+    ],
+    solutions: [
+      'Implemented smart polling with local data filtering to reduce API calls by 50%',
+      'Custom exponential backoff algorithm for robust network error handling',
+      'Efficient caching layer ensuring instant load times for revisited sessions'
+    ],
+    category: ['Android']
+  },
+  {
     id: 'vanguard',
     title: 'Vanguard',
     description: 'A secure, local-first executive dashboard for Red Team leads, combining encrypted mission control with real-time global cybersecurity intelligence.',
