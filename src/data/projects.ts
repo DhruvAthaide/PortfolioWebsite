@@ -9,7 +9,7 @@ export const projects: Project[] = [
     technologies: ['Kotlin','XML','Android Studio'],
     website: 'https://www.deepcytes.io/nosurveil',
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.nosurveil',
-    status: 'ongoing',
+    status: 'completed',
     longDescription: 'NoSurveil is an advanced anti-surveillance Android application built for Deepcytes Cyber Labs (UK) and its built to identify physical stalking and covert tracking threats. It uses heuristic spatial-temporal analysis to correlate a user\'s movement with nearby devices, detecting persistent following patterns rather than simple proximity. The app combines real-time BLE scanning, local-first data processing, and visual threat reporting to surface potential trackers while preserving user privacy.',
     featured: true,
     features: [
@@ -32,14 +32,14 @@ export const projects: Project[] = [
   },
   {
     id: 'dc-lockguard',
-    title: 'LockGuard',
+    title: 'LockGuard+',
     description: 'A privacy-first Android security app that silently captures evidence of unauthorized device access while keeping all data fully local.',
     image: '/images/projects-dc-lockguard.png',
     technologies: ['Kotlin','XML','Android Studio'],
     website: 'https://www.deepcytes.io/lockguard',
-    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguard',
-    status: 'completed',
-    longDescription: 'LockGuard is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. All data is encrypted and stored entirely on-device, with no cloud interaction, ensuring stealth operation and privacy-by-design.',
+    playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguardplus',
+    status: 'ongoing',
+    longDescription: 'LockGuard+ is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. All data is encrypted and stored entirely on-device, with no cloud interaction, ensuring stealth operation and privacy-by-design.',
     featured: true,
     features: [
       'Automatic intruder photo capture on failed unlock attempts',
@@ -333,27 +333,5 @@ export const projects: Project[] = [
     github: 'https://github.com/DhruvAthaide/Twitter-Messaging-Automation',
     status: 'completed',
     category: ['Python']
-  },
-  {
-    id: 'weather-application',
-    title: 'Weather Application',
-    description: 'A weather application that provides real-time weather updates and forecasts using a third-party API.',
-    image: '/images/projects-online-weather-application.png',
-    technologies: ['HTML5', 'CSS3', 'JavaScript'],
-    github: 'https://github.com/DhruvAthaide/WeatherApplication-2.0',
-    demo: 'https://weatherapp2-da.netlify.app/',
-    status: 'completed',
-    category: ['Web']
-  },
-  {
-    id: 'qr-code-generator',
-    title: 'QR Code Generator',
-    description: 'A simple QR code generator that allows users to create custom QR codes for URLs and text.',
-    image: '/images/projects-qr-code-generator.png',
-    technologies: ['HTML5', 'CSS3', 'JavaScript'],
-    github: 'https://github.com/DhruvAthaide/QR_Code_Generator',
-    demo: 'https://qr-code-generator-da.netlify.app/',
-    status: 'completed',
-    category: ['Web']
   }
 ];
