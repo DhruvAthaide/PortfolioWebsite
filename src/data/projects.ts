@@ -2,6 +2,36 @@ import { Project } from '../types';
 
 export const projects: Project[] = [
   {
+    id: 'dc-torch',
+    title: 'Torch - Remote Detonation Platform',
+    description: 'A tactical Android application and C2 dashboard designed for secure remote data destruction, device neutralization, and real-time intelligence tracking.',
+    image: '/images/projects-dc-torch.png',
+    technologies: ['Kotlin', 'Jetpack Compose', 'React', 'Node.js', 'MongoDB'],
+    website: 'https://torchdetonation.centralindia.cloudapp.azure.com',
+    status: 'ongoing',
+    longDescription: 'Remote Detonation Torch is the gold standard for secure remote data destruction built for Deepcytes Cyber Labs (UK). It protects sensitive information and neutralizes compromised handsets instantly from any location. The platform features an Android application operating under a tactical stealth mode disguised as a utility app, paired with a comprehensive Command and Control (C2) web dashboard. Operatives can perform remote detonations to securely wipe SD cards and internal storage, trigger system-wide factory resets, and monitor live high-frequency GPS tracking telemetry.',
+    featured: true,
+    features: [
+      'Remote Detonation and secure data wiping',
+      'Real-time Intel Tracking with continuous GPS reporting',
+      'Tactical Stealth Mode concealing operational UI',
+      'Self-Destruct Triggers with SIM-Guard protection',
+      'Centralized C2 Command Center with Role-Based Access Control (RBAC)',
+      'Hardware Hardening designed to prevent forensic extraction'
+    ],
+    challenges: [
+      'Ensuring complete data destruction against forensic extraction methods',
+      'Maintaining a covert presence on the device without alerting unauthorized users',
+      'Guaranteeing reliable Command and Control (C2) connectivity even after reboots'
+    ],
+    solutions: [
+      'Multi-pass secure deletion protocols covering internal storage and SD cards',
+      'Obfuscated user interface built to perfectly mimic a functional Flashlight utility',
+      'Boot-resistant background service architecture for immediate C2 re-establishment'
+    ],
+    category: ['Android', 'Security', 'Web']
+  },
+  {
     id: 'dc-nosurveil',
     title: 'NoSurveil',
     description: 'A privacy-first Android app that detects physical and digital tracking using heuristic location analysis and real-time Bluetooth scanning.',
@@ -98,7 +128,7 @@ export const projects: Project[] = [
     image: '/images/projects-android-webrtc-spyware.png',
     technologies: ['Java','XML','Android Studio','Socket.IO','WebRTC'],
     github: 'https://github.com/DhruvAthaide/Android_WebRTC_Spyware',
-    status: 'ongoing',
+    status: 'completed',
     longDescription: 'Android WebRTC Spyware is a research-focused Android project that explores real-time device monitoring using low-latency peer-to-peer communication. Disguised as a wallpaper customization app, it establishes a secure WebRTC connection to a web dashboard, enabling live camera and audio streaming alongside real-time device telemetry such as location and system events, highlighting the risks of permission abuse and covert persistence on Android.',
     features: [
       'Real-time front and back camera streaming',
