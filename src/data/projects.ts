@@ -70,7 +70,6 @@ export const projects: Project[] = [
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.lockguardplus',
     status: 'ongoing',
     longDescription: 'LockGuard+ is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. All data is encrypted and stored entirely on-device, with no cloud interaction, ensuring stealth operation and privacy-by-design.',
-    featured: true,
     features: [
       'Automatic intruder photo capture on failed unlock attempts',
       'Optional audit capture on successful unlocks',
@@ -102,7 +101,6 @@ export const projects: Project[] = [
     playstore: 'https://play.google.com/store/apps/details?id=com.deepcytes.guardient',
     status: 'completed',
     longDescription: 'Guardient is a mobile threat defense application developed for Deepcytes Cyber Labs (UK) that analyzes Android apps and files using permission-based heuristics instead of traditional signature-only detection. It performs SHA-256 cloud-verified file scanning and evaluates dangerous permission combinations to generate clear risk scores, while remaining lightweight and performance-efficient.',
-    featured: true,
     features: [
       'Cloud-verified file scanning using SHA-256 hashes',
       'Permission-based heuristic risk scoring',
@@ -158,7 +156,6 @@ export const projects: Project[] = [
     github: 'https://github.com/DhruvAthaide/Gridly',
     status: 'ongoing',
     longDescription: 'Gridly is a cutting-edge Android application designed for Formula 1 enthusiasts who demand deeper insights than standard broadcast graphics. It provides real-time telemetry comparison, tire strategy analysis, and live race updates in a sleek, modern interface. Built entirely with Kotlin and Jetpack Compose, it features an offline-first architecture to ensure access to historical data even without connectivity.',
-    featured: true,
     features: [
       'Real-time telemetry comparison between drivers',
       'Interactive tire strategy and pit stop analysis',
