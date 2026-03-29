@@ -8,7 +8,7 @@ export const projects: Project[] = [
       "A tactical Android application and C2 dashboard designed for secure remote data destruction, device neutralization, and real-time intelligence tracking.",
     image: "/images/projects-dc-torch.png",
     technologies: ["Kotlin", "Jetpack Compose", "React", "Node.js", "MongoDB"],
-    website: "https://torchdetonation.centralindia.cloudapp.azure.com",
+    website: "https://torch.deepcytes.io",
     status: "ongoing",
     longDescription:
       "Remote Detonation Torch is the gold standard for secure remote data destruction built for Deepcytes Cyber Labs (UK). It protects sensitive information and neutralizes compromised handsets instantly from any location. The platform features an Android application operating under a tactical stealth mode disguised as a utility app, paired with a comprehensive Command and Control (C2) web dashboard. Operatives can perform remote detonations to securely wipe SD cards and internal storage, trigger system-wide factory resets, and monitor live high-frequency GPS tracking telemetry.",
