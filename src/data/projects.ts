@@ -9,7 +9,7 @@ export const projects: Project[] = [
     image: "/images/projects-dc-torch.png",
     technologies: ["Kotlin", "Jetpack Compose", "React", "Node.js", "MongoDB"],
     website: "https://torch.deepcytes.io",
-    status: "ongoing",
+    status: "completed",
     longDescription:
       "Remote Detonation Torch is the gold standard for secure remote data destruction built for Deepcytes Cyber Labs (UK). It protects sensitive information and neutralizes compromised handsets instantly from any location. The platform features an Android application operating under a tactical stealth mode disguised as a utility app, paired with a comprehensive Command and Control (C2) web dashboard. Operatives can perform remote detonations to securely wipe SD cards and internal storage, trigger system-wide factory resets, and monitor live high-frequency GPS tracking telemetry.",
     featured: true,
@@ -326,7 +326,7 @@ export const projects: Project[] = [
     technologies: ["Java", "XML", "Python", "Android Studio"],
     github: "https://github.com/DhruvAthaide/MobileSentinel",
     // demo: '',
-    status: "ongoing",
+    status: "completed",
     category: ["Android"],
   },
   {
