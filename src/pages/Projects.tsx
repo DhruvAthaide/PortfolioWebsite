@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from '../components/ui/ProjectCard';
-import { Project } from '../types';
+import { Project, FilterCategory } from '../types';
 
 import SEO from '../components/utils/SEO';
 import { projects } from '../data/projects';
 import { useCTF } from '../context/CTFContext';
 
-type Category = 'All' | 'Android' | 'Web' | 'Security' | 'Python';
-
 const Projects: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<Category>('All');
+  const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
   const { unlocked, secretHidden, hideSecret } = useCTF();
   
   const filteredProjects = projects.filter(project => {
@@ -55,7 +53,7 @@ const Projects: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-gray-100 dark:bg-dark-800 rounded-full border border-gray-200 dark:border-dark-700">
-            {(['All', 'Android', 'Web', 'Security', 'Python'] as Category[]).map((category) => (
+            {(['All', 'Android', 'Web', 'Security', 'Python'] as FilterCategory[]).map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}

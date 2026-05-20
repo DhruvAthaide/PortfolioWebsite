@@ -1,3 +1,6 @@
+export type ProjectCategory = 'Android' | 'Web' | 'Security' | 'Python' | 'Other';
+export type FilterCategory = 'All' | ProjectCategory;
+
 export interface Project {
   id: string;
   title: string;
@@ -9,15 +12,14 @@ export interface Project {
   website?: string;
   demo?: string;
   status: 'completed' | 'ongoing';
-  
-  // New fields for Detailed Project Page
+
+  // Fields for Detailed Project Page
   longDescription?: string;
   challenges?: string[];
   solutions?: string[];
   features?: string[];
-  screenshots?: string[];
-  category: ('Android' | 'Web' | 'Security' | 'Python' | 'Other')[];
-  
-  // New flag for Home page
+  category: ProjectCategory[];
+
+  // Flag for Home page featured section
   featured?: boolean;
 }

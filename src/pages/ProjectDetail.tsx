@@ -34,13 +34,21 @@ const ProjectDetail: React.FC = () => {
     );
   }
 
+  const categoryMap: Record<string, string> = {
+    Android: 'MobileApplication',
+    Web: 'WebApplication',
+    Security: 'SecurityApplication',
+    Python: 'DesktopApplication',
+    Other: 'SoftwareApplication',
+  };
+  const applicationCategory = categoryMap[project.category[0]] ?? 'SoftwareApplication';
+
   // JSON-LD Structured Data
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": project.title,
-    "operatingSystem": "Android",
-    "applicationCategory": "SecurityApplication",
+    "applicationCategory": applicationCategory,
     "description": project.description,
     "image": window.location.origin + project.image,
     "author": {
@@ -146,7 +154,7 @@ const ProjectDetail: React.FC = () => {
         </motion.div>
 
         {/* Deep Dive Sections */}
-        {(project.challenges || project.features) && (
+        {(project.challenges || project.features || project.solutions) && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
             
             {/* Features */}
