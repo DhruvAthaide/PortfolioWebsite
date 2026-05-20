@@ -2,6 +2,44 @@ import { Project } from "../types";
 
 export const projects: Project[] = [
   {
+    id: "dc-blackout",
+    title: "Blackout Mode - Anti-Surveillance Platform",
+    description:
+      "A high-security mobile privacy agent designed to harden Android hardware, suppress stealth surveillance vectors, and safeguard visual and network-level data.",
+    image: "/images/projects-dc-blackoutmode.png",
+    technologies: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Room",
+      "DataStore Preferences",
+      "AndroidX Crypto",
+    ],
+    website: "https://deepcytes.io/blackout",
+    status: "completed",
+    longDescription:
+      "Blackout Mode is an advanced mobile security and anti-surveillance application engineered to protect high-risk individuals from unauthorized device monitoring and physical data compromise. The platform instantly implements a system-wide security hardening state that locks down device hardware by preemptively capturing and blocking background camera and microphone access. To defend against digital and physical tracking, the application orchestrates a localized DNS-over-VPN system to intercept tracking queries completely on-device, actively suppresses incoming notifications to prevent lockscreen visual eavesdropping, and hosts a biometric-secured 'Quantum Vault' that utilizes high-performance local encryption to safeguard sensitive documents from forensic extraction.",
+    featured: true,
+    features: [
+      "Stealth hardware hardening to actively block unauthorized background camera and microphone usage",
+      "Localized DNS VPN architecture preventing network-level tracking without routing traffic off-device",
+      "Real-time visual privacy shield via automated, persistent sensitive notification suppression",
+      "Biometric-secured Quantum Vault featuring highly secure, local cryptographic file encryption",
+      "Customizable application Whitelisting allowing verified exceptions for trusted utility software",
+      "Secure file destruction protocols to permanently wipe documents from local disk storage",
+    ],
+    challenges: [
+      "Acquiring and retaining persistent locks on hardware sensors without triggering Android OS resource depletion crashes",
+      "Establishing a fully self-contained local DNS VPN that avoids routing private operational traffic through external servers",
+      "Designing a high-performance local encryption and decryption pipeline for the Quantum Vault without causing UI lag",
+    ],
+    solutions: [
+      "Utilizing priority foreground service architectures to aggressively maintain low-overhead, preemptive camera and microphone resource ownership",
+      "Implementing a custom local Android VpnService that intercept, parses, and drops DNS tracking requests entirely on-device",
+      "Integrating AndroidX Security libraries and Room Database to construct a secure vault utilizing AES-256 equivalent local encryption",
+    ],
+    category: ["Android", "Security"],
+  },
+  {
     id: "dc-torch",
     title: "Torch - Remote Detonation Platform",
     description:
