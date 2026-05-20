@@ -92,6 +92,11 @@ const ProjectDetail: React.FC = () => {
                    <Play size={18} /> Play Store
                  </a>
                )}
+               {project.website && (
+                 <a href={project.website} target="_blank" rel="noopener noreferrer" className="btn btn-primary flex items-center gap-2">
+                   <ExternalLink size={18} /> Website
+                 </a>
+               )}
                {project.github && (
                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2">
                    <Github size={18} /> Source Code
