@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, User, MapPin, Mail, Languages, Globe } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
+import { useTheme } from '../context/ThemeContext';
 import SkillBar from '../components/ui/SkillBar';
 import TimelineItem from '../components/ui/TimelineItem';
 import Stats from '../components/ui/Stats';
@@ -14,6 +15,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
 import { technicalSkills, programmingSkills, toolsSkills, workExperience, education } from '../data/skills';
 
 const About: React.FC = () => {
+  const { theme } = useTheme();
+
   return (
     <div className="relative pt-20">
       <SEO 
@@ -204,9 +207,9 @@ const About: React.FC = () => {
         >
           <h2 className="section-title text-center mb-10">Coding Activity</h2>
           <div className="flex justify-center p-8 bg-white dark:bg-dark-700 rounded-xl shadow-lg border border-gray-100 dark:border-dark-600 overflow-x-auto">
-            <GitHubCalendar 
-              username="DhruvAthaide" 
-              colorScheme="dark"
+            <GitHubCalendar
+              username="DhruvAthaide"
+              colorScheme={theme === 'dark' ? 'dark' : 'light'}
               blockSize={12}
               blockMargin={5}
               fontSize={14}
