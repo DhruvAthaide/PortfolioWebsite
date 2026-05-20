@@ -23,17 +23,9 @@ const ContactForm = () => {
   }), []);
   
   useEffect(() => {
-    const { publicKey} = emailJSConfig;
-
+    const { publicKey } = emailJSConfig;
     if (publicKey) {
-      try {
-        emailjs.init(publicKey);
-        console.log('EmailJS initialized successfully');
-      } catch (error) {
-        console.error('EmailJS initialization error:', error);
-      }
-    } else {
-      console.warn('EmailJS public key not found');
+      emailjs.init(publicKey);
     }
   }, [emailJSConfig]);
 
@@ -67,11 +59,8 @@ const ContactForm = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    if (!validateForm()) return;
-
     // Honeypot check - if field has value, it's a bot
     if (formData.p_number) {
-      console.log('Bot detected via honeypot');
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', subject: '', message: '', p_number: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
@@ -106,12 +95,6 @@ const ContactForm = () => {
     }
 
     setIsSubmitting(true);
-    console.log('Attempting to send email with data:', {
-      user_name: formData.name,
-      user_email: formData.email,
-      subject: formData.subject,
-      message: formData.message,
-    });
 
     // Fetch user's IP address
     let ipAddress = 'Unknown';
@@ -119,34 +102,30 @@ const ContactForm = () => {
       const response = await fetch('https://api.ipify.org?format=json');
       const data = await response.json();
       ipAddress = data.ip || 'Unknown';
-    } catch (error) {
-      console.error('Failed to fetch IP address:', error);
+    } catch {
+      // silent — IP is supplemental metadata only
     }
 
     // Append IP address to the message
     const messageWithIp = `${formData.message}\n\nUser IP Address: ${ipAddress}`;
 
     try {
-      const result = await emailjs.send(serviceId, templateId, {
+      await emailjs.send(serviceId, templateId, {
         user_name: formData.name,
         user_email: formData.email,
         subject: formData.subject,
         message: messageWithIp,
       });
 
-      console.log('EmailJS send result:', result);
       setSubmitSuccess(true);
       // Increment message count in localStorage
       const userIdentifier = localStorage.getItem('userIdentifier') || formData.email;
       const messageCountKey = `messageCount_${userIdentifier}`;
       const currentCount = parseInt(localStorage.getItem(messageCountKey) || '0', 10);
       localStorage.setItem(messageCountKey, String(currentCount + 1));
-      localStorage.setItem(messageCountKey, String(currentCount + 1));
       setFormData({ name: '', email: '', subject: '', message: '', p_number: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (error) {
-      console.error('EmailJS send error:', error);
-
       let errorMessage = 'Failed to send message.';
       if (typeof error === 'object' && error !== null) {
         if ('text' in error && typeof (error as { text?: string }).text === 'string') {
