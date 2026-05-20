@@ -38,6 +38,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="twitter:title" content={siteTitle} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image} />
+
+      <link rel="canonical" href={url} />
     </Helmet>
   );
 };
