@@ -2,6 +2,81 @@ import { Project } from "../types";
 
 export const projects: Project[] = [
   {
+    id: "dc-cib",
+    title: "Cyber Investigator Battlegrounds (CIB)",
+    description:
+      "An immersive cyber-forensics investigation and battleground platform featuring real-time evidence correlation, interactive forensic mini-games and dynamic suspicion branching.",
+    image: "/images/projects-dc-cib.png",
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Firebase Auth",
+      "Cloud Firestore",
+      "Dio (REST API / Interceptors)",
+      "Flutter Secure Storage",
+      "SharedPreferences",
+    ],
+    website: "https://webstore.centralindia.cloudapp.azure.com/cib",
+    playstore:
+      "https://play.google.com/store/apps/details?id=com.deepcytes.cib",
+    status: "ongoing",
+    longDescription:
+      "Cyber Investigator Battlegrounds (CIB) is an advanced cybersecurity investigation and digital forensics platform designed to train and challenge cyber operatives. Players act as lead investigators inspecting digital crime scenes, analyzing compromised logs, parsing network traffic, and uncovering insider threats across 65 multi-tier case files. Built on a custom dark-obsidian cyber terminal design system, the application features an interactive Crime Board pinboard, dynamic link graph visualization, and 22 specialized cyber-forensic mini-games (including Windows registry persistence navigation, process tree hierarchy inspection, IP tracing, and voice activity spectrum scanning). CIB seamlessly integrates with the DeepCytes Security WebStore API for enterprise session authentication, automatic rolling JWT token refresh, offline grace management, and real-time global and per-case leaderboard synchronization.",
+    featured: true,
+    features: [
+      "Interactive Crime Board & Evidence Chain Graph dynamically linking evidence files, suspect profiles, and timeline events",
+      "22 specialized cyber-forensic mini-games spanning process tree inspection, Windows registry navigation, Caesar ciphers, IP tracing, and hash validation",
+      "Dynamic Evidence & Suspicion Engine recalculating threat levels and suspect risk metrics based on branching investigation choices",
+      "Enterprise Licensing & Session Refresh Architecture integrating DeepCytes WebStore API with silent JWT rolling refresh and a 72-hour offline grace period",
+      "Cloud Firestore & Batched Local Sync providing real-time per-case speed/accuracy leaderboards, operative ranks, and persistent player stats",
+      "Custom Dark Ops Cyber Terminal Design System built with neon glow tokens, scanlines, Matrix rain animations, and background audio management",
+    ],
+    challenges: [
+      "Rendering complex, multi-node evidence pinboards and dynamic connection graphs seamlessly without frame drops on lower-end mobile hardware",
+      "Maintaining uninterrupted enterprise user sessions during network drops using silent JWT refresh interceptors and cache-first offline state validation",
+      "Designing a flexible, scalable case parsing and suspicion-branching engine supporting 65+ multi-tier JSON case files with rotatable culprits",
+    ],
+    solutions: [
+      "Leveraging Flutter CustomPainters, RepaintBoundaries, and O(1) pre-computed lookup maps within domain models to optimize layout render passes",
+      "Constructing a Dio HTTP interceptor coupled with FlutterSecureStorage and LicenseManager state machines for silent 401 token refresh and grace enforcement",
+      "Engineered a decoupled CaseEngine and BranchingLogic architecture with AssetManifest concurrent JSON loading and lenient fallback parsing",
+    ],
+    category: ["Android"],
+  },
+  {
+    id: "dc-deepcloak",
+    title: "DeepCloak - Hardware Diagnostics & Mobile Security Suite",
+    description:
+      "A comprehensive mobile system diagnostic and security auditing platform featuring hardware sensor testing, live performance benchmarking, network inspection tools, floating monitor overlays, and a real-time cybersecurity feed.",
+    image: "/images/projects-dc-deepcloak.png",
+    technologies: ["Flutter", "Dart", "Kotlin", "Android Native Services"],
+    website: "https://webstore.centralindia.cloudapp.azure.com/deepcloak",
+    playstore:
+      "https://play.google.com/store/apps/details?id=com.deepcytes.deepcloak",
+    status: "completed",
+    longDescription:
+      "DeepCloak is an advanced mobile security auditing, hardware diagnostic, and real-time performance monitoring suite designed to provide granular visibility into Android device architecture. Built with native Kotlin system integrations and a sleek Flutter UI, DeepCloak offers an extensive array of diagnostic capabilities—ranging from hardware sensor and display matrix testing to live CPU/RAM/Battery telemetry and multi-core benchmark stress testing. The platform also equips security enthusiasts and sysadmins with a localized network intelligence toolkit (ICMP Ping, DNS Lookup, TCP Port Scanner, and SSL/TLS Inspector), floating system monitor overlays for real-time tracking, and a live cybersecurity feed delivering instant CVE updates and threat advisories.",
+    featured: true,
+    features: [
+      "Comprehensive hardware diagnostic matrix for sensor verification, camera, microphone, battery, and display pixel testing",
+      "Live device telemetry and performance benchmarks with multi-core CPU stress testing and interactive memory charts",
+      "Localized network intelligence suite featuring ICMP Ping, DNS resolver, TCP port scanner, and SSL/TLS certificate inspector",
+      "Floating system monitor overlays providing real-time hardware telemetry on top of other Android applications",
+      "Integrated cybersecurity intelligence feed and RSS ticker delivering real-time CVE advisories and safety advisories",
+    ],
+    challenges: [
+      "Bridging high-frequency native Android hardware APIs with Flutter's UI thread without causing micro-stutter during benchmark stress tests",
+      "Extracting low-level CPU core frequencies, thermal states, and RAM breakdown across diverse Android OEM vendor builds",
+      "Managing persistent floating system overlay windows with real-time hardware metrics under strict modern Android background execution limits",
+    ],
+    solutions: [
+      "Architecting optimized Platform Channels and low-overhead reactive state management using Provider to decouple background polling from rendering",
+      "Implementing a custom Kotlin native hardware service to query system sysfs nodes and native memory management interfaces directly",
+      "Utilizing Android WindowManager overlay services combined with compact reactive UI painters for minimal background resource consumption",
+    ],
+    category: ["Android", "Security"],
+  },
+  {
     id: "dc-blackout",
     title: "Blackout Mode - Anti-Surveillance Platform",
     description:
@@ -14,11 +89,11 @@ export const projects: Project[] = [
       "DataStore Preferences",
       "AndroidX Crypto",
     ],
-    website: "https://deepcytes.io/blackout",
+    website: "https://webstore.centralindia.cloudapp.azure.com/blackoutmode",
     status: "completed",
     longDescription:
       "Blackout Mode is an advanced mobile security and anti-surveillance application engineered to protect high-risk individuals from unauthorized device monitoring and physical data compromise. The platform instantly implements a system-wide security hardening state that locks down device hardware by preemptively capturing and blocking background camera and microphone access. To defend against digital and physical tracking, the application orchestrates a localized DNS-over-VPN system to intercept tracking queries completely on-device, actively suppresses incoming notifications to prevent lockscreen visual eavesdropping, and hosts a biometric-secured 'Quantum Vault' that utilizes high-performance local encryption to safeguard sensitive documents from forensic extraction.",
-    featured: true,
+    featured: false,
     features: [
       "Stealth hardware hardening to actively block unauthorized background camera and microphone usage",
       "Localized DNS VPN architecture preventing network-level tracking without routing traffic off-device",
@@ -40,6 +115,45 @@ export const projects: Project[] = [
     category: ["Android", "Security"],
   },
   {
+    id: "dc-flash",
+    title: "Flash - Remote Detonation & Corporate Data Sanitization Platform",
+    description:
+      "An enterprise-grade Android remote detonation and device hygiene agent built for instant emergency data destruction, fleet lease enforcement, and hardware anti-tamper protection.",
+    image: "/images/projects-dc-flash.png",
+    technologies: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Android NDK / C++ (JNI)",
+      "Device Policy Manager",
+      "Firebase FCM / Auth",
+      "WorkManager",
+      "Node.js / Express",
+      "MongoDB",
+    ],
+    website: "https://flash.deepcytes.io",
+    status: "completed",
+    longDescription:
+      "Flash is an ultra-secure corporate fleet management and remote data sanitization platform engineered to protect enterprise assets from physical capture, unauthorized data extraction, and insider threats. The platform allows administrators to remotely execute immediate device sanitization, system-wide factory resets, and high-performance background file encryption. Whether triggered via real-time cloud commands or automated threshold protections, Flash ensures sensitive operational data is rendered completely inaccessible or permanently wiped from the target hardware.",
+    featured: false,
+    features: [
+      "Instant remote data detonation providing permanent storage zeroization and SD card wiping upon emergency command",
+      "Full hardware factory reset execution leveraging Android Device Policy Manager APIs to wipe the entire device OS state",
+      "High-performance background file encryption engine to rapidly lock and scramble sensitive corporate files and directories",
+      "Secure file decryption pipeline allowing authorized users to safely unlock and restore encrypted data upon identity verification",
+    ],
+    challenges: [
+      "Ensuring rapid, failure-proof execution of file destruction and factory resets during network isolation or app termination",
+      "Maintaining persistent, low-overhead background telemetry and lease validation without triggering Android OS background execution limits",
+      "Preventing Man-in-the-Middle (MitM) attacks and CA migration breakages across diverse Android OS versions ranging from Android 6.0 to Android 15+",
+    ],
+    solutions: [
+      "Utilizing Android WorkManager, foreground service architectures, and persistent Android DevicePolicyManager APIs for absolute execution priority",
+      "Implementing an optimized OkHttp singleton with connection pooling, exponential backoff retries, and cached Firebase ID token verification",
+      "Orchestrating a dual-layer TLS trust strategy combining system/raw CA trust anchors with dynamic fallback X509TrustManagers and multi-hash CertificatePinner rules",
+    ],
+    category: ["Android", "Security"],
+  },
+  {
     id: "dc-torch",
     title: "Torch - Remote Detonation Platform",
     description:
@@ -50,7 +164,7 @@ export const projects: Project[] = [
     status: "completed",
     longDescription:
       "Remote Detonation Torch is the gold standard for secure remote data destruction built for Deepcytes Cyber Labs (UK). It protects sensitive information and neutralizes compromised handsets instantly from any location. The platform features an Android application operating under a tactical stealth mode disguised as a utility app, paired with a comprehensive Command and Control (C2) web dashboard. Operatives can perform remote detonations to securely wipe SD cards and internal storage, trigger system-wide factory resets, and monitor live high-frequency GPS tracking telemetry.",
-    featured: true,
+    featured: false,
     features: [
       "Remote Detonation and secure data wiping",
       "Real-time Intel Tracking with continuous GPS reporting",
@@ -78,7 +192,7 @@ export const projects: Project[] = [
       "A privacy-first Android app that detects physical and digital tracking using heuristic location analysis and real-time Bluetooth scanning.",
     image: "/images/projects-dc-nosurveil.png",
     technologies: ["Kotlin", "XML", "Room API", "Android Studio"],
-    website: "https://www.deepcytes.io/nosurveil",
+    website: "https://webstore.centralindia.cloudapp.azure.com/nosurveil",
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.nosurveil",
     status: "completed",
@@ -116,7 +230,7 @@ export const projects: Project[] = [
       "Azure API",
       "Google Play Billing",
     ],
-    website: "https://www.deepcytes.io/lockguard",
+    website: "https://webstore.centralindia.cloudapp.azure.com/lockguardplus",
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.lockguardplus",
     status: "completed",
@@ -155,7 +269,7 @@ export const projects: Project[] = [
       "A privacy-centric Android security platform that dynamically classifies application risk through advanced heuristics, sensitive permission analysis, and interactive visual dashboards.",
     image: "/images/projects-dc-guardient.png",
     technologies: ["Kotlin", "Android SDK", "Coroutines"],
-    website: "https://www.deepcytes.io/guardient",
+    website: "https://webstore.centralindia.cloudapp.azure.com/guardient",
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.guardient",
     status: "completed",
@@ -180,34 +294,46 @@ export const projects: Project[] = [
     ],
     category: ["Android", "Security"],
   },
-
   {
     id: "android-webrtc-spyware",
     title: "Android WebRTC Spyware",
     description:
       "A proof-of-concept Android application demonstrating real-time remote device monitoring using WebRTC, presented through a benign wallpaper app interface.",
     image: "/images/projects-android-webrtc-spyware.png",
-    technologies: ["Java", "XML", "Android Studio", "Socket.IO", "WebRTC"],
+    technologies: [
+      "Java",
+      "Kotlin",
+      "WebRTC",
+      "Socket.IO",
+      "Node.js",
+      "Express",
+      "Android Studio",
+      "Firebase",
+    ],
     github: "https://github.com/DhruvAthaide/Android_WebRTC_Spyware",
     status: "completed",
     longDescription:
-      "Android WebRTC Spyware is a research-focused Android project that explores real-time device monitoring using low-latency peer-to-peer communication. Disguised as a wallpaper customization app, it establishes a secure WebRTC connection to a web dashboard, enabling live camera and audio streaming alongside real-time device telemetry such as location and system events, highlighting the risks of permission abuse and covert persistence on Android.",
+      "Android WebRTC Spyware is a research-focused Android application and web control dashboard exploring real-time remote device monitoring via low-latency peer-to-peer WebRTC connections. Concealed within an aesthetic wallpaper wallpaper application UI, the app runs a high-priority foreground streaming service that connects to a glassmorphic Node.js control room. It provides live dual-camera video feeds, two-way audio intercom, ambient sensor graphing, remote file system access, and system telemetry to study permission abuse and stealth persistence on Android.",
     features: [
-      "Real-time front and back camera streaming",
-      "Live audio and GPS location monitoring",
-      "Remote access to SMS, call logs, and notifications",
-      "Stealth background operation via Foreground Services",
-      "Dynamic WebRTC signaling configuration",
+      "Dual-camera live video streaming with dynamic resolution switching & snapshot capture",
+      "Two-way WebRTC audio intercom (Walkie-Talkie mode) with hardware audio routing",
+      "Real-time ambient light and accelerometer sensor tracking with HTML5 Canvas charts",
+      "Remote file system browser with 64KB chunked drag-and-drop file uploads and downloads",
+      "Remote hardware control (brightness, volume sliders, flashlight toggle, and Text-To-Speech)",
+      "Comprehensive diagnostics (battery health/temperature, WiFi RSSI, GPS mapping, SMS, & notifications)",
+      "Remote app launcher and bidirectionally synchronized clipboard manager",
     ],
     challenges: [
-      "Synchronizing multiple real-time media streams",
-      "Maintaining persistent background execution",
-      "Handling sensitive permissions across Android versions",
+      "Synchronizing concurrent low-latency media streams alongside high-frequency telemetry data",
+      "Maintaining stable background execution across modern Android power-saving restrictions",
+      "Managing hardware APIs (Camera2, AudioRecord, sensors) across varying Android API levels",
+      "Implementing reliable chunked binary file transfers over WebRTC and Socket.IO data channels",
     ],
     solutions: [
-      "Custom WebRTC signaling using Socket.IO",
-      "Foreground Services to prevent background termination",
-      "Unified streaming service for media and system events",
+      "Built a persistent foreground service with Kotlin helper modules for thread-safe hardware access",
+      "Designed a custom WebRTC signaling protocol using Socket.IO with automated ICE/STUN handling",
+      "Configured bidirectional WebRTC audio transceivers linked to Android AudioManager in communication mode",
+      "Engineered a responsive glassmorphic web dashboard with canvas-based real-time telemetry rendering",
     ],
     category: ["Android", "Security"],
   },
@@ -341,18 +467,6 @@ export const projects: Project[] = [
       "Custom deep-search logic for exhaustive GPS field detection",
       "Safe file handling via Android Storage Access Framework",
     ],
-    category: ["Android"],
-  },
-  {
-    id: "clipboard-canary",
-    title: "Clipboard Canary",
-    description:
-      "Clipboard Canary is a cutting-edge mobile application designed to enhance user security by monitoring clipboard activity and providing real-time alerts for potential data breaches.",
-    image: "/images/projects-clipboard-canary.png",
-    technologies: ["Java", "XML", "Android Studio"],
-    github: "https://github.com/DhruvAthaide/ClipboardCanary",
-    // demo: '',
-    status: "ongoing",
     category: ["Android"],
   },
   {
