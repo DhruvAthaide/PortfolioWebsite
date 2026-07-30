@@ -134,7 +134,6 @@ export const projects: Project[] = [
     status: "completed",
     longDescription:
       "Flash is an ultra-secure corporate fleet management and remote data sanitization platform engineered to protect enterprise assets from physical capture, unauthorized data extraction, and insider threats. The platform allows administrators to remotely execute immediate device sanitization, system-wide factory resets, and high-performance background file encryption. Whether triggered via real-time cloud commands or automated threshold protections, Flash ensures sensitive operational data is rendered completely inaccessible or permanently wiped from the target hardware.",
-    featured: false,
     features: [
       "Instant remote data detonation providing permanent storage zeroization and SD card wiping upon emergency command",
       "Full hardware factory reset execution leveraging Android Device Policy Manager APIs to wipe the entire device OS state",
@@ -151,7 +150,7 @@ export const projects: Project[] = [
       "Implementing an optimized OkHttp singleton with connection pooling, exponential backoff retries, and cached Firebase ID token verification",
       "Orchestrating a dual-layer TLS trust strategy combining system/raw CA trust anchors with dynamic fallback X509TrustManagers and multi-hash CertificatePinner rules",
     ],
-    category: ["Android", "Security"],
+    category: ["Android", "Security", "Web"],
   },
   {
     id: "dc-torch",
@@ -164,7 +163,7 @@ export const projects: Project[] = [
     status: "completed",
     longDescription:
       "Remote Detonation Torch is the gold standard for secure remote data destruction built for Deepcytes Cyber Labs (UK). It protects sensitive information and neutralizes compromised handsets instantly from any location. The platform features an Android application operating under a tactical stealth mode disguised as a utility app, paired with a comprehensive Command and Control (C2) web dashboard. Operatives can perform remote detonations to securely wipe SD cards and internal storage, trigger system-wide factory resets, and monitor live high-frequency GPS tracking telemetry.",
-    featured: false,
+    featured: true,
     features: [
       "Remote Detonation and secure data wiping",
       "Real-time Intel Tracking with continuous GPS reporting",
@@ -273,6 +272,7 @@ export const projects: Project[] = [
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.guardient",
     status: "completed",
+    featured: true,
     longDescription:
       "Guardient is a cutting-edge mobile privacy application developed for Deepcytes Cyber Labs (UK). Evolving beyond traditional malware scanning, the app performs instantaneous, localized deep package inspection to detect hidden privacy threats without relying on cloud backends. By analyzing granted permissions, installation origins, and dangerous behavioral combos, Guardient generates dynamic risk scores. All insights and metrics are presented through a highly interactive, custom-engineered dashboard, ensuring users can instantly visualize and manage their device's security posture.",
     features: [
