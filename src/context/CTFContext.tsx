@@ -8,6 +8,12 @@ interface CTFContextType {
   hideSecret: () => void;
 }
 
+declare global {
+  interface Window {
+    debug_ctf?: () => void;
+  }
+}
+
 const CTFContext = createContext<CTFContextType | undefined>(undefined);
 
 const FLAGS = {
@@ -50,9 +56,9 @@ export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children 
        );
     };
     
-    // We want this to run once, but console can be noisy. 
+    // We want this to run once, but console can be noisy.
     // Let's attach it to window so it's always there if they look
-    (window as any).debug_ctf = consoleFlag;
+    window.debug_ctf = consoleFlag;
     consoleFlag();
 
   }, []);

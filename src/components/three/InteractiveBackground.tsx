@@ -57,13 +57,7 @@ const ParticleField = () => {
   );
 };
 
-interface InteractiveBackgroundProps {
-  speed?: number;
-}
-
-const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ speed = 0.6 }) => {
-  const { theme } = useTheme();
-  
+const InteractiveBackground: React.FC = () => {
   return (
     <div className="canvas-container">
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>

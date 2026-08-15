@@ -39,7 +39,6 @@ const ProjectDetail: React.FC = () => {
     Web: 'WebApplication',
     Security: 'SecurityApplication',
     Python: 'DesktopApplication',
-    Other: 'SoftwareApplication',
   };
   const applicationCategory = categoryMap[project.category[0]] ?? 'SoftwareApplication';
 
@@ -64,9 +63,10 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <div className="pt-20 min-h-screen pb-16">
-      <SEO 
+      <SEO
         title={`${project.title} | Project Case Study`}
         description={project.description}
+        image={project.image}
       />
       <script type="application/ld+json">
         {JSON.stringify(jsonLd)}
@@ -132,9 +132,10 @@ const ProjectDetail: React.FC = () => {
            >
              <div className="absolute -inset-2 bg-gradient-to-tr from-primary-600 to-secondary-900 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
              <div className="relative overflow-hidden rounded-xl">
-               <img 
-                 src={project.image} 
+               <img
+                 src={project.image}
                  alt={project.title}
+                 decoding="async"
                  className="w-full shadow-2xl border border-gray-200 dark:border-dark-700 transition-transform duration-500 group-hover:scale-[1.02]"
                />
                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
@@ -248,9 +249,11 @@ const ProjectDetail: React.FC = () => {
              className="group relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-lg"
              onClick={() => navigate(`/projects/${nextProject.id}`)}
            >
-              <img 
-                src={nextProject.image} 
-                alt={nextProject.title} 
+              <img
+                src={nextProject.image}
+                alt={nextProject.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-dark-900/60 dark:bg-dark-900/80 transition-colors group-hover:bg-dark-900/40 flex flex-col justify-center px-10">

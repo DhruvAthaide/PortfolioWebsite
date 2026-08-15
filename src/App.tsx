@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Terminal as TerminalIcon, Loader2 } from 'lucide-react';
 import { ThemeProvider } from './context/ThemeContext';
 import { SoundProvider } from './context/SoundContext';
@@ -10,8 +10,9 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Terminal from './components/ui/Terminal';
 import CustomCursor from './components/ui/CustomCursor';
+import { useFinePointer } from './hooks/useFinePointer';
 
-import InteractiveBackground from './components/three/InteractiveBackground';
+const InteractiveBackground = lazy(() => import('./components/three/InteractiveBackground'));
 
 // Lazy Load Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -61,22 +62,27 @@ const LoadingFallback = () => (
 
 function App() {
   const location = useLocation();
-  
+  const prefersReducedMotion = useReducedMotion();
+  const isFinePointer = useFinePointer();
+  const showCustomCursor = isFinePointer && !prefersReducedMotion;
+
   // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
   return (
     <ThemeProvider>
       <SoundProvider>
         <TerminalProvider>
           <CTFProvider>
-            <div className="flex flex-col min-h-screen cursor-none relative">
-              <InteractiveBackground />
-              <CustomCursor />
+            <div className={`flex flex-col min-h-screen relative ${showCustomCursor ? 'cursor-none' : ''}`}>
+              <Suspense fallback={null}>
+                <InteractiveBackground />
+              </Suspense>
+              {showCustomCursor && <CustomCursor />}
               <Navbar />
-              
+
               <main className="flex-grow z-10 w-full">
                 <AnimatePresence mode="wait">
                   <Suspense fallback={<LoadingFallback />}>
@@ -91,7 +97,7 @@ function App() {
                   </Suspense>
                 </AnimatePresence>
               </main>
-              
+
               <Footer />
               <Terminal />
               <TerminalToggle />

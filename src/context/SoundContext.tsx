@@ -11,6 +11,12 @@ interface SoundContextType {
 
 const SoundContext = createContext<SoundContextType | undefined>(undefined);
 
+declare global {
+  interface Window {
+    webkitAudioContext?: typeof AudioContext;
+  }
+}
+
 export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMuted, setIsMuted] = useState(false);
   const audioContextReff = useRef<AudioContext | null>(null);
@@ -19,7 +25,7 @@ export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Initialize AudioContext on first user interaction to handle autoplay policies
     const initAudio = () => {
       if (!audioContextReff.current) {
-        audioContextReff.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioContextReff.current = new (window.AudioContext || window.webkitAudioContext)();
       }
     };
 
@@ -105,9 +111,7 @@ export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const playSuccess = () => {
     // Ascending arpeggio
     if (isMuted || !audioContextReff.current) return;
-    const ctx = audioContextReff.current;
-    const now = ctx.currentTime;
-    
+
     [440, 554, 659, 880].forEach((freq, i) => {
         setTimeout(() => playTone(freq, 'square', 0.2, 0.1), i * 50);
     });

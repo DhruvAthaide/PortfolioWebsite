@@ -1,30 +1,56 @@
 import React, { useRef, useState, useEffect } from 'react';
-import ForceGraph3D from 'react-force-graph-3d';
+import ForceGraph3D, { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-graph-3d';
 import { useTheme } from '../../context/ThemeContext';
 import { projects } from '../../data/projects';
 import { technicalSkills, programmingSkills, toolsSkills } from '../../data/skills';
 import { useNavigate } from 'react-router-dom';
 import { Search, RotateCw, Loader2, MousePointer2 } from 'lucide-react';
 
+interface GraphNodeData {
+  id: string;
+  group: 'skill' | 'project' | 'tech';
+  val: number;
+  color: string;
+  desc: string;
+  projectId?: string;
+}
+
+interface GraphLinkData {
+  color: string;
+}
+
+type GraphNode = NodeObject<GraphNodeData>;
+type GraphLink = LinkObject<GraphNodeData, GraphLinkData>;
+
+// react-force-graph-3d types its OrbitControls-like return value as a bare `object`
+interface OrbitControlsLike {
+  minDistance: number;
+  maxDistance: number;
+  enableDamping: boolean;
+  dampingFactor: number;
+  rotateSpeed: number;
+  zoomSpeed: number;
+}
+
 const SkillGraph: React.FC = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const fgRef = useRef<any>();
-  const [graphData, setGraphData] = useState<{ nodes: any[]; links: any[] }>({ nodes: [], links: [] });
+  const fgRef = useRef<ForceGraphMethods<GraphNode, GraphLink>>();
+  const [graphData, setGraphData] = useState<{ nodes: GraphNode[]; links: GraphLink[] }>({ nodes: [], links: [] });
   const [searchQuery, setSearchQuery] = useState('');
   const [isRotating, setIsRotating] = useState(true);
-  
+
   // Ref to track if we have initialized zoom limits
   const controlsConfigured = useRef(false);
   const angleRef = useRef(0);
 
   useEffect(() => {
-    const nodes: any[] = [];
-    const links: any[] = [];
+    const nodes: GraphNode[] = [];
+    const links: GraphLink[] = [];
     const nodeExists = (id: string) => nodes.some(n => n.id === id);
 
     const allSkills = [...technicalSkills, ...programmingSkills, ...toolsSkills];
-    
+
     // Add Skills (Cyan/Blue mainly)
     allSkills.forEach(skill => {
         nodes.push({
@@ -48,9 +74,9 @@ const SkillGraph: React.FC = () => {
         });
 
         project.technologies.forEach(tech => {
-            const matchedSkill = allSkills.find(s => 
-                s.name.toLowerCase() === tech.toLowerCase() || 
-                s.name.toLowerCase().includes(tech.toLowerCase()) || 
+            const matchedSkill = allSkills.find(s =>
+                s.name.toLowerCase() === tech.toLowerCase() ||
+                s.name.toLowerCase().includes(tech.toLowerCase()) ||
                 tech.toLowerCase().includes(s.name.toLowerCase())
             );
 
@@ -89,11 +115,11 @@ const SkillGraph: React.FC = () => {
       const rotate = () => {
           if (fgRef.current && isRotating) {
               angleRef.current += 0.002;
-              
+
               const distance = 300;
               const x = distance * Math.sin(angleRef.current);
               const z = distance * Math.cos(angleRef.current);
-              
+
               // Only update if controls exist and function is available
               if(fgRef.current && fgRef.current.cameraPosition) {
                   // Wrap in try-catch to avoid crash if method is unavail temporarily
@@ -102,7 +128,7 @@ const SkillGraph: React.FC = () => {
                       if (currentCamera) {
                           fgRef.current.cameraPosition({ x, y: currentCamera.y, z });
                       }
-                  } catch (e) {
+                  } catch {
                       // Silently fail frame
                   }
               }
@@ -114,7 +140,7 @@ const SkillGraph: React.FC = () => {
       // 2. Control Limits
       const interval = setInterval(() => {
           if (fgRef.current && fgRef.current.controls) {
-              const controls = fgRef.current.controls();
+              const controls = fgRef.current.controls() as OrbitControlsLike | null;
               if (controls) {
                   controls.minDistance = 10;
                   controls.maxDistance = 1000;
@@ -133,32 +159,35 @@ const SkillGraph: React.FC = () => {
       };
   }, [isRotating]);
 
-  const handleNodeClick = (node: any) => {
+  const handleNodeClick = (node: GraphNode) => {
       setIsRotating(false);
-      
+
       if (!fgRef.current) return;
 
+      const nodeX = node.x ?? 0;
+      const nodeY = node.y ?? 0;
+      const nodeZ = node.z ?? 0;
       const distance = node.group === 'project' ? 50 : 80;
-      const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+      const distRatio = 1 + distance / Math.hypot(nodeX, nodeY, nodeZ);
 
       fgRef.current.cameraPosition(
-        { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
-        node,
+        { x: nodeX * distRatio, y: nodeY * distRatio, z: nodeZ * distRatio },
+        { x: nodeX, y: nodeY, z: nodeZ },
         2000
       );
 
       if (node.group === 'project' && node.projectId) {
            setTimeout(() => {
               navigate(`/projects/${node.projectId}`);
-          }, 1500); 
+          }, 1500);
       }
   };
 
   const handleSearch = (e: React.FormEvent) => {
       e.preventDefault();
       if(!searchQuery) return;
-      
-      const node = (graphData.nodes as any[]).find(n => n.id.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      const node = graphData.nodes.find(n => n.id.toLowerCase().includes(searchQuery.toLowerCase()));
       if (node) {
           handleNodeClick(node);
           setSearchQuery('');
@@ -173,16 +202,16 @@ const SkillGraph: React.FC = () => {
 
   return (
     <div className="h-[650px] w-full border border-gray-200 dark:border-dark-600 rounded-xl overflow-hidden shadow-2xl relative bg-black/5 dark:bg-[#050510] backdrop-blur-sm group">
-        
+
         {/* Graph Canvas */}
-        <ForceGraph3D
+        <ForceGraph3D<GraphNodeData, GraphLinkData>
             ref={fgRef}
             graphData={graphData}
             nodeLabel="id"
             nodeAutoColorBy="group"
             backgroundColor="rgba(0,0,0,0)"
-            linkColor={(link: any) => link.color}
-            nodeColor={(node: any) => node.color}
+            linkColor={(link) => link.color}
+            nodeColor={(node) => node.color}
             onNodeClick={handleNodeClick}
             nodeOpacity={0.9}
             linkOpacity={0.2}
@@ -210,14 +239,14 @@ const SkillGraph: React.FC = () => {
         {/* 2. Bottom Dock: Controls & Search */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-full max-w-2xl px-4 pointer-events-none">
              <div className="bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 dark:border-white/10 p-2 flex flex-col md:flex-row items-center gap-3 pointer-events-auto transition-all hover:bg-white dark:hover:bg-black/90">
-                 
+
                  {/* Search Bar */}
                  <form onSubmit={handleSearch} className="flex-1 w-full relative">
                      <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                     <input 
+                     <input
                         id="skill-search-input"
-                        type="text" 
-                        placeholder="Search node..." 
+                        type="text"
+                        placeholder="Search node..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full bg-transparent pl-9 pr-4 py-2 text-sm text-dark-900 dark:text-white placeholder-gray-500 outline-none border-none focus:ring-0"
@@ -231,8 +260,8 @@ const SkillGraph: React.FC = () => {
                      <button
                         onClick={() => setIsRotating(!isRotating)}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                            isRotating 
-                            ? 'bg-primary-500/10 text-primary-600 dark:text-blue-400 border border-primary-500/20' 
+                            isRotating
+                            ? 'bg-primary-500/10 text-primary-600 dark:text-blue-400 border border-primary-500/20'
                             : 'bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 hover:text-dark-900 dark:hover:text-white'
                         }`}
                      >
@@ -252,7 +281,7 @@ const SkillGraph: React.FC = () => {
                      </button>
                  </div>
              </div>
-             
+
              {/* Legend */}
              <div className="flex justify-center gap-6 mt-3 text-[10px] font-mono text-gray-500 uppercase tracking-wider">
                  <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-red-500"></span> Projects</div>

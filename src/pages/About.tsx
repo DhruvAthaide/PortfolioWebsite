@@ -12,18 +12,15 @@ import VulnerabilityReport from '../components/ui/VulnerabilityReport';
 import SEO from '../components/utils/SEO';
 import GlitchText from '../components/ui/GlitchText';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs';
-import { technicalSkills, programmingSkills, toolsSkills, workExperience, education } from '../data/skills';
+import { technicalSkills, programmingSkills, toolsSkills, education } from '../data/skills';
+import { aboutSEO } from '../data/seoMeta';
 
 const About: React.FC = () => {
   const { theme } = useTheme();
 
   return (
     <div className="relative pt-20">
-      <SEO 
-        title="About Me" 
-        description="Learn more about Dhruv Athaide, a Red Team Analyst & Software Developer based in Mumbai, India."
-        keywords={['About', 'Skills', 'Experience', 'Education', 'Resume', 'CV']}
-      />
+      <SEO title={aboutSEO.title} description={aboutSEO.description} keywords={aboutSEO.keywords} />
 
       
       <div className="container-custom py-10">

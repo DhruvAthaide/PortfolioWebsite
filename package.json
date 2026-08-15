@@ -13,7 +13,7 @@
   "homepage": "",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/postbuild.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -31,7 +31,6 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.21.1",
     "react-type-animation": "^3.2.0",
-    "resend": "^4.5.2",
     "three-mesh-bvh": "^0.9.1",
     "yet-another-react-lightbox": "^3.28.0"
   },

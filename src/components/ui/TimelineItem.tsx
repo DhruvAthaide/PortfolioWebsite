@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 interface TimelineItemProps {
   title: string;
   organization: string;
+  location?: string;
   period: string;
-  description: string;
+  description: string | string[];
   index: number;
   certificate?: string;
   logo?: string;
@@ -16,6 +17,7 @@ import { FileText, Building } from 'lucide-react';
 const TimelineItem: React.FC<TimelineItemProps> = ({
   title,
   organization,
+  location,
   period,
   description,
   index,
@@ -23,7 +25,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   logo,
 }) => {
   return (
-    <motion.div 
+    <motion.div
       className="relative pl-8 pb-8 border-l-2 border-gray-300 dark:border-dark-600 last:border-0 last:pb-0"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -31,8 +33,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="absolute -left-2.5 top-0 h-5 w-5 rounded-full bg-secondary-900" />
-      <div className="mb-1 text-sm text-gray-500 dark:text-gray-400">{period}</div>
-      
+      <div className="mb-1 text-sm text-gray-500 dark:text-gray-400">
+        {period}{location ? ` · ${location}` : ''}
+      </div>
+
       <div className="flex items-start gap-4 mb-2">
         <div className="flex-grow">
           <h3 className="text-xl font-bold">{title}</h3>
@@ -47,8 +51,19 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         )}
       </div>
 
-      <p className="text-dark-500 dark:text-gray-300 mb-3">{description}</p>
-      
+      {Array.isArray(description) ? (
+        <ul className="space-y-1.5 mb-3">
+          {description.map((point, i) => (
+            <li key={i} className="flex gap-2 text-dark-500 dark:text-gray-300">
+              <span className="mt-2 h-1 w-1 rounded-full bg-secondary-900 shrink-0" />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-dark-500 dark:text-gray-300 mb-3">{description}</p>
+      )}
+
       {certificate && (
         <a 
           href={certificate} 

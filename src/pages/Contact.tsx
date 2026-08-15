@@ -5,6 +5,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaFacebook } from 'react-ic
 import ContactForm from '../components/ui/ContactForm';
 
 import SEO from '../components/utils/SEO';
+import { contactSEO } from '../data/seoMeta';
 import { useState } from 'react';
 
 const Contact: React.FC = () => {
@@ -33,7 +34,7 @@ const Contact: React.FC = () => {
     { 
       icon: <Monitor size={24} className="text-primary-600 dark:text-secondary-900" />,
       title: 'Work',
-      content: 'Deepcytes Cyber Labs (UK)',
+      content: 'DeepCytes Cyber Labs UK',
     },
     { 
       icon: <Briefcase size={24} className="text-primary-600 dark:text-secondary-900" />,
@@ -49,11 +50,7 @@ const Contact: React.FC = () => {
   
   return (
     <div className="relative pt-20">
-      <SEO 
-        title="Contact" 
-        description="Get in touch with Dhruv Athaide for collaborations, projects, or just to say hello."
-        keywords={['Contact', 'Email', 'Hire', 'Collaboration']}
-      />
+      <SEO title={contactSEO.title} description={contactSEO.description} keywords={contactSEO.keywords} />
 
       
       <div className="container-custom py-10">
@@ -79,10 +76,11 @@ const Contact: React.FC = () => {
             </p>
 
             <div className="mb-10 rounded-xl overflow-hidden shadow-lg h-64 relative group border border-gray-200 dark:border-dark-600 bg-black">
-              <img 
-                src="/images/india-map-stylized.png" 
-                alt="India Map" 
-                className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+              <img
+                src="/images/india-map-stylized.png"
+                alt="India Map"
+                decoding="async"
+                className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-700"
               />
               {/* Pulsing Dot for Mumbai - Adjusted Position */}
               <div className="absolute top-[67%] left-[26%] flex items-center justify-center">

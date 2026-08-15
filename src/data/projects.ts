@@ -20,12 +20,13 @@ export const projects: Project[] = [
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.cib",
     status: "ongoing",
+    stat: "65 Case Files",
     longDescription:
       "Cyber Investigator Battlegrounds (CIB) is an advanced cybersecurity investigation and digital forensics platform designed to train and challenge cyber operatives. Players act as lead investigators inspecting digital crime scenes, analyzing compromised logs, parsing network traffic, and uncovering insider threats across 65 multi-tier case files. Built on a custom dark-obsidian cyber terminal design system, the application features an interactive Crime Board pinboard, dynamic link graph visualization, and 22 specialized cyber-forensic mini-games (including Windows registry persistence navigation, process tree hierarchy inspection, IP tracing, and voice activity spectrum scanning). CIB seamlessly integrates with the DeepCytes Security WebStore API for enterprise session authentication, automatic rolling JWT token refresh, offline grace management, and real-time global and per-case leaderboard synchronization.",
     featured: true,
     features: [
       "Interactive Crime Board & Evidence Chain Graph dynamically linking evidence files, suspect profiles, and timeline events",
-      "22 specialized cyber-forensic mini-games spanning process tree inspection, Windows registry navigation, Caesar ciphers, IP tracing, and hash validation",
+      "Specialized cyber-forensic mini-games spanning process tree inspection, Windows registry navigation, Caesar ciphers, IP tracing, and hash validation and many more",
       "Dynamic Evidence & Suspicion Engine recalculating threat levels and suspect risk metrics based on branching investigation choices",
       "Enterprise Licensing & Session Refresh Architecture integrating DeepCytes WebStore API with silent JWT rolling refresh and a 72-hour offline grace period",
       "Cloud Firestore & Batched Local Sync providing real-time per-case speed/accuracy leaderboards, operative ranks, and persistent player stats",
@@ -45,18 +46,16 @@ export const projects: Project[] = [
   },
   {
     id: "dc-deepcloak",
-    title: "DeepCloak - Hardware Diagnostics & Mobile Security Suite",
+    title: "DeepCloak",
     description:
       "A comprehensive mobile system diagnostic and security auditing platform featuring hardware sensor testing, live performance benchmarking, network inspection tools, floating monitor overlays, and a real-time cybersecurity feed.",
     image: "/images/projects-dc-deepcloak.png",
     technologies: ["Flutter", "Dart", "Kotlin", "Android Native Services"],
     website: "https://webstore.centralindia.cloudapp.azure.com/deepcloak",
-    playstore:
-      "https://play.google.com/store/apps/details?id=com.deepcytes.deepcloak",
     status: "completed",
     longDescription:
       "DeepCloak is an advanced mobile security auditing, hardware diagnostic, and real-time performance monitoring suite designed to provide granular visibility into Android device architecture. Built with native Kotlin system integrations and a sleek Flutter UI, DeepCloak offers an extensive array of diagnostic capabilities—ranging from hardware sensor and display matrix testing to live CPU/RAM/Battery telemetry and multi-core benchmark stress testing. The platform also equips security enthusiasts and sysadmins with a localized network intelligence toolkit (ICMP Ping, DNS Lookup, TCP Port Scanner, and SSL/TLS Inspector), floating system monitor overlays for real-time tracking, and a live cybersecurity feed delivering instant CVE updates and threat advisories.",
-    featured: true,
+    featured: false,
     features: [
       "Comprehensive hardware diagnostic matrix for sensor verification, camera, microphone, battery, and display pixel testing",
       "Live device telemetry and performance benchmarks with multi-core CPU stress testing and interactive memory charts",
@@ -195,6 +194,7 @@ export const projects: Project[] = [
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.nosurveil",
     status: "completed",
+    stat: "Live on Play Store",
     longDescription:
       "NoSurveil is an advanced anti-surveillance Android application built for Deepcytes Cyber Labs (UK), designed to identify physical stalking and covert tracking threats. It uses heuristic spatial-temporal analysis to correlate a user's movement with nearby devices, detecting persistent following patterns rather than simple proximity. The app combines real-time BLE scanning, local-first data processing, and visual threat reporting to surface potential trackers while strictly preserving user privacy.",
     featured: true,
@@ -233,6 +233,7 @@ export const projects: Project[] = [
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.lockguardplus",
     status: "completed",
+    stat: "Live on Play Store",
     longDescription:
       "LockGuard+ is a privacy-focused Android security application built for Deepcytes Cyber Labs (UK) that captures intruder photos during failed, and optionally successful unlock attempts. The latest updates introduce a Premium subscription model, automated evidence retention policies, custom alarm sounds, and secure email alerts with photo attachments. All core data remains strictly encrypted and stored on-device, ensuring stealth operation and privacy-by-design.",
     features: [
@@ -272,6 +273,7 @@ export const projects: Project[] = [
     playstore:
       "https://play.google.com/store/apps/details?id=com.deepcytes.guardient",
     status: "completed",
+    stat: "Live on Play Store",
     featured: true,
     longDescription:
       "Guardient is a cutting-edge mobile privacy application developed for Deepcytes Cyber Labs (UK). Evolving beyond traditional malware scanning, the app performs instantaneous, localized deep package inspection to detect hidden privacy threats without relying on cloud backends. By analyzing granted permissions, installation origins, and dangerous behavioral combos, Guardient generates dynamic risk scores. All insights and metrics are presented through a highly interactive, custom-engineered dashboard, ensuring users can instantly visualize and manage their device's security posture.",
@@ -353,6 +355,7 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/DhruvAthaide/Gridly",
     status: "ongoing",
+    stat: "50% Fewer API Calls",
     longDescription:
       "Gridly is a cutting-edge Android application designed for Formula 1 enthusiasts who demand deeper insights than standard broadcast graphics. It provides real-time telemetry comparison, tire strategy analysis, and live race updates in a sleek, modern interface. Built entirely with Kotlin and Jetpack Compose, it features an offline-first architecture to ensure access to historical data even without connectivity.",
     features: [
@@ -479,7 +482,14 @@ export const projects: Project[] = [
     github: "https://github.com/DhruvAthaide/MobileSentinel",
     // demo: '',
     status: "completed",
+    challenges: [
+      "Correlating live threat intelligence feeds with on-device context without overwhelming the user with alerts",
+    ],
+    solutions: [
+      "Built a filtering and prioritization layer so the app surfaces only relevant, actionable threat advisories",
+    ],
     category: ["Android"],
+    earlyWork: true,
   },
   {
     id: "stockmarket-financialdashboard",
@@ -490,7 +500,14 @@ export const projects: Project[] = [
     technologies: ["Python", "Bokeh"],
     github: "https://github.com/DhruvAthaide/StockMarketFinancialDashboard",
     status: "completed",
+    challenges: [
+      "Rendering interactive charts over large historical datasets without freezing the browser",
+    ],
+    solutions: [
+      "Used Bokeh's server-side rendering and data downsampling to keep interactive charts responsive at scale",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
   {
     id: "teckhack-2023",
@@ -501,7 +518,14 @@ export const projects: Project[] = [
     technologies: ["React", "Node.js", "Firebase"],
     github: "https://github.com/DhruvAthaide/EducationWallah",
     status: "completed",
+    challenges: [
+      "Shipping a full-stack educational platform with authentication and live content updates inside a 24-hour hackathon window",
+    ],
+    solutions: [
+      "Used Firebase Auth and Firestore to skip custom backend infrastructure and focus build time on the React front-end experience",
+    ],
     category: ["Web"],
+    earlyWork: true,
   },
   {
     id: "nirmaan-2023",
@@ -512,7 +536,14 @@ export const projects: Project[] = [
     technologies: ["HTML5", "JavaScript", "CSS3", "PHP"],
     github: "https://github.com/DhruvAthaide/WebWizards",
     status: "completed",
+    challenges: [
+      "Building a responsive, database-backed educational site from scratch under hackathon time constraints",
+    ],
+    solutions: [
+      "Used a lightweight PHP/MySQL backend paired with vanilla JS to ship core features fast without a heavy framework",
+    ],
     category: ["Web"],
+    earlyWork: true,
   },
   {
     id: "stockmarket-analysis",
@@ -523,7 +554,14 @@ export const projects: Project[] = [
     technologies: ["Python"],
     github: "https://github.com/DhruvAthaide/StockMarketAnalysis",
     status: "completed",
+    challenges: [
+      "Cleaning and normalizing noisy historical market data before it could be used for trend analysis",
+    ],
+    solutions: [
+      "Built a Pandas-based preprocessing pipeline to handle missing data and normalize price series for consistent analysis",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
   {
     id: "instagram-messaging-automation",
@@ -534,7 +572,14 @@ export const projects: Project[] = [
     technologies: ["Python", "Selenium"],
     github: "https://github.com/DhruvAthaide/Instagram-Messaging-Automation",
     status: "completed",
+    challenges: [
+      "Keeping automated browser interactions reliable against a frequently changing DOM and anti-automation measures",
+    ],
+    solutions: [
+      "Used explicit Selenium waits and resilient element selectors, with configurable delays to mimic human interaction patterns",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
   {
     id: "instagram-automated-followers-scraper",
@@ -546,7 +591,14 @@ export const projects: Project[] = [
     github:
       "https://github.com/DhruvAthaide/Instagram-Automated-Followers-Scraper",
     status: "completed",
+    challenges: [
+      "Extracting follower data at scale without triggering rate limits or account restrictions",
+    ],
+    solutions: [
+      "Implemented throttled scraping with randomized delays and session management to stay within safe usage patterns",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
   {
     id: "facebook-messaging-automation",
@@ -557,7 +609,14 @@ export const projects: Project[] = [
     technologies: ["Python", "Selenium"],
     github: "https://github.com/DhruvAthaide/Facebook-Messaging-Automation",
     status: "completed",
+    challenges: [
+      "Automating message delivery reliably across a frequently changing web UI",
+    ],
+    solutions: [
+      "Built resilient Selenium selectors and retry logic to keep the automation working across minor UI changes",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
   {
     id: "twitter-messaging-automation",
@@ -568,6 +627,13 @@ export const projects: Project[] = [
     technologies: ["Python", "Selenium"],
     github: "https://github.com/DhruvAthaide/Twitter-Messaging-Automation",
     status: "completed",
+    challenges: [
+      "Automating direct message delivery reliably without tripping platform spam detection",
+    ],
+    solutions: [
+      "Added human-like interaction timing and session throttling to keep automated messaging within safe limits",
+    ],
     category: ["Python"],
+    earlyWork: true,
   },
 ];

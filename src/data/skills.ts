@@ -1,6 +1,7 @@
-import { SiPython, SiKotlin, SiFlutter, SiDart, SiJavascript, SiTypescript, SiCplusplus, SiGnubash, SiMysql, SiKalilinux, SiWireshark, SiDocker, SiGit } from 'react-icons/si';
+import { SiPython, SiKotlin, SiFlutter, SiDart, SiJavascript, SiCplusplus, SiGnubash, SiMysql, SiKalilinux, SiWireshark, SiDocker, SiGit } from 'react-icons/si';
 import { FaJava, FaNetworkWired, FaUserSecret, FaBug, FaKey, FaShieldAlt } from 'react-icons/fa';
 import { GiSpiderWeb } from 'react-icons/gi';
+import { WorkExperience } from '../types';
 
 export const technicalSkills = [
   { name: 'Network Security', percentage: 50, icon: FaNetworkWired },
@@ -32,43 +33,66 @@ export const toolsSkills = [
   { name: 'Git', percentage: 95, icon: SiGit }
 ];
 
-export const workExperience = [
+export const workExperience: WorkExperience[] = [
   {
     title: 'Cyber Analyst - Red Team & Mobile Security',
-    organization: 'Deepcytes Cyber Labs (UK)',
+    organization: 'DeepCytes Cyber Labs UK',
+    location: 'Mumbai, Maharashtra',
     period: 'August 2025 - Present',
-    description: 'Designed and shipped multiple production-grade Android security applications focused on privacy, intrusion detection, and surveillance defense. Built and released Guardient (mobile security & permission risk analysis) and LockGuard (offline intruder detection) on Google Play Store. Currently developing NoSurveil, a BLE-based anti-tracking and anti-stalking platform with local-only forensic analysis. Contributed to secure phone initiatives by customizing DcOS and aligning it secure phone requirements.',
+    description: [
+      'Spearheaded red team engagements across 10+ client environments, architecting a modular Android offensive toolkit aligned with the MITRE ATT&CK Mobile framework, improving simulation fidelity by 40%.',
+      'Architected a covert Android telemetry platform with real-time, multi-channel data streaming and sub-100ms latency, using STUN/TURN NAT traversal and custom signalling.',
+      'Designed a production-grade mobile threat intelligence engine, reducing permission analysis latency by 30% through parallelised traversal and Kotlin Coroutines concurrency handling.',
+      'Built a BLE anti-stalking detection system, reducing false positives by 35% across 10,000+ device samples using RSSI modelling and spatial-temporal correlation.',
+    ],
     logo: '/images/company-deepcytescyberlabs.png'
   },
   {
-    title: 'Red Team & Mobile Dev - Intern Team Lead',
-    organization: 'Deepcytes Cyber Labs (UK)',
+    title: 'Red Team & Mobile Dev Team Lead (Internship)',
+    organization: 'DeepCytes Cyber Labs UK',
+    location: 'Mumbai, Maharashtra',
     period: 'July 2024 - June 2025',
-    description: 'Led a team of +60 Red Team members in conducting advanced penetration testing and vulnerability assessments for high-profile clients. Developed and automated over 100+ custom tools and scripts to enhance testing efficiency and effectiveness. Helped in the development of a Software-as-a-Service (SaaS) platform for automated penetration testing, significantly reducing the time required for security assessments.',
+    description: [
+      'Led a cross-functional team of 60+ specialists across penetration testing, threat intelligence, and vulnerability research, lifting project completion rates 15% and delivery timelines 25%.',
+      'Delivered 4 enterprise-grade platforms, including an LMS and SaaS product, lifting client engagement 35%.',
+      'Spearheaded a hardened AOSP distribution with custom kernel-level modifications and hardware security module integration, reducing OS attack surface by 65%.',
+    ],
     certificate: '/documents/DeepcytesJuly24-June25_Internship_CompletionLetter.pdf',
     logo: '/images/company-deepcytescyberlabs.png'
   },
   {
     title: 'Production & Software Testing Intern',
-    organization: 'Truboard Partners',
+    organization: 'TruBoard Partners',
+    location: 'Mumbai, Maharashtra',
     period: 'June 2024 - August 2024',
-    description: 'Trained a Covenant Machine Learning Model, improving the precision of business application predictions. Assisted in software testing and production processes, focusing on quality assurance and security compliance.',
+    description: [
+      'Fine-tuned a financial covenant detection ML model, improving business process efficiency by 10%.',
+      'Built a real-time asset monitoring solution for ride-sharing services, targeting a reduction in operational costs.',
+    ],
     certificate: '/documents/TruBoard_Internship_CompletionLetter.pdf',
     logo: '/images/company-truboardpartners.png'
   },
   {
-    title: 'Artificial Intelligence - Intern Team Lead',
-    organization: 'Deepcytes Cyber Labs (UK)',
-    period: 'Jan 2024 - May 2024',
-    description: 'Led a team of +15 AI researchers to develop advanced machine learning models for threat detection and response. Researched and implemented Digital Twins technology to enhance cybersecurity measures.',
+    title: 'AI R&D Team Lead (Internship)',
+    organization: 'DeepCytes Cyber Labs UK',
+    location: 'Remote',
+    period: 'January 2024 - June 2024',
+    description: [
+      "Conducted applied research on AI's role in cybersecurity, identifying new integration points and improving organizational AI literacy.",
+      'Led the Digital Twin project lifecycle from concept through implementation.',
+    ],
     certificate: '/documents/DeepcytesJan-July24_Internship_CompletionLetter.pdf',
     logo: '/images/company-deepcytescyberlabs.png'
   },
   {
-    title: 'Artificial Intelligence & Deep Web Internship',
-    organization: 'Deepcytes Cyber Labs (UK)',
+    title: 'Cyber Security Intern',
+    organization: 'DeepCytes Cyber Labs UK',
+    location: 'Mumbai, Maharashtra',
     period: 'July 2023 - December 2023',
-    description: 'Worked on AI-driven cybersecurity solutions, focusing on deep web threat intelligence and automated vulnerability detection.',
+    description: [
+      'Contributed to cyber intelligence research alongside AI R&D and Deep Web teams, improving threat intelligence capabilities by 10%.',
+      'Conducted independent research into deep web threat actor behavior, informing organizational security research priorities.',
+    ],
     certificate: '/documents/DeepcytesJuly-Dec23_Internship_CompletionLetter.pdf',
     logo: '/images/company-deepcytescyberlabs.png'
   }

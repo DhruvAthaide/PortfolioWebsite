@@ -7,16 +7,13 @@ import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import TechMarquee from "../components/ui/TechMarquee";
 import { projects } from "../data/projects";
+import { homeSEO } from "../data/seoMeta";
 import ProjectCard from "../components/ui/ProjectCard";
 
 const Home: React.FC = () => {
   return (
     <div className="relative">
-      <SEO 
-        title="Home" 
-        description="Dhruv Athaide - Red Team Analyst & Software Developer. Specializing in cybersecurity, penetration testing, and secure software development."
-        keywords={['Red Team', 'Penetration Testing', 'Cybersecurity', 'Software Developer']}
-      />
+      <SEO title={homeSEO.title} description={homeSEO.description} keywords={homeSEO.keywords} />
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">

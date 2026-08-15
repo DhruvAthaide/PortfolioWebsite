@@ -1,0 +1,17 @@
+{
+  "name": "Dhruv Athaide | Red Team Analyst & Developer",
+  "short_name": "Dhruv Athaide",
+  "description": "Portfolio of Dhruv Athaide - Red Team Analyst & Software Developer",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "/Logo.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}

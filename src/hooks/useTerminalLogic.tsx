@@ -176,13 +176,13 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         );
         break;
 
-      case 'cowsay':
+      case 'cowsay': {
         const message = cmdArgs.join(' ') || "Moo!";
         const bubbleWidth = message.length + 4;
         const border = '-'.repeat(bubbleWidth);
         const top = ` ${'_'.repeat(bubbleWidth)} `;
         const bottom = ` ${border} `;
-        
+
         output = (
           <div className="whitespace-pre font-mono text-green-300 leading-none">
 {`${top}
@@ -196,6 +196,7 @@ ${bottom}
           </div>
         );
         break;
+      }
       
       case 'matrix':
         setMatrixMode(prev => !prev);

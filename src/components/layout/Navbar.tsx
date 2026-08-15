@@ -84,8 +84,8 @@ const Navbar: React.FC = () => {
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
           
-          <a 
-            href="\documents\DhruvAthaide_CV.pdf"
+          <a
+            href="/documents/DhruvAthaide_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline flex items-center gap-2"
@@ -140,8 +140,8 @@ const Navbar: React.FC = () => {
               </li>
             ))}
             <li>
-              <a 
-                href="\documents\DhruvAthaide_CV.pdf"
+              <a
+                href="/documents/DhruvAthaide_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline w-full justify-center mt-2"

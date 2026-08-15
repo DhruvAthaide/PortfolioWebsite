@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, className, children }) => {
-  const { title, description, image, technologies, github, playstore, website, demo, status } = project;
+  const { title, description, image, technologies, github, playstore, website, demo, status, stat } = project;
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -55,9 +55,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, className, ch
 
       <div className="relative h-52 shrink-0 overflow-hidden cursor-pointer" onClick={() => document.getElementById(`link-${project.id}`)?.click()}>
          <Link to={`/projects/${project.id}`} id={`link-${project.id}`} className="block h-full">
-            <motion.img 
-                src={image} 
-                alt={title} 
+            <motion.img
+                src={image}
+                alt={title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
@@ -70,14 +72,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, className, ch
         <div className="absolute top-3 right-3 z-30">
           <div className={`
              backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1.5
-             ${status === 'completed' 
-                ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' 
+             ${status === 'completed'
+                ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                 : 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30'}
           `}>
              <span className={`w-1.5 h-1.5 rounded-full ${status === 'completed' ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse`}></span>
             {status}
           </div>
         </div>
+
+        {/* Stat Badge */}
+        {stat && (
+          <div className="absolute top-3 left-3 z-30">
+            <div className="backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold shadow-lg bg-primary-600/90 text-white dark:bg-secondary-900/90 dark:text-dark-900">
+              {stat}
+            </div>
+          </div>
+        )}
       </div>
       
       <div className="p-6 flex flex-col flex-grow relative z-20">

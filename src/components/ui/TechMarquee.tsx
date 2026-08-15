@@ -28,13 +28,13 @@ const TechMarquee: React.FC = () => {
   const duplicatedIcons = [...icons, ...icons, ...icons];
 
   return (
-    <div className="w-full bg-gray-50/50 dark:bg-dark-800/50 py-8 overflow-hidden border-y border-gray-100 dark:border-dark-700 backdrop-blur-sm">
+    <div className="w-full bg-gray-50/50 dark:bg-dark-800/50 py-14 overflow-hidden border-y border-gray-100 dark:border-dark-700 backdrop-blur-sm">
         <div className="container-custom mb-4">
             <h3 className="text-center text-sm font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                 Technologies & Tools
             </h3>
         </div>
-      <div className="relative flex overflow-x-hidden">
+      <div className="relative flex">
         <motion.div
           className="flex gap-16 items-center whitespace-nowrap py-2"
           animate={{
@@ -50,7 +50,7 @@ const TechMarquee: React.FC = () => {
           }}
         >
           {duplicatedIcons.map((item, index) => (
-            <div key={index} className="flex flex-col items-center gap-2 group cursor-default">
+            <div key={index} className="relative flex flex-col items-center gap-2 group cursor-default">
               <item.Icon 
                 size={40} 
                 className="text-gray-400 dark:text-gray-600 group-hover:text-primary-600 dark:group-hover:text-secondary-400 transition-colors duration-300 transform group-hover:scale-110" 

@@ -2,8 +2,6 @@ import React from "react";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-import VisitorRecon from "../ui/VisitorRecon";
-
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
@@ -81,7 +79,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="\documents\DhruvAthaide_CV.pdf"
+                  href="/documents/DhruvAthaide_CV.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-dark-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors"
@@ -126,8 +124,6 @@ const Footer: React.FC = () => {
             &copy; {currentYear} Dhruv Athaide. All rights reserved.
           </p>
         </div>
-        
-        <VisitorRecon />
       </div>
     </footer>
   );
