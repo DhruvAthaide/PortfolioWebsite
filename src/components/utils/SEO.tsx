@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 // Keep in sync with scripts/postbuild.mjs
 const SITE_URL = 'https://dhruvathaide.com';
-const DEFAULT_IMAGE = '/images/home-DhruvAthaide.png';
+const DEFAULT_IMAGE = '/images/og-card.png';
 
 interface SEOProps {
   title: string;
@@ -15,7 +15,7 @@ interface SEOProps {
 
 const SEO: React.FC<SEOProps> = ({
   title,
-  description = "Dhruv Athaide - Red Team Analyst & Software Developer",
+  description = "Dhruv Athaide, Mobile & Application Security Engineer",
   keywords = [],
   image = DEFAULT_IMAGE,
 }) => {
@@ -23,7 +23,7 @@ const SEO: React.FC<SEOProps> = ({
   const url = pathname === '/' ? SITE_URL : `${SITE_URL}${pathname}`;
   const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
   const siteTitle = `${title} | Dhruv Athaide`;
-  const allKeywords = ['Dhruv Athaide', 'Red Team Analyst', 'Cybersecurity', 'Software Developer', ...keywords].join(', ');
+  const allKeywords = ['Dhruv Athaide', 'Mobile Security', 'Application Security', 'Android', ...keywords].join(', ');
 
   return (
     <Helmet>

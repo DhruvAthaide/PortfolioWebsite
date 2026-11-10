@@ -4,7 +4,7 @@ import { loadTsModule } from './load-ts-module.mjs';
 
 // Keep in sync with src/components/utils/SEO.tsx
 const SITE_URL = 'https://dhruvathaide.com';
-const DEFAULT_IMAGE = '/images/home-DhruvAthaide.png';
+const DEFAULT_IMAGE = '/images/og-card.png';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 
@@ -30,7 +30,7 @@ function setTag(html, regex, replacement, description) {
 
 // The source index.html sometimes wraps a meta tag's `content="..."` onto its
 // own line (e.g. `<meta property="og:description"\n    content="..." />`), so
-// property/name and content aren't always adjacent on the same line — match
+// property/name and content aren't always adjacent on the same line, so match
 // across that gap instead of assuming a fixed single space between them.
 function metaPropertyRegex(property) {
   return new RegExp(`(<meta property="${property}"[^>]*?content=")[^"]*(")`);
@@ -100,7 +100,8 @@ async function main() {
       path: `projects/${project.id}`,
       title: `${project.title} | Project Case Study`,
       description: project.description,
-      image: project.image,
+      // WebP project images are not reliably rendered by link-preview bots (e.g. LinkedIn)
+      image: DEFAULT_IMAGE,
     })),
   ].map((route) => ({
     ...route,
