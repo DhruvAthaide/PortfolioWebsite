@@ -1,4 +1,11 @@
 {
+    "redirects": [
+        {
+            "source": "/documents/DhruvAthaide_CV.pdf",
+            "destination": "/documents/DhruvAthaide_CV_Mobile_Engineer.pdf",
+            "permanent": false
+        }
+    ],
     "headers": [
         {
             "source": "/(.*)",
