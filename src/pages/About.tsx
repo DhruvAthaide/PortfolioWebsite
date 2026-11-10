@@ -1,219 +1,171 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Download, User, MapPin, Mail, Languages, Globe } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 import { useTheme } from '../context/ThemeContext';
-import SkillBar from '../components/ui/SkillBar';
 import TimelineItem from '../components/ui/TimelineItem';
 import Stats from '../components/ui/Stats';
-import SkillGraph from '../components/ui/SkillGraph';
 import VulnerabilityReport from '../components/ui/VulnerabilityReport';
-
 import SEO from '../components/utils/SEO';
-import GlitchText from '../components/ui/GlitchText';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs';
-import { technicalSkills, programmingSkills, toolsSkills, education } from '../data/skills';
+import { skillGroups, education, publication, certifications, orcidUrl } from '../data/skills';
+import { resumes } from '../data/resumes';
 import { aboutSEO } from '../data/seoMeta';
+
+const FACTS = [
+  { label: 'Currently', value: 'Cyber Analyst, DeepCytes Cyber Labs UK' },
+  { label: 'Based in', value: 'Mumbai, India' },
+  { label: 'Languages', value: 'English, Hindi, some Spanish' },
+];
+
+const strong = 'text-dark-900 dark:text-gray-50 font-medium';
 
 const About: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="relative pt-20">
+    <div className="container-custom pt-32 pb-10">
       <SEO title={aboutSEO.title} description={aboutSEO.description} keywords={aboutSEO.keywords} />
 
-      
-      <div className="container-custom py-10">
-        <motion.h1 
-          className="text-4xl font-bold mb-12 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          About <span className="text-primary-600 dark:text-secondary-900 inline-block"><GlitchText text="Me" /></span>
-        </motion.h1>
-        
-        {/* Intro Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col justify-center"
-          >
-            <h2 className="section-title text-left mb-6">Who Am I?</h2>
-            <div className="space-y-4 text-lg text-dark-500 dark:text-gray-300 leading-relaxed">
-              <p>
-                I'm a <span className="text-primary-600 dark:text-secondary-900 font-semibold">Red Team Analyst</span> & <span className="text-primary-600 dark:text-secondary-900 font-semibold">Mobile App Developer</span> based in <span className="text-white font-medium">Mumbai, India</span>. 
-              </p>
-              <p>
-                I don't just build applications, I break them to make them stronger. My passion lies at the intersection of <span className="text-white font-medium">software engineering</span> and <span className="text-white font-medium">offensive security</span>.
-              </p>
-              <p>
-                With a deep understanding of network protocols, and secure coding practices, I create digital solutions that are as <span className="italic">resilient</span> as they are <span className="italic">performant</span>.
-              </p>
-            </div>
-            
-            <div className="mt-8">
-              <a 
-                href="/documents/DhruvAthaide_CV.pdf" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn btn-primary flex items-center gap-2 w-max group"
-              >
-                <Download size={18} className="group-hover:scale-110 transition-transform" />
-                <span>Download CV</span>
-              </a>
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-          >
-            {/* Info Cards */}
-            <div className="bg-white/50 dark:bg-dark-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100 dark:border-dark-600 hover:border-primary-500 dark:hover:border-secondary-900 transition-colors duration-300 group">
-              <div className="mb-3 text-primary-600 dark:text-secondary-900">
-                <User size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Name</h3>
-              <p className="text-lg font-semibold text-dark-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">Dhruv Athaide</p>
-            </div>
+      <h1 className="text-4xl sm:text-5xl">About</h1>
 
-            <div className="bg-white/50 dark:bg-dark-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100 dark:border-dark-600 hover:border-primary-500 dark:hover:border-secondary-900 transition-colors duration-300 group">
-              <div className="mb-3 text-primary-600 dark:text-secondary-900">
-                <MapPin size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Location</h3>
-              <p className="text-lg font-semibold text-dark-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">Mumbai, India</p>
-            </div>
-
-            <div className="bg-white/50 dark:bg-dark-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100 dark:border-dark-600 hover:border-primary-500 dark:hover:border-secondary-900 transition-colors duration-300 group sm:col-span-2">
-              <div className="mb-3 text-primary-600 dark:text-secondary-900">
-                <Mail size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Email</h3>
-              <p className="text-lg font-mono font-medium text-dark-900 dark:text-white break-all hover:text-primary-600 dark:hover:text-secondary-900 transition-colors cursor-pointer" onClick={() => window.location.href = 'mailto:athaidedhruv@gmail.com'}>
-                athaidedhruv@gmail.com
-              </p>
-            </div>
-
-             <div className="bg-white/50 dark:bg-dark-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100 dark:border-dark-600 hover:border-primary-500 dark:hover:border-secondary-900 transition-colors duration-300 group">
-              <div className="mb-3 text-primary-600 dark:text-secondary-900">
-                <Globe size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Languages</h3>
-              <div className="flex flex-col gap-1">
-                <span className="text-base font-medium text-dark-900 dark:text-white">English <span className="text-xs text-gray-500 font-normal ml-1">(Fluent)</span></span>
-                <span className="text-base font-medium text-dark-900 dark:text-white">Hindi <span className="text-xs text-gray-500 font-normal ml-1">(Native)</span></span>
-              </div>
-            </div>
-
-            <div className="bg-white/50 dark:bg-dark-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100 dark:border-dark-600 hover:border-primary-500 dark:hover:border-secondary-900 transition-colors duration-300 group">
-              <div className="mb-3 text-primary-600 dark:text-secondary-900">
-                <Languages size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Learning</h3>
-              <p className="text-lg font-medium text-dark-900 dark:text-white">Spanish <span className="text-sm text-gray-500 font-normal ml-1">(Intermediate)</span></p>
-            </div>
-            
-          </motion.div>
+      <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
+          <p>
+            I&apos;m a mobile and application security engineer in Mumbai, with a little over two years of building and
+            securing Android apps that real people use.
+          </p>
+          <p>
+            At <span className={strong}>DeepCytes Cyber Labs UK</span> I look after mobile security for our Android
+            product line. In practice that means threat modelling, code review, OWASP MASVS testing before each release,
+            and the native C++ hardening that makes the apps harder to tamper with. I also write offensive Android tooling
+            for the red team.
+          </p>
+          <p>
+            The work I&apos;ve enjoyed most so far was implementing the Signal protocol for SecureLine, and working out
+            how to tell whether a Bluetooth tracker is actually following someone for NoSurveil. I also co-wrote a{' '}
+            <a href={publication.href} target="_blank" rel="noopener noreferrer" className="link">peer-reviewed chapter</a>{' '}
+            on Android vulnerability assessment for IGI Global.
+          </p>
+          {/* Hidden for now. To restore, add to the paragraph above:
+              "I'm also doing an M.S. at IIT Patna." */}
         </div>
 
-        {/* Quick Stats */}
-        <Stats />
-
-        {/* Tabbed Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mb-20"
-        >
-          <Tabs defaultValue="skills" className="w-full">
-            <div className="flex justify-center mb-8">
-              <TabsList className="w-full max-w-md">
-                <TabsTrigger value="skills">Skills</TabsTrigger>
-                <TabsTrigger value="experience">Experience</TabsTrigger>
-                <TabsTrigger value="education">Education</TabsTrigger>
-              </TabsList>
+        <aside className="space-y-8">
+          <dl className="space-y-4">
+            {FACTS.map((fact) => (
+              <div key={fact.label}>
+                <dt className="text-sm text-dark-400 dark:text-gray-400">{fact.label}</dt>
+                <dd className={strong}>{fact.value}</dd>
+              </div>
+            ))}
+            <div>
+              <dt className="text-sm text-dark-400 dark:text-gray-400">Email</dt>
+              <dd>
+                <a href="mailto:athaidedhruv@gmail.com" className="link break-all">athaidedhruv@gmail.com</a>
+              </dd>
             </div>
+          </dl>
 
-            <TabsContent value="skills">
-              <div className="mb-12">
-                   <h3 className="section-title text-center mb-6">Interactive Skill Network</h3>
-                   <SkillGraph />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md border border-gray-100 dark:border-dark-600">
-                  <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
-                    <span className="text-primary-600 dark:text-secondary-900">⚡</span> Technical Security
-                  </h3>
-                  {technicalSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-primary-600 dark:bg-secondary-900" />
-                  ))}
-                </div>
-                <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md border border-gray-100 dark:border-dark-600">
-                  <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
-                    <span className="text-blue-500">💻</span> Programming
-                  </h3>
-                  {programmingSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-blue-500 dark:bg-blue-400" />
-                  ))}
-                </div>
-                <div className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-md border border-gray-100 dark:border-dark-600">
-                  <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
-                     <span className="text-green-500">🛠️</span> Tools
-                  </h3>
-                  {toolsSkills.map((skill, index) => (
-                    <SkillBar key={index} name={skill.name} percentage={skill.percentage} icon={skill.icon} color="bg-green-500 dark:bg-green-400" />
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="experience">
-              <VulnerabilityReport />
-            </TabsContent>
-
-            <TabsContent value="education">
-              <div className="max-w-3xl mx-auto">
-                {education.map((item, index) => (
-                  <TimelineItem
-                    key={index}
-                    title={item.title}
-                    organization={item.organization}
-                    period={item.period}
-                    description={item.description}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-        </motion.div>
-
-        {/* GitHub Activity */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="section-title text-center mb-10">Coding Activity</h2>
-          <div className="flex justify-center p-8 bg-white dark:bg-dark-700 rounded-xl shadow-lg border border-gray-100 dark:border-dark-600 overflow-x-auto">
-            <GitHubCalendar
-              username="DhruvAthaide"
-              colorScheme={theme === 'dark' ? 'dark' : 'light'}
-              blockSize={12}
-              blockMargin={5}
-              fontSize={14}
-            />
+          <div>
+            <h2 className="text-lg mb-3">CV</h2>
+            <ul className="divide-y divide-gray-200 dark:divide-dark-600 border-y border-gray-200 dark:border-dark-600">
+              {resumes.map((resume) => (
+                <li key={resume.id}>
+                  <a
+                    href={resume.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-4 py-3"
+                  >
+                    <span>
+                      <span className={`block ${strong} group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors`}>
+                        {resume.label}
+                      </span>
+                      <span className="block text-sm text-dark-400 dark:text-gray-400">{resume.focus}</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-sm text-dark-400 dark:text-gray-400 shrink-0">
+                      PDF <ArrowUpRight size={14} aria-hidden="true" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </motion.div>
+        </aside>
       </div>
+
+      <Stats />
+
+      <section className="mt-20">
+        <VulnerabilityReport />
+      </section>
+
+      <section className="mt-20">
+        <h2 className="section-title">Skills</h2>
+        <dl className="grid gap-8 md:grid-cols-2">
+          {skillGroups.map((group) => (
+            <div key={group.title}>
+              <dt className={`${strong} mb-2`}>{group.title}</dt>
+              <dd className="leading-relaxed">{group.skills.join(', ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="mt-20 grid gap-12 lg:grid-cols-2">
+        <div>
+          <h2 className="section-title">Education</h2>
+          {education.map((item) => (
+            <TimelineItem
+              key={item.title}
+              title={item.title}
+              organization={item.organization}
+              period={item.period}
+              description={item.description}
+            />
+          ))}
+        </div>
+
+        <div>
+          <h2 className="section-title">Publication</h2>
+          <p>
+            <a href={publication.href} target="_blank" rel="noopener noreferrer" className={`${strong} hover:text-primary-600 dark:hover:text-secondary-900 transition-colors`}>
+              {publication.title}
+            </a>
+          </p>
+          <p className="mt-1 text-sm text-dark-400 dark:text-gray-400">{publication.issuer}</p>
+          <p className="mt-2 flex gap-4 text-sm">
+            <a href={publication.href} target="_blank" rel="noopener noreferrer" className="link">DOI</a>
+            <a href={orcidUrl} target="_blank" rel="noopener noreferrer" className="link">ORCID</a>
+          </p>
+
+          <h2 className="section-title mt-12">Certifications</h2>
+          <ul className="space-y-2">
+            {certifications.map((cert) => (
+              <li key={cert.title}>
+                {cert.href ? (
+                  <a href={cert.href} target="_blank" rel="noopener noreferrer" className="link">{cert.title}</a>
+                ) : (
+                  <span className={strong}>{cert.title}</span>
+                )}
+                <span className="text-sm text-dark-400 dark:text-gray-400">, {cert.issuer}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <h2 className="section-title">GitHub activity</h2>
+        <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-dark-600 bg-white dark:bg-dark-700 p-6">
+          <GitHubCalendar
+            username="DhruvAthaide"
+            colorScheme={theme === 'dark' ? 'dark' : 'light'}
+            blockSize={12}
+            blockMargin={4}
+            fontSize={13}
+          />
+        </div>
+      </section>
     </div>
   );
 };

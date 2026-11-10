@@ -6,38 +6,65 @@
   <link rel="icon" type="image/x-icon" href="/Logo.ico" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dhruv Athaide - Cybersecurity Software Developer Portfolio" />
-  <meta name="keywords" content="Dhruv Athaide, Cybersecurity, Software Developer, Portfolio, Mumbai" />
+  <meta name="description" content="Mobile &amp; Application Security Engineer with 5 Android security apps shipped to Google Play: mobile VAPT, OWASP MASVS/MASTG, applied cryptography and native anti-tamper hardening." />
+  <meta name="keywords" content="Dhruv Athaide, Mobile Security Engineer, Application Security, Android Developer, Mobile VAPT, Mumbai" />
   <meta name="author" content="Dhruv Athaide" />
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf9" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141210" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Schibsted+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
   <!-- 
       Greetings, Explorer! 🕵️‍♂️
       You found Flag 1: CTF{dom_explorer}
       Keep looking... check the console and maybe try to `submit-flag` in the terminal?
     -->
-  <title>Dhruv Athaide | Red Team Analyst & Developer</title>
+  <title>Dhruv Athaide | Mobile &amp; Application Security Engineer</title>
+  <script>
+    // Apply the saved/system theme before first paint to avoid a light-mode flash
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dhruv Athaide",
+      "jobTitle": "Mobile & Application Security Engineer",
+      "url": "https://dhruvathaide.com",
+      "image": "https://dhruvathaide.com/images/home-DhruvAthaide.png",
+      "worksFor": { "@type": "Organization", "name": "DeepCytes Cyber Labs UK" },
+      "alumniOf": [{ "@type": "CollegeOrUniversity", "name": "Amity University Mumbai" }],
+      "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressCountry": "IN" },
+      "sameAs": [
+        "https://github.com/DhruvAthaide",
+        "https://www.linkedin.com/in/dhruvathaide",
+        "https://orcid.org/0009-0000-3554-9798"
+      ]
+    }
+  </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dhruvathaide.com/" />
-  <meta property="og:title" content="Dhruv Athaide | Red Team Analyst & Developer" />
+  <meta property="og:title" content="Dhruv Athaide | Mobile &amp; Application Security Engineer" />
   <meta property="og:description"
-    content="Cybersecurity Lab, Red Team Analyst, and Full Stack Developer. Explore my secure software solutions and penetration testing projects." />
-  <meta property="og:image" content="https://dhruvathaide.com/images/home-DhruvAthaide.png" />
+    content="Mobile &amp; Application Security Engineer with 5 Android security apps shipped to Google Play: mobile VAPT, OWASP MASVS/MASTG, applied cryptography and native anti-tamper hardening." />
+  <meta property="og:image" content="https://dhruvathaide.com/images/og-card.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://dhruvathaide.com/" />
-  <meta property="twitter:title" content="Dhruv Athaide | Red Team Analyst & Developer" />
+  <meta property="twitter:title" content="Dhruv Athaide | Mobile &amp; Application Security Engineer" />
   <meta property="twitter:description"
-    content="Cybersecurity Lab, Red Team Analyst, and Full Stack Developer. Explore my secure software solutions and penetration testing projects." />
-  <meta property="twitter:image" content="https://dhruvathaide.com/images/home-DhruvAthaide.png" />
+    content="Mobile &amp; Application Security Engineer with 5 Android security apps shipped to Google Play: mobile VAPT, OWASP MASVS/MASTG, applied cryptography and native anti-tamper hardening." />
+  <meta property="twitter:image" content="https://dhruvathaide.com/images/og-card.png" />
 </head>
 
 <body>

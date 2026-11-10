@@ -1,51 +1,22 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, Briefcase, Code, Users } from 'lucide-react';
 
-const stats = [
-  {
-    icon: <Briefcase className="w-6 h-6" />,
-    value: "4+",
-    label: "Years Experience",
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    value: "60+",
-    label: "Team Members Led",
-  },
-  {
-    icon: <Code className="w-6 h-6" />,
-    value: "4+",
-    label: "Projects Completed",
-  },
-  {
-    icon: <Award className="w-6 h-6" />,
-    value: "10+",
-    label: "Tools Developed",
-  },
+// Every figure here must be backed by the CVs in public/documents.
+const STATS = [
+  { value: '2+', label: 'years in mobile security' },
+  { value: '5', label: 'apps on Google Play' },
+  { value: '1', label: 'peer-reviewed publication' },
+  { value: '9.69', label: 'BCA CGPA, silver medal' },
 ];
 
-const Stats: React.FC = () => {
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-      {stats.map((stat, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          viewport={{ once: true }}
-          className="bg-white dark:bg-dark-700 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-dark-600 flex flex-col items-center text-center hover:shadow-xl transition-shadow"
-        >
-          <div className="bg-primary-50 dark:bg-dark-600 p-3 rounded-full text-primary-600 dark:text-secondary-400 mb-3">
-            {stat.icon}
-          </div>
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{stat.label}</p>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
+const Stats: React.FC = () => (
+  <dl className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-y-8 border-y border-gray-200 dark:border-dark-600 py-8">
+    {STATS.map((stat) => (
+      <div key={stat.label} className="flex flex-col-reverse">
+        <dt className="text-sm text-dark-400 dark:text-gray-400">{stat.label}</dt>
+        <dd className="font-display text-3xl sm:text-4xl font-bold text-dark-900 dark:text-gray-50 tabular-nums">{stat.value}</dd>
+      </div>
+    ))}
+  </dl>
+);
 
 export default Stats;

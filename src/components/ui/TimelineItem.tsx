@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { FileText } from 'lucide-react';
 
 interface TimelineItemProps {
   title: string;
@@ -7,12 +7,9 @@ interface TimelineItemProps {
   location?: string;
   period: string;
   description: string | string[];
-  index: number;
   certificate?: string;
   logo?: string;
 }
-
-import { FileText, Building } from 'lucide-react';
 
 const TimelineItem: React.FC<TimelineItemProps> = ({
   title,
@@ -20,63 +17,53 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   location,
   period,
   description,
-  index,
   certificate,
   logo,
-}) => {
-  return (
-    <motion.div
-      className="relative pl-8 pb-8 border-l-2 border-gray-300 dark:border-dark-600 last:border-0 last:pb-0"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div className="absolute -left-2.5 top-0 h-5 w-5 rounded-full bg-secondary-900" />
-      <div className="mb-1 text-sm text-gray-500 dark:text-gray-400">
-        {period}{location ? ` · ${location}` : ''}
+}) => (
+  <div className="relative pl-6 pb-10 border-l border-gray-300 dark:border-dark-600 last:border-transparent last:pb-0">
+    <span className="absolute -left-[5px] top-1.5 h-[9px] w-[9px] rounded-full bg-primary-600 dark:bg-secondary-900" />
+
+    <div className="flex items-start gap-4">
+      <div className="flex-grow min-w-0">
+        <p className="text-sm text-dark-400 dark:text-gray-400">
+          {period}
+          {location ? `, ${location}` : ''}
+        </p>
+        <h3 className="mt-1 text-lg">{title}</h3>
+        <p className="text-dark-900 dark:text-gray-100">{organization}</p>
       </div>
-
-      <div className="flex items-start gap-4 mb-2">
-        <div className="flex-grow">
-          <h3 className="text-xl font-bold">{title}</h3>
-          <div className="text-primary-600 dark:text-secondary-900 font-medium">{organization}</div>
-        </div>
-        {logo ? (
-            <img src={logo} alt={organization} className="w-12 h-12 object-contain rounded-md bg-white p-1 shadow-sm" />
-        ) : (
-            <div className="w-12 h-12 rounded-md bg-gray-100 dark:bg-dark-600 flex items-center justify-center text-gray-400">
-                <Building size={24} />
-            </div>
-        )}
-      </div>
-
-      {Array.isArray(description) ? (
-        <ul className="space-y-1.5 mb-3">
-          {description.map((point, i) => (
-            <li key={i} className="flex gap-2 text-dark-500 dark:text-gray-300">
-              <span className="mt-2 h-1 w-1 rounded-full bg-secondary-900 shrink-0" />
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-dark-500 dark:text-gray-300 mb-3">{description}</p>
+      {logo && (
+        <img
+          src={logo}
+          alt={`${organization} logo`}
+          loading="lazy"
+          className="w-10 h-10 object-contain rounded-md bg-white p-1 border border-gray-200 dark:border-dark-600 shrink-0"
+        />
       )}
+    </div>
 
-      {certificate && (
-        <a 
-          href={certificate} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-secondary-900 hover:underline mt-2"
-        >
-          <FileText size={16} />
-          <span>View Completion Letter</span>
-        </a>
-      )}
-    </motion.div>
-  );
-};
+    {Array.isArray(description) ? (
+      <ul className="mt-3 space-y-2 list-disc pl-5 marker:text-dark-300">
+        {description.map((point) => (
+          <li key={point} className="leading-relaxed">{point}</li>
+        ))}
+      </ul>
+    ) : (
+      <p className="mt-3 leading-relaxed">{description}</p>
+    )}
+
+    {certificate && (
+      <a
+        href={certificate}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex items-center gap-2 text-sm link"
+      >
+        <FileText size={14} aria-hidden="true" />
+        Completion letter
+      </a>
+    )}
+  </div>
+);
 
 export default TimelineItem;

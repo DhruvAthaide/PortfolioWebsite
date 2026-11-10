@@ -1,206 +1,112 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { X } from 'lucide-react';
 import ProjectCard from '../components/ui/ProjectCard';
 import ProjectListItem from '../components/ui/ProjectListItem';
-import { Project, FilterCategory } from '../types';
-
 import SEO from '../components/utils/SEO';
+import { FilterCategory, Project } from '../types';
 import { projects } from '../data/projects';
 import { projectsSEO } from '../data/seoMeta';
 import { useCTF } from '../context/CTFContext';
 
-interface SectionLabelProps {
-  children: React.ReactNode;
+const FILTERS: FilterCategory[] = ['All', 'Android', 'Security', 'Web'];
+
+interface ProjectGroupProps {
+  title: string;
+  items: Project[];
+  columns: string;
 }
 
-const SectionLabel: React.FC<SectionLabelProps> = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    className="flex items-center gap-2 mb-6"
-  >
-    <span className="h-px w-12 bg-primary-600 dark:bg-secondary-900"></span>
-    <span className="text-primary-600 dark:text-secondary-900 font-mono font-medium tracking-wider uppercase text-sm">
-      {children}
-    </span>
-  </motion.div>
+const ProjectGroup: React.FC<ProjectGroupProps> = ({ title, items, columns }) => (
+  <section className="mb-16">
+    <h2 className="text-xl sm:text-2xl mb-6">{title}</h2>
+    <div className={`grid grid-cols-1 gap-6 ${columns}`}>
+      {items.map((project) => (
+        <ProjectCard key={project.id} project={project} />
+      ))}
+    </div>
+  </section>
 );
 
 const Projects: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
   const { unlocked, secretHidden, hideSecret } = useCTF();
 
-  const filteredProjects = projects.filter(project => {
-    if (activeCategory === 'All') return true;
-    return project.category.includes(activeCategory);
-  });
-
-  const featuredProjects = filteredProjects.filter(p => p.featured);
-  const earlyWorkProjects = filteredProjects.filter(p => p.earlyWork);
-  const standardProjects = filteredProjects.filter(p => !p.featured && !p.earlyWork);
-
-  const secretProject: Project = {
-    id: 'project-zero',
-    title: 'Project Zero: Classified',
-    description: 'A covert government surveillance tool that you were never supposed to see. Congratulations, Agent.',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', // Matrix/Hacker style image
-    technologies: ['Quantum Crypto', 'Zero Day', 'Black Ops'],
-    github: '#',
-    status: 'ongoing' as const,
-    category: ['Security']
-  };
+  const filteredProjects = projects.filter(
+    (project) => activeCategory === 'All' || project.category.includes(activeCategory),
+  );
+  const featuredProjects = filteredProjects.filter((p) => p.featured);
+  const earlyWorkProjects = filteredProjects.filter((p) => p.earlyWork);
+  const otherProjects = filteredProjects.filter((p) => !p.featured && !p.earlyWork);
 
   return (
-    <div className="relative pt-20 min-h-screen">
+    <div className="container-custom pt-32 pb-10">
       <SEO title={projectsSEO.title} description={projectsSEO.description} keywords={projectsSEO.keywords} />
 
-      <div className="container-custom py-10">
-        <motion.h1
-          className="text-5xl font-bold mb-16 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-500">Projects</span>
-        </motion.h1>
+      <h1 className="text-4xl sm:text-5xl">Projects</h1>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed">
+        The first group is production work from DeepCytes Cyber Labs UK, most of it on Google Play. Further down are
+        personal projects and a few older things from university.
+      </p>
 
-        {/* Modern Filter Tabs */}
-        <motion.div
-          className="flex justify-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-gray-100 dark:bg-dark-800 rounded-full border border-gray-200 dark:border-dark-700">
-            {(['All', 'Android', 'Web', 'Security', 'Python'] as FilterCategory[]).map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 relative z-10 ${
-                  activeCategory === category
-                    ? 'text-white dark:text-dark-900 font-semibold shadow-lg'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-dark-900 dark:hover:text-white'
-                }`}
-              >
-                {activeCategory === category && (
-                   <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-primary-600 dark:bg-secondary-900 rounded-full -z-10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                {category}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Classified Secret Project */}
-        <AnimatePresence>
-          {unlocked && !secretHidden && (
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="max-w-xl mx-auto mb-16"
-            >
-              <ProjectCard
-                project={secretProject}
-                index={0}
-                className="border-2 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]"
-              >
-                <div className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10">TOP SECRET</div>
-                <button
-                    onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    hideSecret();
-                    }}
-                    className="absolute top-0 right-[85px] bg-dark-800 text-white hover:bg-red-600 p-1 rounded-bl-lg transition-colors z-20"
-                    title="Hide Classified Project"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-              </ProjectCard>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Tier 1: Featured Work */}
-        {featuredProjects.length > 0 && (
-          <div className="mb-16">
-            <SectionLabel>Featured Work</SectionLabel>
-            <motion.div layout className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <AnimatePresence>
-                {featuredProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="h-full"
-                  >
-                    <ProjectCard project={project} index={index} className="h-full" />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          </div>
-        )}
-
-        {/* Tier 2: Standard Grid */}
-        {standardProjects.length > 0 && (
-          <div className="mb-16">
-            {featuredProjects.length > 0 && <SectionLabel>More Projects</SectionLabel>}
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <AnimatePresence>
-                {standardProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="h-full"
-                  >
-                    <ProjectCard project={project} index={index} className="h-full" />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          </div>
-        )}
-
-        {/* Tier 3: Earlier Work (compact) */}
-        {earlyWorkProjects.length > 0 && (
-          <div className="mb-16">
-            <SectionLabel>Earlier Work</SectionLabel>
-            <div className="border border-gray-100 dark:border-dark-800 rounded-xl divide-y divide-gray-100 dark:divide-dark-800 px-3">
-              {earlyWorkProjects.map((project, index) => (
-                <ProjectListItem key={project.id} project={project} index={index} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-20">
-             <div className="inline-block p-4 rounded-full bg-gray-100 dark:bg-dark-800 mb-4">
-                 <span className="text-4xl">🔍</span>
-             </div>
-            <h3 className="text-xl font-medium text-dark-900 dark:text-white mb-2">
-              No projects found
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400">Try selecting a different category.</p>
-          </div>
-        )}
+      <div className="mt-8 mb-12 flex flex-wrap gap-x-6 gap-y-2 border-b border-gray-200 dark:border-dark-600" role="group" aria-label="Filter projects">
+        {FILTERS.map((category) => (
+          <button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            aria-pressed={activeCategory === category}
+            className={`-mb-px pb-3 text-sm border-b-2 transition-colors ${
+              activeCategory === category
+                ? 'border-primary-600 text-dark-900 dark:border-secondary-900 dark:text-gray-50 font-medium'
+                : 'border-transparent text-dark-400 hover:text-dark-900 dark:text-gray-400 dark:hover:text-gray-50'
+            }`}
+          >
+            {category}
+          </button>
+        ))}
       </div>
+
+      {unlocked && !secretHidden && (
+        <div className="relative mb-12 max-w-xl rounded-lg border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-700 p-6 pr-12">
+          <p className="font-mono text-xs text-primary-600 dark:text-secondary-900 mb-2">3/3 flags captured</p>
+          <h2 className="text-xl mb-2">You found all three flags.</h2>
+          <p className="mb-4">Thanks for poking around. If you enjoyed it, come say hello.</p>
+          <Link to="/contact" className="btn btn-primary">Say hello</Link>
+          <button
+            type="button"
+            onClick={hideSecret}
+            className="absolute top-3 right-3 p-1.5 rounded-md text-dark-300 hover:text-dark-900 dark:hover:text-gray-50 transition-colors"
+            aria-label="Dismiss"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
+
+      {featuredProjects.length > 0 && (
+        <ProjectGroup title="Featured" items={featuredProjects} columns="md:grid-cols-2" />
+      )}
+
+      {otherProjects.length > 0 && (
+        <ProjectGroup title="Other projects" items={otherProjects} columns="md:grid-cols-2 lg:grid-cols-3" />
+      )}
+
+      {earlyWorkProjects.length > 0 && (
+        <section className="mb-16">
+          <h2 className="text-xl sm:text-2xl mb-4">Older work</h2>
+          <ul className="divide-y divide-gray-200 dark:divide-dark-600 border-y border-gray-200 dark:border-dark-600">
+            {earlyWorkProjects.map((project) => (
+              <li key={project.id}>
+                <ProjectListItem project={project} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {filteredProjects.length === 0 && (
+        <p className="py-20 text-dark-400 dark:text-gray-400">Nothing in this category yet.</p>
+      )}
     </div>
   );
 };

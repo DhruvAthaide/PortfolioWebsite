@@ -1,158 +1,139 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Download, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import { useSound } from '../../context/SoundContext';
+import ResumeMenu from '../ui/ResumeMenu';
+import { resumes } from '../../data/resumes';
+
+const LINKS = [
+  { name: 'Projects', path: '/projects' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
+];
+
+const navLinkClass = ({ isActive }: { isActive: boolean }): string =>
+  `text-[0.95rem] transition-colors ${
+    isActive
+      ? 'text-dark-900 dark:text-gray-50 underline underline-offset-8 decoration-2 decoration-primary-600 dark:decoration-secondary-900'
+      : 'text-dark-400 hover:text-dark-900 dark:text-gray-400 dark:hover:text-gray-50'
+  }`;
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { playHover, playClick } = useSound();
   const location = useLocation();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
-
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    closeMenu();
+    setIsOpen(false);
   }, [location]);
 
-  const navbarClass = scrolled 
-    ? 'bg-white dark:bg-dark-800 shadow-md' 
-    : 'bg-transparent';
-
-  const links = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Projects', path: '/projects' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  const themeLabel = `Switch to ${theme === 'light' ? 'dark' : 'light'} mode`;
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navbarClass}`}>
-      <div className="container-custom flex justify-between items-center py-4">
-        <NavLink to="/" className="text-xl font-bold flex items-center gap-2" onMouseEnter={playHover} onClick={playClick}>
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-mono text-primary-900 dark:text-secondary-900"
-          >
-            D.A
-          </motion.div>
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-colors ${
+        scrolled || isOpen
+          ? 'bg-gray-50/95 dark:bg-dark-800/95 backdrop-blur border-b border-gray-200 dark:border-dark-600'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <div className="container-custom flex justify-between items-center h-16">
+        <NavLink to="/" className="font-display font-bold text-lg text-dark-900 dark:text-gray-50 whitespace-nowrap">
+          Dhruv Athaide
         </NavLink>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <ul className="flex gap-6">
-            {links.map((link) => (
+        <div className="hidden md:flex items-center gap-7">
+          <ul className="flex gap-7">
+            {LINKS.map((link) => (
               <li key={link.name}>
-                <NavLink 
-                  to={link.path}
-                  onMouseEnter={playHover} 
-                  onClick={playClick}
-                  className={({ isActive }) => 
-                    `text-sm font-medium transition-colors duration-300 relative hover:text-primary-600 dark:hover:text-secondary-900 ${
-                      isActive ? 'text-primary-600 dark:text-secondary-900' : 'text-dark-700 dark:text-gray-300'
-                    }`
-                  }
-                >
+                <NavLink to={link.path} className={navLinkClass}>
                   {link.name}
                 </NavLink>
               </li>
             ))}
           </ul>
-          
-          <button 
+          <ResumeMenu
+            buttonClassName="inline-flex items-center text-[0.95rem] text-dark-400 hover:text-dark-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+            align="right"
+          >
+            CV
+          </ResumeMenu>
+          <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors"
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            className="p-2 -mr-2 rounded-md text-dark-400 hover:text-dark-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+            aria-label={themeLabel}
           >
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-          
-          <a
-            href="/documents/DhruvAthaide_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline flex items-center gap-2"
-          >
-            <Download size={16} />
-            <span>Resume</span>
-          </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center gap-4 md:hidden">
-          <button 
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors"
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
-          
+        <div className="flex items-center gap-2 md:hidden">
           <button
-            onClick={toggleMenu}
-            className="p-2 text-dark-700 dark:text-white"
-            aria-label="Toggle menu"
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-dark-400 dark:text-gray-400"
+            aria-label={themeLabel}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="p-2 -mr-2 text-dark-900 dark:text-gray-50"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu: collapsed panel is hidden from tab order and screen readers */}
       <motion.div
         initial={false}
-        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="md:hidden overflow-hidden bg-white dark:bg-dark-800"
+        animate={
+          isOpen
+            ? { height: 'auto', opacity: 1, visibility: 'visible' }
+            : { height: 0, opacity: 0, transitionEnd: { visibility: 'hidden' } }
+        }
+        transition={{ duration: 0.2 }}
+        className="md:hidden overflow-hidden"
       >
-        <div className="container-custom py-4">
-          <ul className="flex flex-col gap-4">
-            {links.map((link) => (
-              <li key={link.name}>
-                <NavLink 
-                  to={link.path}
-                  className={({ isActive }) => 
-                    `block py-2 text-lg font-medium transition-colors duration-300 ${
-                      isActive ? 'text-primary-600 dark:text-secondary-900' : 'text-dark-700 dark:text-gray-300'
-                    }`
-                  }
-                  onClick={closeMenu}
-                >
-                  {link.name}
-                </NavLink>
-              </li>
-            ))}
-            <li>
+        <ul className="container-custom pb-5 flex flex-col">
+          {LINKS.map((link) => (
+            <li key={link.name}>
+              <NavLink
+                to={link.path}
+                className={({ isActive }) =>
+                  `block py-3 text-lg border-b border-gray-200 dark:border-dark-600 ${
+                    isActive ? 'text-dark-900 dark:text-gray-50 font-medium' : 'text-dark-400 dark:text-gray-400'
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
+          {resumes.map((resume) => (
+            <li key={resume.id}>
               <a
-                href="/documents/DhruvAthaide_CV.pdf"
+                href={resume.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline w-full justify-center mt-2"
-                onClick={closeMenu}
+                className="flex items-center gap-2 py-3 text-lg text-dark-400 dark:text-gray-400 border-b border-gray-200 dark:border-dark-600"
               >
-                <Download size={16} className="mr-2" />
-                <span>Resume</span>
+                <FileText size={16} />
+                {resume.label} CV
               </a>
             </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
       </motion.div>
     </nav>
   );

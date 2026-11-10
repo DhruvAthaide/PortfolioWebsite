@@ -1,159 +1,72 @@
 import React from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Github, ExternalLink, Play, Globe } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { Project } from '../../types';
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
-  className?: string;
-  children?: React.ReactNode;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, className, children }) => {
-  const { title, description, image, technologies, github, playstore, website, demo, status, stat } = project;
-  
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+interface ExternalLink {
+  label: string;
+  href: string;
+}
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+const externalLinks = (project: Project): ExternalLink[] =>
+  [
+    project.playstore ? { label: 'Google Play', href: project.playstore } : null,
+    project.website ? { label: 'Website', href: project.website } : null,
+    project.github ? { label: 'Source', href: project.github } : null,
+    project.demo ? { label: 'Demo', href: project.demo } : null,
+  ].filter((link): link is ExternalLink => link !== null);
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const { id, title, description, image, technologies, status, stat, role } = project;
+  const detailPath = `/projects/${id}`;
 
   return (
-    <motion.div 
-      className={`group relative flex flex-col h-full bg-slate-50 dark:bg-[#0a0a0a] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 ${className || ''}`}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      onMouseMove={handleMouseMove}
-      whileHover={{ y: -5 }}
-    >
-      {/* Spotlight Effect */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100 z-10"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(14, 165, 233, 0.15),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-      
-      {/* Animated Border Glow */}
-       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-slate-900/5 dark:ring-white/10 group-hover:ring-sky-500/50 transition-colors duration-300 z-20 pointer-events-none" />
+    <article className="group flex flex-col h-full rounded-lg overflow-hidden border border-gray-200 bg-white dark:border-dark-600 dark:bg-dark-700 transition-colors hover:border-gray-400 dark:hover:border-dark-300">
+      <Link to={detailPath} tabIndex={-1} aria-hidden="true" className="block aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-dark-600">
+        <img src={image} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+      </Link>
 
-      {children}
-
-      <div className="relative h-52 shrink-0 overflow-hidden cursor-pointer" onClick={() => document.getElementById(`link-${project.id}`)?.click()}>
-         <Link to={`/projects/${project.id}`} id={`link-${project.id}`} className="block h-full">
-            <motion.img
-                src={image}
-                alt={title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
-            />
-            {/* Image Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
-        </Link>
-
-        {/* Status Badge */}
-        <div className="absolute top-3 right-3 z-30">
-          <div className={`
-             backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1.5
-             ${status === 'completed'
-                ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
-                : 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30'}
-          `}>
-             <span className={`w-1.5 h-1.5 rounded-full ${status === 'completed' ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse`}></span>
-            {status}
-          </div>
+      <div className="flex flex-col flex-grow p-5 sm:p-6">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-xl">
+            <Link to={detailPath} className="hover:text-primary-600 dark:hover:text-secondary-900 transition-colors">
+              {title}
+            </Link>
+          </h3>
+          {status === 'ongoing' && (
+            <span className="text-xs text-dark-300 dark:text-dark-200 whitespace-nowrap">In development</span>
+          )}
         </div>
 
-        {/* Stat Badge */}
-        {stat && (
-          <div className="absolute top-3 left-3 z-30">
-            <div className="backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold shadow-lg bg-primary-600/90 text-white dark:bg-secondary-900/90 dark:text-dark-900">
-              {stat}
-            </div>
-          </div>
-        )}
-      </div>
-      
-      <div className="p-6 flex flex-col flex-grow relative z-20">
-        <Link to={`/projects/${project.id}`}>
-            <h3 className="text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 group-hover:from-sky-500 group-hover:to-indigo-500 transition-all duration-300 flex items-center gap-2">
-            {title}
-            </h3>
-        </Link>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed line-clamp-3">
-            {description}
-        </p>
-        
-        {/* Technologies - Modern Pill Design */}
-        <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-          {technologies.slice(0, 4).map((tech, i) => (
-            <span 
-              key={i} 
-              className="px-2.5 py-1 text-[11px] font-semibold tracking-wide text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-white/5 rounded-md border border-slate-200 dark:border-white/10 group-hover:border-sky-500/30 transition-colors"
-            >
-              {tech}
-            </span>
+        {stat && <p className="mt-1 text-sm font-medium text-primary-600 dark:text-secondary-900">{stat}</p>}
+        {role && <p className="mt-1 text-sm text-dark-400 dark:text-gray-400">My role: {role}</p>}
+
+        <p className="mt-3 text-[0.95rem] leading-relaxed">{description}</p>
+
+        <p className="mt-4 text-xs font-mono text-dark-300 dark:text-dark-200">{technologies.slice(0, 5).join(' / ')}</p>
+
+        <ul className="mt-auto pt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          {externalLinks(project).map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-dark-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-secondary-900 transition-colors whitespace-nowrap"
+              >
+                {link.label}
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </a>
+            </li>
           ))}
-           {technologies.length > 4 && (
-             <span className="px-2.5 py-1 text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-white/5 rounded-md border border-slate-100 dark:border-white/5">
-               +{technologies.length - 4}
-             </span>
-           )}
-        </div>
-        
-        {/* Actions - Glassmorphic Buttons */}
-        <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-white/10">
-           {playstore && (
-            <a href={playstore} target="_blank" rel="noopener noreferrer" 
-               className="col-span-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all group/btn border border-transparent hover:border-emerald-500/30">
-                <Play size={16} fill="currentColor" />
-                <span className="text-xs font-bold">Play Store</span>
-            </a>
-           )}
-           
-           {website && (
-            <a href={website} target="_blank" rel="noopener noreferrer" 
-               className="col-span-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-sky-500/10 hover:text-sky-600 dark:hover:text-sky-400 transition-all group/btn border border-transparent hover:border-sky-500/30">
-                <Globe size={16} />
-                <span className="text-xs font-bold">Website</span>
-            </a>
-           )}
-
-           {github && (
-            <a href={github} target="_blank" rel="noopener noreferrer" 
-               className={`col-span-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-purple-500/10 hover:text-purple-600 dark:hover:text-purple-400 transition-all group/btn border border-transparent hover:border-purple-500/30 ${(!playstore && !website) ? 'col-span-2' : ''}`}>
-                <Github size={16} />
-                <span className="text-xs font-bold">GitHub</span>
-            </a>
-           )}
-           
-           {demo && !website && (
-            <a href={demo} target="_blank" rel="noopener noreferrer" 
-               className="col-span-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 transition-all group/btn border border-transparent hover:border-rose-500/30">
-                <ExternalLink size={16} />
-                <span className="text-xs font-bold">Demo</span>
-            </a>
-           )}
-        </div>
+        </ul>
       </div>
-    </motion.div>
+    </article>
   );
 };
 

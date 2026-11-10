@@ -1,271 +1,157 @@
-import React, { useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Github, Play, ExternalLink, Layers, Shield, Cpu, Lock, ZoomIn } from 'lucide-react';
-import Lightbox from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import "yet-another-react-lightbox/styles.css";
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import Lightbox from 'yet-another-react-lightbox';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import 'yet-another-react-lightbox/styles.css';
 import { projects as projectsData } from '../data/projects';
 import SEO from '../components/utils/SEO';
 
+const CATEGORY_SCHEMA: Record<string, string> = {
+  Android: 'MobileApplication',
+  Web: 'WebApplication',
+  Security: 'SecurityApplication',
+  Python: 'DesktopApplication',
+};
+
+interface ListSectionProps {
+  title: string;
+  items: string[];
+}
+
+const ListSection: React.FC<ListSectionProps> = ({ title, items }) => (
+  <section>
+    <h2 className="text-xl sm:text-2xl mb-4">{title}</h2>
+    <ul className="space-y-3 list-disc pl-5 marker:text-dark-300">
+      {items.map((item) => (
+        <li key={item} className="leading-relaxed">{item}</li>
+      ))}
+    </ul>
+  </section>
+);
+
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  
-  const projectIndex = projectsData.findIndex(p => p.id === id);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const projectIndex = projectsData.findIndex((p) => p.id === id);
   const project = projectsData[projectIndex];
-  const nextProject = projectsData[(projectIndex + 1) % projectsData.length];
-
-  const [open, setOpen] = React.useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4">
-         <h2 className="text-2xl font-bold mb-4">Project Data Corrupted</h2>
-         <Link to="/projects" className="btn btn-primary">
-            <ArrowLeft size={16} className="mr-2" />
-            Return to Projects
-         </Link>
+      <div className="container-custom pt-40 pb-20">
+        <SEO title="Project Not Found" description="This project does not exist or has been moved." />
+        <h1 className="text-3xl mb-4">Project not found</h1>
+        <p className="mb-6">This project doesn&apos;t exist or has been moved.</p>
+        <Link to="/projects" className="link">Back to all projects</Link>
       </div>
     );
   }
 
-  const categoryMap: Record<string, string> = {
-    Android: 'MobileApplication',
-    Web: 'WebApplication',
-    Security: 'SecurityApplication',
-    Python: 'DesktopApplication',
-  };
-  const applicationCategory = categoryMap[project.category[0]] ?? 'SoftwareApplication';
+  const nextProject = projectsData[(projectIndex + 1) % projectsData.length];
+  const links = [
+    project.playstore ? { label: 'Google Play', href: project.playstore } : null,
+    project.website ? { label: 'Website', href: project.website } : null,
+    project.github ? { label: 'Source code', href: project.github } : null,
+    project.demo ? { label: 'Live demo', href: project.demo } : null,
+  ].filter((link): link is { label: string; href: string } => link !== null);
 
-  // JSON-LD Structured Data
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": project.title,
-    "applicationCategory": applicationCategory,
-    "description": project.description,
-    "image": window.location.origin + project.image,
-    "author": {
-      "@type": "Person",
-      "name": "Dhruv Athaide"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: project.title,
+    applicationCategory: CATEGORY_SCHEMA[project.category[0]] ?? 'SoftwareApplication',
+    description: project.description,
+    image: window.location.origin + project.image,
+    author: { '@type': 'Person', name: 'Dhruv Athaide' },
+    ...(project.playstore && { operatingSystem: 'Android', installUrl: project.playstore }),
   };
 
   return (
-    <div className="pt-20 min-h-screen pb-16">
-      <SEO
-        title={`${project.title} | Project Case Study`}
-        description={project.description}
-        image={project.image}
-      />
-      <script type="application/ld+json">
-        {JSON.stringify(jsonLd)}
-      </script>
+    <article className="container-custom pt-28 pb-10">
+      <SEO title={`${project.title} | Project Case Study`} description={project.description} />
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 
-      {/* Hero Header */}
-      <div className="container-custom">
-        <Link to="/projects" className="inline-flex items-center text-dark-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-secondary-900 mb-8 transition-colors">
-          <ArrowLeft size={16} className="mr-2" />
-          Back to Projects
-        </Link>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16"
-        >
-          <div>
-            <div className="flex items-center gap-3 text-primary-600 dark:text-secondary-900 font-mono text-sm font-bold mb-4 uppercase tracking-wider">
-               <Shield size={16} />
-               <span>Case Study: {project.id}</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{project.title}</h1>
-            <p className="text-xl text-dark-500 dark:text-gray-300 mb-8 leading-relaxed">
-              {project.longDescription || project.description}
-            </p>
-            
-            <div className="flex flex-wrap gap-4 mb-8">
-               {project.playstore && (
-                 <a href={project.playstore} target="_blank" rel="noopener noreferrer" className="btn btn-primary flex items-center gap-2">
-                   <Play size={18} /> Play Store
-                 </a>
-               )}
-               {project.website && (
-                 <a href={project.website} target="_blank" rel="noopener noreferrer" className="btn btn-primary flex items-center gap-2">
-                   <ExternalLink size={18} /> Website
-                 </a>
-               )}
-               {project.github && (
-                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2">
-                   <Github size={18} /> Source Code
-                 </a>
-               )}
-               {project.demo && (
-                 <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2">
-                   <ExternalLink size={18} /> Live Demo
-                 </a>
-               )}
-            </div>
+      <Link to="/projects" className="inline-flex items-center gap-2 text-sm text-dark-400 hover:text-dark-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors">
+        <ArrowLeft size={16} aria-hidden="true" />
+        All projects
+      </Link>
 
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map(tech => (
-                <span key={tech} className="px-3 py-1 bg-gray-200 dark:bg-dark-700 rounded-full text-sm font-medium">
-                  {tech}
-                </span>
+      <header className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+        <div>
+          <h1 className="text-4xl sm:text-5xl">{project.title}</h1>
+          {project.stat && (
+            <p className="mt-3 font-medium text-primary-600 dark:text-secondary-900">{project.stat}</p>
+          )}
+          {project.role && <p className="mt-2 text-dark-400 dark:text-gray-400">My role: {project.role}</p>}
+          <p className="mt-6 text-lg leading-relaxed">{project.description}</p>
+
+          {links.length > 0 && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {links.map((link, i) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn ${i === 0 ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  {link.label} <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
               ))}
             </div>
-          </div>
+          )}
 
-          <div 
-             className="relative group cursor-pointer"
-             onClick={() => setOpen(true)}
-           >
-             <div className="absolute -inset-2 bg-gradient-to-tr from-primary-600 to-secondary-900 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
-             <div className="relative overflow-hidden rounded-xl">
-               <img
-                 src={project.image}
-                 alt={project.title}
-                 decoding="async"
-                 className="w-full shadow-2xl border border-gray-200 dark:border-dark-700 transition-transform duration-500 group-hover:scale-[1.02]"
-               />
-               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                 <div className="bg-black/50 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 text-white backdrop-blur-sm">
-                   <ZoomIn size={24} />
-                 </div>
-               </div>
-             </div>
-           </div>
+          <p className="mt-8 text-sm font-mono text-dark-400 dark:text-gray-400 leading-relaxed">
+            {project.technologies.join(' / ')}
+          </p>
+        </div>
 
-           <Lightbox
-              open={open}
-              close={() => setOpen(false)}
-              slides={[{ src: project.image, alt: project.title }]}
-              plugins={[Zoom]}
-            />
-        </motion.div>
-
-        {/* Deep Dive Sections */}
-        {(project.challenges || project.features || project.solutions) && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
-            
-            {/* Features */}
-            {project.features && (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="col-span-1 lg:col-span-1 bg-gray-50 dark:bg-dark-800 p-8 rounded-2xl border border-gray-100 dark:border-dark-700"
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
-                    <Layers size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold">Key Features</h3>
-                </div>
-                <ul className="space-y-4">
-                  {project.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
-                      <span className="text-dark-600 dark:text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-
-            {/* Technical Challenges & Solutions */}
-            {(project.challenges || project.solutions) && (
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: 0.2 }}
-                 className="col-span-1 lg:col-span-2 space-y-8"
-               >
-                 {project.challenges && (
-                   <div className="bg-white dark:bg-dark-900 p-8 rounded-2xl border border-gray-100 dark:border-dark-700 shadow-sm relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-32 h-32 bg-red-100 dark:bg-red-900/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
-                     <div className="flex items-center gap-3 mb-6 relative z-10">
-                        <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400">
-                           <Lock size={24} />
-                        </div>
-                        <h3 className="text-2xl font-bold">The Challenge</h3>
-                     </div>
-                     <ul className="space-y-4 relative z-10">
-                        {project.challenges.map((challenge, i) => (
-                           <li key={i} className="flex gap-4">
-                              <span className="font-mono text-red-500 font-bold opacity-50">0{i+1}</span>
-                              <p className="text-dark-600 dark:text-gray-300">{challenge}</p>
-                           </li>
-                        ))}
-                     </ul>
-                   </div>
-                 )}
-
-                 {project.solutions && (
-                   <div className="bg-white dark:bg-dark-900 p-8 rounded-2xl border border-gray-100 dark:border-dark-700 shadow-sm relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-32 h-32 bg-green-100 dark:bg-green-900/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
-                     <div className="flex items-center gap-3 mb-6 relative z-10">
-                        <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg text-green-600 dark:text-green-400">
-                           <Cpu size={24} />
-                        </div>
-                        <h3 className="text-2xl font-bold">The Solution</h3>
-                     </div>
-                     <ul className="space-y-4 relative z-10">
-                        {project.solutions.map((solution, i) => (
-                           <li key={i} className="flex gap-4">
-                              <span className="font-mono text-green-500 font-bold opacity-50">0{i+1}</span>
-                              <p className="text-dark-600 dark:text-gray-300">{solution}</p>
-                           </li>
-                        ))}
-                     </ul>
-                   </div>
-                 )}
-               </motion.div>
-            )}
-            
-          </div>
-        )}
-
-        {/* Next Project Navigation */}
-        <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mt-24 pt-12 border-t border-gray-200 dark:border-dark-700"
+        <button
+          type="button"
+          onClick={() => setLightboxOpen(true)}
+          className="block w-full overflow-hidden rounded-lg border border-gray-200 dark:border-dark-600 bg-gray-100 dark:bg-dark-700 cursor-zoom-in"
+          aria-label={`Enlarge image of ${project.title}`}
         >
-           <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6">Next Project</h3>
-           <div 
-             className="group relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-lg"
-             onClick={() => navigate(`/projects/${nextProject.id}`)}
-           >
-              <img
-                src={nextProject.image}
-                alt={nextProject.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-dark-900/60 dark:bg-dark-900/80 transition-colors group-hover:bg-dark-900/40 flex flex-col justify-center px-10">
-                 <h4 className="text-3xl font-bold text-white mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">{nextProject.title}</h4>
-                 <div className="flex items-center text-primary-400 font-medium opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75">
-                    View Case Study <ArrowLeft className="ml-2 rotate-180" size={20} />
-                 </div>
-              </div>
-           </div>
-        </motion.div>
-    </div>
-    </div>
+          <img src={project.image} alt={project.title} decoding="async" className="w-full h-auto" />
+        </button>
+        <Lightbox
+          open={lightboxOpen}
+          close={() => setLightboxOpen(false)}
+          slides={[{ src: project.image, alt: project.title }]}
+          plugins={[Zoom]}
+        />
+      </header>
+
+      {project.longDescription && (
+        <section className="mt-20 max-w-3xl">
+          <h2 className="text-xl sm:text-2xl mb-4">Overview</h2>
+          <p className="text-lg leading-relaxed">{project.longDescription}</p>
+        </section>
+      )}
+
+      {project.features && (
+        <div className="mt-14 max-w-3xl">
+          <ListSection title="What it does" items={project.features} />
+        </div>
+      )}
+
+      {(project.challenges || project.solutions) && (
+        <div className="mt-14 grid gap-12 md:grid-cols-2">
+          {project.challenges && <ListSection title="Hard problems" items={project.challenges} />}
+          {project.solutions && <ListSection title="How they were solved" items={project.solutions} />}
+        </div>
+      )}
+
+      <nav className="mt-24 pt-8 border-t border-gray-200 dark:border-dark-600" aria-label="Next project">
+        <Link to={`/projects/${nextProject.id}`} className="group inline-flex flex-col">
+          <span className="text-sm text-dark-400 dark:text-gray-400">Next project</span>
+          <span className="mt-1 font-display text-2xl font-bold text-dark-900 dark:text-gray-50 inline-flex items-center gap-2 group-hover:text-primary-600 dark:group-hover:text-secondary-900 transition-colors">
+            {nextProject.title} <ArrowRight size={22} aria-hidden="true" />
+          </span>
+        </Link>
+      </nav>
+    </article>
   );
 };
 
