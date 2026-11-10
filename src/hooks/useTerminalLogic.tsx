@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useFileSystem } from './useFileSystem';
 import { useCTF } from '../context/CTFContext';
+import { resumes } from '../data/resumes';
 
 interface CommandEntry {
   input: string;
@@ -52,6 +53,7 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         output = (
           <div className="grid grid-cols-[120px_1fr] gap-2 text-sm">
             <span className="text-yellow-400">File System:</span> <span>ls, cd, cat, mkdir, touch, rm, pwd</span>
+            <span className="text-yellow-400">About me:</span> <span>resume</span>
             <span className="text-yellow-400">System:</span> <span>clear, help, exit, date, whoami, echo, fetch</span>
             <span className="text-yellow-400">Fun:</span> <span>theme, matrix, sudo, cowsay, game</span>
             <span className="text-yellow-400">CTF:</span> <span>submit-flag</span>
@@ -59,6 +61,19 @@ export const useTerminalLogic = (closeTerminal: () => void) => {
         );
         break;
       
+      case 'resume':
+      case 'cv':
+        output = (
+          <div className="flex flex-col gap-1">
+            {resumes.map(resume => (
+              <a key={resume.id} href={resume.href} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300">
+                {resume.label} CV ({resume.focus})
+              </a>
+            ))}
+          </div>
+        );
+        break;
+
       case 'clear':
         setHistory([]);
         return;
@@ -328,7 +343,7 @@ ${bottom}
       
       // Command Autocomplete (first word)
       if (args.length === 1) {
-        const commands = ['help', 'clear', 'exit', 'ls', 'cd', 'cat', 'mkdir', 'touch', 'rm', 'pwd', 'whoami', 'date', 'echo', 'sudo', 'matrix', 'theme', 'fetch', 'game'];
+        const commands = ['help', 'resume', 'clear', 'exit', 'ls', 'cd', 'cat', 'mkdir', 'touch', 'rm', 'pwd', 'whoami', 'date', 'echo', 'sudo', 'cowsay', 'matrix', 'theme', 'fetch', 'game', 'submit-flag'];
         const matches = commands.filter(c => c.startsWith(lastArg));
         if (matches.length === 1) {
           setCurrentInput(matches[0]);

@@ -26,10 +26,11 @@ const initialFileSystem: FileSystemNode = {
             'skills.txt': {
               name: 'skills.txt',
               type: 'file',
-              content: 'Red Team Analysis\nPenetration Testing\nPython\nReact\nAndroid Security\nCryptography\nNetwork Forensics'
+              content: 'Mobile: Kotlin, Java, Dart, C++ (NDK/JNI), Jetpack Compose, Flutter\nAppSec: Mobile VAPT, OWASP MASVS/MASTG, Threat Modeling, Secure SDLC, Reverse Engineering\nCrypto: AES-256-GCM, X3DH & Double Ratchet, E2EE, Ed25519, SQLCipher\nTooling: Burp Suite, Frida, Ghidra, Node.js, Firebase, Docker'
             },
-            'projects.txt': { name: 'projects.txt', type: 'file', content: 'Use "cat projects.txt" to view my work.' },
-            'contact.txt': { name: 'contact.txt', type: 'file', content: 'Email: dhruv.athaide@example.com\nLinkedIn: linkedin.com/in/dhruvathaide' },
+            'projects.txt': { name: 'projects.txt', type: 'file', content: 'Guardient, NoSurveil, LockGuard+, SecureLine, Torch: case studies at /projects' },
+            'resume.txt': { name: 'resume.txt', type: 'file', content: 'Run "resume" to get links to both CVs.' },
+            'contact.txt': { name: 'contact.txt', type: 'file', content: 'Email: athaidedhruv@gmail.com\nLinkedIn: linkedin.com/in/dhruvathaide\nGitHub: github.com/DhruvAthaide' },
             'projects': {
               name: 'projects',
               type: 'directory',
@@ -180,24 +181,21 @@ export const useFileSystem = () => {
   }, [currentPath]);
 
   const rm = useCallback((target: string) => {
-    let result = '';
+    const node = getCurrentNode();
+    if (!node?.children?.[target]) {
+      return `rm: cannot remove '${target}': No such file or directory`;
+    }
     setFs(prevFs => {
       const newFs = JSON.parse(JSON.stringify(prevFs));
       let current = newFs;
       for (const part of currentPath) {
         current = current.children[part];
       }
-      
-      if (!current.children[target]) {
-        result = `rm: cannot remove '${target}': No such file or directory`;
-        return prevFs;
-      }
-      
       delete current.children[target];
       return newFs;
     });
-    return result;
-  }, [currentPath]);
+    return '';
+  }, [currentPath, getCurrentNode]);
 
   return {
     currentPath,

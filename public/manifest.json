@@ -1,12 +1,12 @@
 {
-  "name": "Dhruv Athaide | Red Team Analyst & Developer",
+  "name": "Dhruv Athaide | Mobile & Application Security Engineer",
   "short_name": "Dhruv Athaide",
-  "description": "Portfolio of Dhruv Athaide - Red Team Analyst & Software Developer",
+  "description": "Portfolio of Dhruv Athaide, mobile and application security engineer.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#121212",
+  "background_color": "#141210",
+  "theme_color": "#141210",
   "icons": [
     {
       "src": "/Logo.ico",
