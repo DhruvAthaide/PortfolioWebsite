@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
+const FALLBACK_HINT = 'Please email me directly at athaidedhruv@gmail.com.';
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -14,6 +16,7 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // EmailJS configuration
   const emailJSConfig = useMemo(() => ({
@@ -55,8 +58,9 @@ const ContactForm = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitError(null);
     if (!validateForm()) return;
 
     // Honeypot check - if field has value, it's a bot
@@ -90,31 +94,18 @@ const ContactForm = () => {
     const { serviceId, templateId } = emailJSConfig;
 
     if (!serviceId || !templateId) {
-      alert('EmailJS configuration is missing. Please check your environment variables.');
+      setSubmitError(`${FALLBACK_HINT} (message service is not configured)`);
       return;
     }
 
     setIsSubmitting(true);
-
-    // Fetch user's IP address
-    let ipAddress = 'Unknown';
-    try {
-      const response = await fetch('https://api.ipify.org?format=json');
-      const data = await response.json();
-      ipAddress = data.ip || 'Unknown';
-    } catch {
-      // silent — IP is supplemental metadata only
-    }
-
-    // Append IP address to the message
-    const messageWithIp = `${formData.message}\n\nUser IP Address: ${ipAddress}`;
 
     try {
       await emailjs.send(serviceId, templateId, {
         user_name: formData.name,
         user_email: formData.email,
         subject: formData.subject,
-        message: messageWithIp,
+        message: formData.message,
       });
 
       setSubmitSuccess(true);
@@ -137,28 +128,32 @@ const ContactForm = () => {
         }
       }
 
-      alert(errorMessage + '\n\nCheck the console for more details.');
+      console.error('Contact form send failed', { error });
+      setSubmitError(`${errorMessage} ${FALLBACK_HINT}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-lg" style={{ backgroundColor: 'rgb(0 0 0 / 0.1)' }}>
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Me</h2>
-
+    <form onSubmit={handleSubmit} noValidate>
       <div className="space-y-6">
         {submitSuccess && (
-          <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded">
+          <div className="bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded">
             <span className="block sm:inline">
-              Your message has been sent successfully. I'll get back to you soon!
+              Thanks, your message is on its way. I'll reply by email.
             </span>
           </div>
         )}
+        {submitError && (
+          <div role="alert" className="bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
+            {submitError}
+          </div>
+        )}
         {rateLimitExceeded && (
-          <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
+          <div className="bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
             <span className="block sm:inline">
-              You have reached the limit of 2 messages. Please contact me through other means if you need to send more messages.
+              You&apos;ve reached the limit of 2 messages from this browser. Please email me directly at athaidedhruv@gmail.com.
             </span>
           </div>
         )}
@@ -179,7 +174,7 @@ const ContactForm = () => {
 
         {/* Name Field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-dark-900 dark:text-gray-200 mb-1">
             Name
           </label>
           <input
@@ -188,10 +183,11 @@ const ContactForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 bg-white focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-secondary-900 dark:focus:border-secondary-900 dark:bg-dark-800 dark:border-dark-600 dark:text-gray-50 ${
               errors.name ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="Enter your name"
+            autoComplete="name"
           />
           {errors.name && (
             <p className="mt-1 text-sm text-red-500">{errors.name}</p>
@@ -200,7 +196,7 @@ const ContactForm = () => {
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-dark-900 dark:text-gray-200 mb-1">
             Email
           </label>
           <input
@@ -209,10 +205,11 @@ const ContactForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 bg-white focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-secondary-900 dark:focus:border-secondary-900 dark:bg-dark-800 dark:border-dark-600 dark:text-gray-50 ${
               errors.email ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="your.email@example.com"
+            autoComplete="email"
           />
           {errors.email && (
             <p className="mt-1 text-sm text-red-500">{errors.email}</p>
@@ -221,7 +218,7 @@ const ContactForm = () => {
 
         {/* Subject Field */}
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="subject" className="block text-sm font-medium text-dark-900 dark:text-gray-200 mb-1">
             Subject
           </label>
           <input
@@ -230,7 +227,7 @@ const ContactForm = () => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 bg-white focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-secondary-900 dark:focus:border-secondary-900 dark:bg-dark-800 dark:border-dark-600 dark:text-gray-50 ${
               errors.subject ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="Subject of your message"
@@ -242,7 +239,7 @@ const ContactForm = () => {
 
         {/* Message Field */}
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="message" className="block text-sm font-medium text-dark-900 dark:text-gray-200 mb-1">
             Message
           </label>
           <textarea
@@ -251,7 +248,7 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             rows={5}
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white resize-none ${
+            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 bg-white focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-secondary-900 dark:focus:border-secondary-900 dark:bg-dark-800 dark:border-dark-600 dark:text-gray-50 resize-none ${
               errors.message ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="Enter your message here..."
@@ -263,9 +260,9 @@ const ContactForm = () => {
 
         {/* Submit Button */}
         <button
-          onClick={handleSubmit}
+          type="submit"
           disabled={isSubmitting || rateLimitExceeded}
-          className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-white font-medium rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          className="btn btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">
@@ -283,7 +280,7 @@ const ContactForm = () => {
           )}
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

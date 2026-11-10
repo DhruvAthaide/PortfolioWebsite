@@ -22,6 +22,24 @@ const FLAGS = {
   TERMINAL: 'CTF{terminal_master}'
 };
 
+const VALID_FLAGS: string[] = Object.values(FLAGS);
+
+/** Reads saved CTF progress; anything tampered or malformed in localStorage is discarded so it can't crash the app. */
+function readSavedFlags(): string[] {
+  const raw = localStorage.getItem('ctf_flags');
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return Array.from(new Set(parsed.filter((f): f is string => typeof f === 'string' && VALID_FLAGS.includes(f))));
+    }
+  } catch {
+    // Malformed JSON: fall through and reset below
+  }
+  localStorage.removeItem('ctf_flags');
+  return [];
+}
+
 export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [flagsFound, setFlagsFound] = useState<string[]>([]);
   const [unlocked, setUnlocked] = useState(false);
@@ -29,13 +47,10 @@ export const CTFProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     // Load progress from local storage
-    const savedFlags = localStorage.getItem('ctf_flags');
-    if (savedFlags) {
-      const parsed = JSON.parse(savedFlags);
-      setFlagsFound(parsed);
-      if (parsed.length === Object.keys(FLAGS).length) {
-        setUnlocked(true);
-      }
+    const parsed = readSavedFlags();
+    setFlagsFound(parsed);
+    if (parsed.length === Object.keys(FLAGS).length) {
+      setUnlocked(true);
     }
     
     // Load hidden state
