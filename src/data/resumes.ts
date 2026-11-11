@@ -10,13 +10,13 @@ export interface Resume {
 export const resumes: Resume[] = [
   {
     id: 'mobile',
-    label: 'Mobile engineering',
+    label: 'Mobile Engineering',
     focus: 'Android, Flutter and mobile security',
     href: '/documents/DhruvAthaide_CV_Mobile_Engineer.pdf',
   },
   {
     id: 'appsec',
-    label: 'Application security',
+    label: 'Application Security',
     focus: 'AppSec, VAPT and threat modeling',
     href: '/documents/DhruvAthaide_CV_Application_Security.pdf',
   },

@@ -1,11 +1,11 @@
 import colors from 'tailwindcss/colors';
 
 /*
- * Hallmark · redesign · genre: editorial/technical · tone: plain, warm, human
- * Accent: amber (light: #B45309, dark: #F59E0B). Neutrals: warm stone, no pure black/white.
- * Type: Schibsted Grotesk (display) + IBM Plex Sans (body) + JetBrains Mono (code only).
- * `primary-*` is the light-mode accent, `secondary-900/400` the dark-mode accent; the
- * class names are kept so existing components keep working.
+ * Palette: midnight + electric cyan.
+ * `primary-*`   light-mode accent (deep sky blue, AA on white).
+ * `secondary-*` dark-mode accent (electric cyan); `secondary-900` is the main one.
+ * `dark-*`      midnight surfaces in dark mode; 400/500 double as body text in light mode.
+ * `gray`        mapped to slate so every neutral shares the same cool tint.
  */
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,40 +14,50 @@ export default {
   theme: {
     extend: {
       colors: {
-        gray: colors.stone,
+        gray: colors.slate,
         primary: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#f59e0b',
-          500: '#d97706',
-          600: '#b45309',
-          700: '#92400e',
-          800: '#78350f',
-          900: '#1c1917',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0369a1',
+          700: '#075985',
+          800: '#0c4a6e',
+          900: '#0f172a',
         },
         secondary: {
-          400: '#fbbf24',
-          800: '#d97706',
-          900: '#f59e0b',
+          400: '#67e8f9',
+          500: '#3ee0f5',
+          800: '#06b6d4',
+          900: '#22d3ee',
         },
         dark: {
-          100: '#d6d3d1',
-          200: '#a8a29e',
-          300: '#78716c',
-          400: '#57534e',
-          500: '#3a3632',
-          600: '#2a2724',
-          700: '#1c1a17',
-          800: '#141210',
-          900: '#0c0a09',
+          100: '#cbd5e1',
+          200: '#94a3b8',
+          300: '#64748b',
+          400: '#475569',
+          500: '#334155',
+          600: '#16203a',
+          700: '#0d1424',
+          800: '#070b14',
+          900: '#04060c',
         },
       },
       fontFamily: {
-        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Schibsted Grotesk"', '"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      animation: {
+        'pulse-slow': 'pulse 3s infinite',
+        marquee: 'marquee 45s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },

@@ -30,7 +30,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
           {location ? `, ${location}` : ''}
         </p>
         <h3 className="mt-1 text-lg">{title}</h3>
-        <p className="text-dark-900 dark:text-gray-100">{organization}</p>
+        <p className="font-medium text-primary-600 dark:text-secondary-900">{organization}</p>
       </div>
       {logo && (
         <img
