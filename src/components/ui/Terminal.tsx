@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Terminal as TerminalIcon, Maximize2, Minimize2 } from 'lucide-react';
 import { useTerminal } from '../../context/TerminalContext';
 import { useTerminalLogic, Theme } from '../../hooks/useTerminalLogic.tsx';
@@ -58,7 +58,7 @@ const Terminal: React.FC = () => {
           {/* Matrix Effect Overlay */}
           {matrixMode && <MatrixEffect />}
           
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -154,7 +154,7 @@ const Terminal: React.FC = () => {
                   </div>
                 </div>
             )}
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>
